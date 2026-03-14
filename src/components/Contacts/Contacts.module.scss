@@ -1,0 +1,415 @@
+// @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap');
+
+// .section {
+// 	padding: 4rem 2rem 2rem;
+// 	max-width: 1200px;
+// 	margin: 0 auto;
+// }
+
+// .topSection {
+// 	display: grid;
+// 	grid-template-columns: 1fr 1fr;
+// 	gap: 4rem;
+// 	margin-bottom: 3rem;
+// 	align-items: flex-start;
+// }
+
+// .cardColumn {
+// 	display: flex;
+// 	justify-content: center;
+// }
+
+// .card {
+// 	background: #fff;
+// 	border-radius: 20px;
+// 	padding: 2rem;
+// 	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+// 	max-width: 400px;
+// 	width: 100%;
+// }
+
+// .cardImage {
+// 	width: 100%;
+// 	height: 250px;
+// 	background: linear-gradient(135deg, #d73973 0%, #f2c81c 100%);
+// 	border-radius: 15px;
+// 	margin-bottom: 1rem;
+// 	position: relative;
+// }
+
+// .cardImage::after {
+// 	content: '🎉🎈🎊';
+// 	position: absolute;
+// 	top: 50%;
+// 	left: 50%;
+// 	transform: translate(-50%, -50%);
+// 	font-size: 3rem;
+// }
+
+// .cardText {
+// 	font-weight: 700;
+// 	color: #333;
+// 	text-align: center;
+// 	font-size: 1.1rem;
+// }
+
+// .textColumn {
+// 	display: flex;
+// 	flex-direction: column;
+// 	gap: 2rem;
+// }
+
+// .title {
+// 	font-family: 'Comfortaa', sans-serif;
+// 	font-size: 2.5rem;
+// 	font-weight: 700;
+// 	color: #000;
+// 	margin-bottom: 1rem;
+// }
+
+// .info {
+// 	display: flex;
+// 	flex-direction: column;
+// 	gap: 1.5rem;
+// }
+
+// .infoItem {
+// 	font-size: 1.1rem;
+// 	line-height: 1.6;
+// 	color: #333;
+// }
+
+// .infoItem strong {
+// 	color: #000;
+// 	margin-right: 0.5rem;
+// }
+
+// .social {
+// 	margin-top: 1rem;
+// }
+
+// .socialTitle {
+// 	font-size: 1.1rem;
+// 	font-weight: 700;
+// 	color: #000;
+// 	margin-bottom: 1rem;
+// }
+
+// .socialIcons {
+// 	display: flex;
+// 	gap: 1rem;
+// }
+
+// .socialIcon {
+// 	border-radius: 50%;
+// 	background: #f0f0f0;
+// 	display: flex;
+// 	align-items: center;
+// 	justify-content: center;
+// 	font-weight: 700;
+// 	color: #333;
+// 	cursor: pointer;
+// 	transition: background 0.3s;
+// 	img {
+// 		width: 30px;
+// 		height: 30px;
+// 	}
+// }
+
+// .socialIcon:hover {
+// 	background: #e0e0e0;
+// }
+
+// .map {
+// 	width: 100%;
+// 	height: 400px;
+// 	background: #e8e8e8;
+// 	border-radius: 20px;
+// 	margin-bottom: 2rem;
+// 	position: relative;
+// 	overflow: hidden;
+// }
+
+// .mapPlaceholder {
+// 	width: 100%;
+// 	height: 100%;
+// 	display: flex;
+// 	flex-direction: column;
+// 	align-items: center;
+// 	justify-content: center;
+// 	gap: 1rem;
+// }
+
+// .mapPin {
+// 	font-size: 3rem;
+// }
+
+// .mapText {
+// 	font-size: 1.2rem;
+// 	color: #666;
+// 	font-weight: 600;
+// }
+
+// .footer {
+// 	display: flex;
+// 	justify-content: space-between;
+// 	align-items: center;
+// 	padding: 2rem 0;
+// 	border-top: 1px solid #e0e0e0;
+// }
+
+// .footerText {
+// 	font-size: 1rem;
+// 	color: #999;
+// }
+
+// .footerSocial {
+// 	display: flex;
+// 	gap: 1rem;
+// }
+
+// .footerIcon {
+// 	width: 40px;
+// 	height: 40px;
+// 	border-radius: 50%;
+// 	background: #f0f0f0;
+// 	display: flex;
+// 	align-items: center;
+// 	justify-content: center;
+// 	font-weight: 700;
+// 	color: #333;
+// 	cursor: pointer;
+// 	transition: background 0.3s;
+// }
+
+// .footerIcon:hover {
+// 	background: #e0e0e0;
+// }
+
+// @media (max-width: 968px) {
+// 	.topSection {
+// 		grid-template-columns: 1fr;
+// 		gap: 2rem;
+// 	}
+
+// 	.card {
+// 		max-width: 100%;
+// 	}
+// }
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap');
+
+.section {
+	padding: 4rem 2rem 2rem;
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.topSection {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 4rem;
+	margin-bottom: 3rem;
+	align-items: center; /* Выравниваем по центру как в других блоках */
+}
+
+.imageColumn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.imageColumn img {
+	width: 100%;
+	height: auto;
+	border-radius: 20px;
+}
+
+.textColumn {
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+}
+
+.title {
+	font-family: 'Comfortaa', sans-serif;
+	font-size: 2.5rem;
+	font-weight: 700;
+	color: #000;
+	margin-bottom: 1rem;
+}
+
+.info {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+}
+
+.infoItem {
+	font-size: 1.1rem;
+	line-height: 1.6;
+	color: #333;
+}
+
+.infoItem strong {
+	color: #000;
+	margin-right: 0.5rem;
+}
+
+.infoItem a {
+	color: #333;
+	text-decoration: none;
+	transition: color 0.3s;
+}
+
+.infoItem a:hover {
+	color: #d73973;
+}
+
+.social {
+	margin-top: 1rem;
+}
+
+.socialTitle {
+	font-size: 1.1rem;
+	font-weight: 700;
+	color: #000;
+	margin-bottom: 1rem;
+}
+
+.socialIcons {
+	display: flex;
+	gap: 1rem;
+	align-items: center;
+}
+
+.socialIcon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: transform 0.3s;
+}
+
+.socialIcon:hover {
+	transform: translateY(-2px);
+}
+
+.socialIcon img {
+	width: 40px;
+	height: 40px;
+	object-fit: contain;
+}
+
+.map {
+	width: 100%;
+	height: 400px;
+	border-radius: 20px;
+	margin-bottom: 2rem;
+	overflow: hidden;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 2rem 0;
+	border-top: 1px solid #e0e0e0;
+}
+
+.footerText {
+	font-size: 1rem;
+	color: #999;
+}
+
+.footerSocial {
+	display: flex;
+	gap: 1rem;
+	align-items: center;
+}
+
+/* Адаптив как в других блоках */
+@media (max-width: 968px) {
+	.section {
+		padding: 3rem 1.5rem 2rem;
+	}
+
+	.topSection {
+		grid-template-columns: 1fr;
+		gap: 2rem;
+	}
+
+	.imageColumn {
+		order: 1; /* Изображение сверху */
+		max-width: 600px;
+		margin: 0 auto;
+	}
+
+	.textColumn {
+		order: 2; /* Текст снизу */
+	}
+
+	.title {
+		font-size: 2rem;
+	}
+}
+
+@media (max-width: 768px) {
+	.section {
+		padding: 2rem 1rem 1.5rem;
+	}
+
+	.title {
+		font-size: 1.8rem;
+		text-align: center;
+	}
+
+	.infoItem {
+		font-size: 1rem;
+		text-align: center;
+	}
+
+	.socialTitle {
+		text-align: center;
+	}
+
+	.socialIcons {
+		justify-content: center;
+	}
+
+	.footer {
+		flex-direction: column;
+		gap: 1rem;
+		text-align: center;
+	}
+
+	.map {
+		height: 300px;
+	}
+}
+
+@media (max-width: 480px) {
+	.section {
+		padding: 1.5rem 0.8rem 1rem;
+	}
+
+	.title {
+		font-size: 1.5rem;
+	}
+
+	.infoItem {
+		font-size: 0.95rem;
+	}
+
+	.socialIcon img {
+		width: 35px;
+		height: 35px;
+	}
+
+	.map {
+		height: 250px;
+	}
+
+	.footerText {
+		font-size: 0.9rem;
+	}
+}

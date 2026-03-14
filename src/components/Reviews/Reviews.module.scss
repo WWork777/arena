@@ -1,0 +1,353 @@
+// @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap');
+
+// .section {
+//   padding: 4rem 2rem;
+//   max-width: 1200px;
+//   margin: 0 auto;
+// }
+
+// .header {
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   margin-bottom: 3rem;
+//   flex-wrap: wrap;
+//   gap: 2rem;
+// }
+
+// .title {
+//   font-family: 'Comfortaa', sans-serif;
+//   font-size: 2.5rem;
+//   font-weight: 700;
+//   color: #F2C81C;
+// }
+
+// .rating {
+//   display: flex;
+//   align-items: center;
+//   gap: 1.5rem;
+//   flex-wrap: wrap;
+// }
+
+// .ratingValue {
+//   font-size: 2rem;
+//   font-weight: 900;
+//   color: #000;
+// }
+
+// .stars {
+//   display: flex;
+//   gap: 0.3rem;
+// }
+
+// .star {
+//   color: #F2C81C;
+//   font-size: 1.5rem;
+// }
+
+// .reviewButton {
+//   font-family: 'Comfortaa', sans-serif;
+//   background: #D73973;
+//   border: none;
+//   border-radius: 15px;
+//   padding: 0.8rem 2rem;
+//   font-size: 1rem;
+//   font-weight: 700;
+//   color: #fff;
+//   cursor: pointer;
+//   transition: background 0.3s;
+//   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+// }
+
+// .reviewButton:hover {
+//   background: #ff5a8a;
+// }
+
+// .cards {
+//   display: grid;
+//   grid-template-columns: repeat(4, 1fr);
+//   gap: 1.5rem;
+//   overflow-x: auto;
+//   padding-bottom: 1rem;
+//   scroll-snap-type: x mandatory;
+// }
+
+// .card {
+//   min-width: 280px;
+//   background: #fff;
+//   border-radius: 20px;
+//   padding: 1.5rem;
+//   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+//   scroll-snap-align: start;
+// }
+
+// .cardHeader {
+//   display: flex;
+//   align-items: flex-start;
+//   gap: 1rem;
+//   margin-bottom: 1rem;
+// }
+
+// .avatar {
+//   width: 50px;
+//   height: 50px;
+//   border-radius: 50%;
+//   background: linear-gradient(135deg, #D73973 0%, #13A7E9 100%);
+//   flex-shrink: 0;
+// }
+
+// .cardInfo {
+//   flex: 1;
+// }
+
+// .name {
+//   font-size: 1.1rem;
+//   font-weight: 700;
+//   color: #000;
+//   margin-bottom: 0.5rem;
+// }
+
+// .cardStars {
+//   display: flex;
+//   gap: 0.2rem;
+// }
+
+// .cardStars .star {
+//   font-size: 1rem;
+// }
+
+// .cardIcon {
+//   font-size: 1.5rem;
+//   color: #999;
+//   cursor: pointer;
+//   flex-shrink: 0;
+// }
+
+// .reviewText {
+//   font-size: 1rem;
+//   line-height: 1.6;
+//   color: #666;
+// }
+
+// @media (max-width: 1200px) {
+//   .cards {
+//     grid-template-columns: repeat(3, 1fr);
+//   }
+// }
+
+// @media (max-width: 968px) {
+//   .cards {
+//     grid-template-columns: repeat(2, 1fr);
+//   }
+// }
+
+// @media (max-width: 640px) {
+//   .cards {
+//     grid-template-columns: 1fr;
+//   }
+
+//   .header {
+//     flex-direction: column;
+//     align-items: flex-start;
+//   }
+// }
+
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap');
+
+.section {
+	padding: 4rem 2rem;
+	max-width: 1400px;
+	margin: 0 auto;
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 3rem;
+	flex-wrap: wrap;
+	gap: 2rem;
+}
+
+.title {
+	font-family: 'Comfortaa', sans-serif;
+	font-size: 2.5rem;
+	font-weight: 700;
+	color: #f2c81c;
+}
+
+.rating {
+	display: flex;
+	align-items: center;
+	gap: 1.5rem;
+	flex-wrap: wrap;
+}
+
+.ratingValue {
+	font-size: 2rem;
+	font-weight: 900;
+	color: #000;
+}
+
+.stars {
+	display: flex;
+	gap: 0.3rem;
+}
+
+.star {
+	color: #f2c81c;
+	font-size: 1.5rem;
+}
+
+.reviewButton {
+	font-family: 'Comfortaa', sans-serif;
+	background: #d73973;
+	border: none;
+	border-radius: 15px;
+	padding: 0.8rem 2rem;
+	font-size: 1rem;
+	font-weight: 700;
+	color: #fff;
+	cursor: pointer;
+	transition: background 0.3s;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.reviewButton:hover {
+	background: #ff5a8a;
+}
+
+.sliderContainer {
+	position: relative;
+}
+
+.mySwiper {
+	padding: 1rem 0 3rem 0;
+}
+
+.card {
+	background: #fff;
+	border-radius: 20px;
+	padding: 1.5rem;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.cardHeader {
+	display: flex;
+	align-items: flex-start;
+	gap: 1rem;
+	margin-bottom: 1rem;
+}
+
+.avatar {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	background: linear-gradient(135deg, #d73973 0%, #13a7e9 100%);
+	flex-shrink: 0;
+}
+
+.cardInfo {
+	flex: 1;
+}
+
+.name {
+	font-size: 1.1rem;
+	font-weight: 700;
+	color: #000;
+	margin-bottom: 0.5rem;
+}
+
+.cardStars {
+	display: flex;
+	gap: 0.2rem;
+}
+
+.cardStars .star {
+	font-size: 1rem;
+}
+
+.cardIcon {
+	font-size: 1.5rem;
+	color: #999;
+	cursor: pointer;
+	flex-shrink: 0;
+}
+
+.reviewText {
+	font-size: 1rem;
+	line-height: 1.6;
+	color: #666;
+	margin: 0;
+}
+
+.sliderControls {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 2rem;
+	margin-top: 2rem;
+}
+
+.navButton {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background: #d73973;
+	border: none;
+	color: white;
+	font-size: 1.2rem;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.3s;
+	box-shadow: 0 2px 8px rgba(215, 57, 115, 0.3);
+}
+
+.navButton:hover {
+	background: #ff5a8a;
+	transform: scale(1.1);
+}
+
+.navButton:active {
+	transform: scale(0.95);
+}
+
+:global(.swiper-pagination-bullet) {
+	width: 10px;
+	height: 10px;
+	background: #d73973;
+	opacity: 0.3;
+	transition: all 0.3s;
+}
+
+:global(.swiper-pagination-bullet-active) {
+	opacity: 1;
+	background: #d73973;
+	transform: scale(1.2);
+}
+
+@media (max-width: 640px) {
+	.section {
+		padding: 2rem 1rem;
+	}
+
+	.header {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.sliderControls {
+		gap: 1rem;
+	}
+
+	.navButton {
+		width: 35px;
+		height: 35px;
+		font-size: 1rem;
+	}
+}

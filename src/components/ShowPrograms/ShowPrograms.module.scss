@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap');
+
+.section {
+	padding: 4rem 2rem;
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.title {
+	font-family: 'Comfortaa', sans-serif;
+	font-size: 2.5rem;
+	font-weight: 700;
+	text-align: center;
+	margin-bottom: 3rem;
+	color: #000;
+}
+
+.cards {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 2rem;
+	margin-bottom: 3rem;
+}
+
+.card {
+	background: #fff;
+	border-radius: 20px;
+	overflow: hidden;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+	transition: transform 0.3s;
+}
+
+.card:hover {
+	transform: translateY(-5px);
+}
+
+.cardImage {
+	width: 100%;
+	height: 250px;
+	background: linear-gradient(135deg, #d73973 0%, #f2c81c 100%);
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.cardImage::after {
+	content: '🎊🎉✨';
+	font-size: 3rem;
+}
+
+.overlayText {
+	position: absolute;
+	bottom: 1rem;
+	left: 50%;
+	transform: translateX(-50%);
+	background: rgba(0, 0, 0, 0.7);
+	color: #fff;
+	padding: 0.5rem 1rem;
+	border-radius: 10px;
+	font-weight: 700;
+	font-size: 0.9rem;
+	white-space: nowrap;
+}
+
+.cardTitle {
+	font-size: 1.5rem;
+	font-weight: 700;
+	margin: 1.5rem 1.5rem 1rem;
+	color: #000;
+}
+
+.cardButton {
+	margin: 0 1.5rem 1.5rem;
+	background: #4ecdc4;
+	border: none;
+	border-radius: 10px;
+	padding: 0.8rem 2rem;
+	font-size: 1rem;
+	font-weight: 600;
+	color: #fff;
+	cursor: pointer;
+	transition: background 0.3s;
+	display: block;
+	width: calc(100% - 3rem);
+}
+
+.cardButton:hover {
+	background: #3ab5ad;
+}
+
+.ctaButton {
+	font-family: 'Comfortaa', sans-serif;
+	display: block;
+	margin: 0 auto;
+	background: #f2c81c;
+	border: none;
+	border-radius: 15px;
+	padding: 1.2rem 3rem;
+	font-size: 1.2rem;
+	font-weight: 700;
+	color: #333;
+	cursor: pointer;
+	transition: transform 0.3s;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.ctaButton:hover {
+	transform: translateY(-3px);
+}
+
+@media (max-width: 992px) {
+	.cards {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1rem;
+	}
+	.cards > :nth-child(3) {
+		grid-column: 1;
+		transform: translateX(50%);
+	}
+}
+@media (max-width: 640px) {
+	.cards {
+		grid-template-columns: 1fr;
+	}
+	.cards > :nth-child(3) {
+		grid-column: 1;
+		transform: translateX(0);
+	}
+}
+@media (max-width: 480px) {
+	.section {
+		padding: 4rem 1rem;
+	}
+}

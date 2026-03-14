@@ -1,0 +1,283 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@600;700;900&display=swap');
+
+@font-face {
+	font-family: 'Aqum two';
+	src: url('/fonts/Aqum2classic.otf') format('opentype');
+	font-weight: 900;
+	font-style: normal;
+	font-display: swap;
+}
+
+.hero {
+	position: relative;
+	min-height: 100vh;
+	background: linear-gradient(180deg, #d73973 0%, #ae305e 100%);
+	overflow: visible;
+}
+.under_hero {
+	min-height: calc(100vh / 3);
+	@media (max-width: 1200px) {
+		display: none;
+	}
+}
+
+// Левая часть - графические элементы
+.leftGraphics {
+	position: absolute;
+	z-index: 1;
+}
+
+.leftGraphic1 {
+	position: absolute;
+	width: 509px;
+	height: 539px;
+	left: 98px;
+	top: 10px;
+	transform: rotate(-100.51deg);
+	z-index: 1;
+}
+
+.leftGraphic2 {
+	position: absolute;
+	width: 524px;
+	height: 566px;
+	left: 150px;
+	top: 367px;
+	z-index: 1;
+}
+
+.leftCircle {
+	box-sizing: border-box;
+	position: absolute;
+	width: 465px;
+	height: 465px;
+	left: 30px;
+	top: 276px;
+	border: 4px solid #f2c81c;
+	border-radius: 50%;
+	overflow: hidden;
+	z-index: 2;
+}
+
+// Правая часть - графические элементы
+.rightGraphics {
+	position: absolute;
+	z-index: 1;
+}
+
+.rightGraphic1 {
+	position: absolute;
+	width: 524px;
+	height: 566px;
+	left: 1266px;
+	top: 382px;
+	z-index: 1;
+}
+
+.rightGraphic2 {
+	position: absolute;
+	width: 509px;
+	height: 539px;
+	left: 1066px;
+	top: -57px;
+	z-index: 1;
+}
+
+.rightCircle {
+	box-sizing: border-box;
+	position: absolute;
+	width: 502px;
+	height: 502px;
+	left: 1412px;
+	top: 182px;
+	border: 4px solid #f2c81c;
+	border-radius: 50%;
+	overflow: hidden;
+	z-index: 2;
+}
+
+.graphicImage {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.circleImageWrapper {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	border-radius: 50%;
+	position: relative;
+}
+
+.circleImage {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: object-position 0.3s ease;
+	display: block;
+	position: relative;
+}
+
+// Для левого круга - можно настроить отдельно
+.leftCircle .circleImageWrapper {
+	transform: scale(
+		1
+	); /* Настройте зум: например, 1.2 для увеличения, 0.8 для уменьшения */
+	transition: transform 0.3s ease;
+}
+
+.leftCircle .circleImage {
+	object-position: 50% 20% !important; /* Настройте позицию: например, 50% 30% для смещения вверх */
+}
+
+// Для правого круга - можно настроить отдельно
+.rightCircle .circleImageWrapper {
+	transform: scale(1.3); /* Настройте зум */
+	transition: transform 0.3s ease;
+}
+
+.rightCircle .circleImage {
+	object-position: 70% 60% !important; /* Настройте позицию */
+	position: relative;
+}
+
+// Центр - текст
+.title {
+	position: absolute;
+	width: 849px;
+	height: 187px;
+	left: calc(50% - 849px / 2 - 0.5px);
+	top: 182px;
+	font-family: 'Aqum two', sans-serif;
+	font-style: normal;
+	font-weight: 900;
+	font-size: 99px;
+	line-height: 94px;
+	text-align: center;
+	color: #ffffff;
+	text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	z-index: 3;
+	margin: 0;
+}
+
+.subtitle {
+	position: absolute;
+	width: 838px;
+	height: 39px;
+	left: calc(50% - 838px / 2);
+	top: 399px; /* 182 (top заголовка) + 187 (height заголовка) + 60px (расстояние) = 429px */
+	font-family: 'Comfortaa', sans-serif;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 53px;
+	line-height: 39px;
+	text-align: center;
+	color: #ffffff;
+	z-index: 3;
+	margin: 0;
+	text-shadow: none; /* Убираем text-shadow, так как в референсе его нет */
+}
+
+// Адаптивность
+@media (max-width: 1920px) {
+	.leftGraphic1,
+	.leftGraphic2,
+	.leftCircle,
+	.rightGraphic1,
+	.rightGraphic2,
+	.rightCircle {
+		transform: scale(0.8);
+	}
+
+	.title {
+		font-size: 79px;
+		line-height: 75px;
+	}
+
+	.subtitle {
+		font-size: 42px;
+		line-height: 31px;
+	}
+}
+
+@media (max-width: 1600px) {
+	.leftGraphic1,
+	.leftGraphic2,
+	.leftCircle,
+	.rightGraphic1,
+	.rightGraphic2,
+	.rightCircle {
+		transform: scale(0.6);
+	}
+
+	.title {
+		font-size: 72px;
+		line-height: 1;
+		width: 600px;
+		left: calc(50% - 300px);
+	}
+
+	.subtitle {
+		font-size: 36px;
+		line-height: 24px;
+		width: 600px;
+		left: calc(50% - 300px);
+	}
+}
+@media (max-width: 1366px) {
+	.subtitle {
+		margin-top: -50px;
+	}
+}
+
+@media (max-width: 1200px) {
+	.leftGraphics,
+	.rightGraphics {
+		display: none;
+	}
+
+	.title {
+		position: relative;
+		width: auto;
+		left: auto;
+		top: auto;
+		font-size: 60px;
+		line-height: 57px;
+		text-align: center;
+		padding: 6rem 2rem 1rem;
+	}
+
+	.subtitle {
+		margin-top: 0;
+		position: relative;
+		width: auto;
+		left: auto;
+		top: auto;
+		font-size: 32px;
+		line-height: 24px;
+		text-align: center;
+		padding: 0 2rem 4rem;
+	}
+}
+
+@media (max-width: 992px) {
+	.subtitle {
+		padding: 2rem 0 0;
+		line-height: 1;
+	}
+}
+@media (max-width: 640px) {
+	.title {
+		font-size: 42px;
+	}
+	.subtitle {
+	}
+}
+@media (max-width: 480px) {
+	.title {
+		font-size: 33px;
+	}
+	.subtitle {
+	}
+}

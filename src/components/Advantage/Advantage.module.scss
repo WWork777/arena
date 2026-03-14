@@ -1,0 +1,83 @@
+// .section {
+// 	background-color: #009ce01a;
+// 	padding: 1rem 1rem;
+// 	overflow-x: scroll;
+// }
+// .wrapper {
+// 	width: 100%;
+// 	max-width: 1280px;
+// 	margin: 0 auto;
+// 	display: flex;
+// 	gap: 10px;
+// 	align-items: center;
+// 	justify-content: space-between;
+// 	height: 150px;
+// }
+// .box {
+// 	display: flex;
+// 	flex-direction: column;
+// 	align-items: center;
+// 	justify-content: space-between;
+// 	flex: 1 0 auto;
+// 	min-height: inherit;
+// }
+// .img {
+// 	flex: 1 0 100%;
+// }
+// .title {
+// 	flex: 0 1 auto;
+// }
+// @media (max-width: 768px) {
+// 	.box {
+// 		transform: scale(0.8);
+// 	}
+// }
+.section {
+	background-color: #009ce01a;
+	padding: 1rem 1rem;
+	overflow-x: auto;
+}
+
+.wrapper {
+	width: 100%;
+	max-width: 1280px;
+	margin: 0 auto;
+	display: flex;
+	gap: 10px;
+	align-items: stretch; // меняем с center на stretch
+	justify-content: space-between;
+	height: 150px;
+}
+
+.box {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	flex: 1 0 auto;
+	min-height: inherit;
+}
+
+.img {
+	flex: 1; // занимает все доступное пространство
+	max-height: calc(100% - 30px); // оставляет место для текста
+	width: auto;
+	object-fit: contain; // сохраняет пропорции изображения
+}
+
+.title {
+	flex: 0 0 auto;
+	margin-top: auto; // прижимает к низу
+	text-align: center;
+	font-size: 0.9rem;
+	text-transform: uppercase;
+	color: #333;
+	font-weight: 500;
+	max-width: 150px;
+}
+
+@media (max-width: 768px) {
+	.box {
+		transform: scale(0.8);
+	}
+}
