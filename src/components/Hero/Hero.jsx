@@ -10,7 +10,7 @@ export default function Hero() {
 				<div className={styles.leftGraphics}>
 					<div className={styles.leftGraphic1}>
 						<Image
-							src='/images/Hero/ChatGPT Image 3 февр. 2026 г., 19_12_28-Photoroom 3.svg'
+							src='/images/Hero/Photoroom3.svg'
 							alt=''
 							width={509}
 							height={539}
@@ -19,7 +19,7 @@ export default function Hero() {
 					</div>
 					<div className={styles.leftGraphic2}>
 						<Image
-							src='/images/Hero/ChatGPT Image 3 февр. 2026 г., 19_12_25-Photoroom 4.svg'
+							src='/images/Hero/Photoroom4.svg'
 							alt=''
 							width={524}
 							height={566}
@@ -47,7 +47,7 @@ export default function Hero() {
 				<div className={styles.rightGraphics}>
 					<div className={styles.rightGraphic1}>
 						<Image
-							src='/images/Hero/ChatGPT Image 3 февр. 2026 г., 19_12_25-Photoroom 2.svg'
+							src='/images/Hero/Photoroom2.svg'
 							alt=''
 							width={524}
 							height={566}
@@ -56,7 +56,7 @@ export default function Hero() {
 					</div>
 					<div className={styles.rightGraphic2}>
 						<Image
-							src='/images/Hero/ChatGPT Image 3 февр. 2026 г., 19_12_28-Photoroom 2.svg'
+							src='/images/Hero/Photoroom22.svg'
 							alt=''
 							width={509}
 							height={539}
