@@ -2,10 +2,10 @@
 
 .section {
 	position: absolute;
-	bottom: calc(-100vh / 2.5);
+	bottom: -50px;
 	width: 100%;
 	margin: 0 auto;
-	transform: scale(0.8);
+	transform: scale(0.7);
 	overflow: visible;
 	z-index: 10; /* Поверх Hero и LoftSpaces */
 	pointer-events: none; /* Чтобы не блокировать взаимодействие с элементами под ним */
@@ -316,23 +316,35 @@
 
 // Адаптивность
 @media (max-width: 1800px) {
+	.section {
+		bottom: 50%;
+		transform: translateY(70%) translateX(5%) scale(0.6);
+	}
+}
+
+@media (max-width: 1600px) {
+	.section {
+		bottom: 50%;
+		transform: translateY(70%) translateX(0) scale(0.6);
+	}
 	.videoCard_wrap {
 		justify-content: end;
 	}
 }
-
 @media (max-width: 1440px) {
 	.section {
-		transform: scale(0.7);
+		bottom: 50%;
+		transform: translateY(70%) translateX(5%) scale(0.6);
 	}
 }
 @media (max-width: 1366px) {
 	.section {
-		transform: scale(0.6);
+		bottom: 50%;
+		transform: translateY(70%) translateX(5%) scale(0.6);
 	}
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1280px) {
 	.section {
 		bottom: 0;
 		transform: scale(0.8);

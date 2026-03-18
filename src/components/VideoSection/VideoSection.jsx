@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import styles from './VideoSection.module.scss'
 
@@ -257,7 +258,9 @@ export default function VideoSection() {
 				</div>
 
 				{/* Кнопка "Позвонить" */}
-				<button className={styles.callButton}>Позвонить</button>
+				<Link href='tel:+79095431213'>
+					<button className={styles.callButton}>Позвонить</button>
+				</Link>
 			</div>
 		</section>
 	)

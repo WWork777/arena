@@ -1,293 +1,357 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap');
 
 .header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  padding: 0;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 99;
+	padding: 0;
+	background: linear-gradient(180deg, #ae305e 0%, #d73973 100%);
 }
 
 .container {
-  max-width: 1920px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 24px 200px;
-  position: relative;
-  min-height: 80px;
+	max-width: 1920px;
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 24px 200px;
+	position: relative;
+	min-height: 120px;
 }
 
 // Логотип
 .logo {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  left: 200px;
-  top: 24px;
+	display: flex;
+	align-items: center;
+	position: absolute;
+	left: 200px;
+	top: 10px;
 }
 
 .logoCircle {
-  position: relative;
-  width: 80px;
-  height: 80px;
-  background: #FFFFFF;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	position: relative;
+	width: 100px;
+	height: 100px;
+	background: #ffffff;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .logoImage {
-  width: 63px;
-  height: 61px;
-  object-fit: contain;
+	width: 73px;
+	height: 71px;
+	object-fit: contain;
 }
 
 // Навигация
 .nav {
-  display: flex;
-  gap: 2.5rem;
-  align-items: center;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 44px;
+	display: flex;
+	gap: 2.5rem;
+	align-items: center;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	top: 44px;
 }
 
 .navLink {
-  font-family: 'Comfortaa', sans-serif;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 23px;
-  line-height: 39px;
-  color: #FFFFFF;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  text-decoration: none;
-  transition: opacity 0.3s;
-  white-space: nowrap;
+	font-family: 'Comfortaa', sans-serif;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 23px;
+	line-height: 39px;
+	color: #ffffff;
+	text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	text-decoration: none;
+	transition: opacity 0.3s;
+	white-space: nowrap;
 
-  &:hover {
-    opacity: 0.8;
-  }
+	&:hover {
+		opacity: 0.8;
+	}
 }
 
 // Правая секция (соцсети и меню)
 .rightSection {
-  display: flex;
-  gap: 1.5rem;
-  align-items: flex-start;
-  position: absolute;
-  right: 200px;
-  top: 33px;
+	display: flex;
+	gap: 1.5rem;
+	align-items: flex-start;
+	position: absolute;
+	right: 200px;
+	top: 33px;
+}
+.phone_icon {
+	display: none;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
+	transition: transform 0.3s;
+	filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+
+	&:hover {
+		transform: scale(1.1);
+	}
+	@media (max-width: 1600px) {
+		display: flex;
+	}
+}
+.phone_icon_wrap {
+	width: 45px;
+	height: 45px;
+	border-radius: 100%;
+	background-color: #d73973;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
+	transition: transform 0.3s;
+	filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+
+	&:hover {
+		transform: scale(1.1);
+	}
+	@media (max-width: 367px) {
+		display: none;
+	}
+}
+.phone_number {
+	font-family: 'Comfortaa', sans-serif;
+	font-style: normal;
+	font-weight: 900;
+	font-size: 18px;
+	line-height: 46px;
+	color: #ffffff;
+	text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	text-decoration: none;
+	transition: opacity 0.3s;
+	white-space: nowrap;
+
+	&:hover {
+		opacity: 0.8;
+	}
+	@media (max-width: 1600px) {
+		display: none;
+	}
 }
 
 // Иконки соцсетей
 .socialIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  transition: transform 0.3s;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
+	transition: transform 0.3s;
+	filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 
-  &:hover {
-    transform: scale(1.1);
-  }
+	&:hover {
+		transform: scale(1.1);
+	}
 }
 
 .maxIcon {
-  width: 45px;
-  height: 46px;
-  background: #FFFFFF;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+	width: 45px;
+	height: 46px;
+	background: #ffffff;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-shadow:
+		0px 0px 4px rgba(0, 0, 0, 0.25),
+		0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 // Кнопка меню
 .menuButton {
-  width: 63px;
-  height: 63px;
-  background: #FFFFFF;
-  border: 5px solid #D73973;
-  border-radius: 50%;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  cursor: pointer;
-  padding: 0;
-  transition: transform 0.3s;
-  position: relative;
-  flex-shrink: 0;
-  margin-top: 0;
-  align-self: flex-start;
+	width: 63px;
+	height: 63px;
+	background: #ffffff;
+	border: 5px solid #d73973;
+	border-radius: 50%;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	cursor: pointer;
+	padding: 0;
+	transition: transform 0.3s;
+	position: relative;
+	flex-shrink: 0;
+	margin-top: 0;
+	align-self: flex-start;
 
-  &:hover {
-    transform: scale(1.05);
-  }
+	&:hover {
+		transform: scale(1.05);
+	}
 }
 
 .menuLine {
-  position: absolute;
-  width: 31px;
-  height: 5px;
-  left: 11px; /* 1669 - 1653 = 16px от левого края кнопки */
-  background: #F2C81C;
-  display: block;
-  border-radius: 5px;
-  margin: 0;
-  border: none;
+	position: absolute;
+	width: 31px;
+	height: 5px;
+	left: 11px; /* 1669 - 1653 = 16px от левого края кнопки */
+	background: #f2c81c;
+	display: block;
+	border-radius: 5px;
+	margin: 0;
+	border: none;
 
-  &:nth-child(1) {
-    top: 15px; /* 57 - 33 = 24px от верха кнопки (Line 12) */
-  }
+	&:nth-child(1) {
+		top: 15px; /* 57 - 33 = 24px от верха кнопки (Line 12) */
+	}
 
-  &:nth-child(2) {
-    top: 25px; /* 67 - 33 = 34px от верха кнопки (Line 11) */
-  }
+	&:nth-child(2) {
+		top: 25px; /* 67 - 33 = 34px от верха кнопки (Line 11) */
+	}
 
-  &:nth-child(3) {
-    top: 35px; /* 77 - 33 = 44px от верха кнопки (Line 13) */
-  }
+	&:nth-child(3) {
+		top: 35px; /* 77 - 33 = 44px от верха кнопки (Line 13) */
+	}
 }
 
 // Выпадающее меню
 .menu {
-  position: absolute;
-  top: calc(100% + 10px);
-  right: 200px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
-  min-width: 280px;
-  max-height: 70vh;
-  overflow-y: auto;
-  z-index: 1000;
+	position: absolute;
+	top: calc(100% + 10px);
+	right: 200px;
+	background: rgba(255, 255, 255, 0.95);
+	backdrop-filter: blur(10px);
+	border-radius: 20px;
+	box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+	min-width: 280px;
+	max-height: 70vh;
+	overflow-y: auto;
+	z-index: 1000;
 }
 
 .menuContent {
-  display: flex;
-  flex-direction: column;
-  padding: 1rem 0;
+	display: flex;
+	flex-direction: column;
+	padding: 1rem 0;
 }
 
 .menuItem {
-  padding: 1rem 2rem;
-  font-family: 'Comfortaa', sans-serif;
-  font-size: 18px;
-  font-weight: 600;
-  color: #333;
-  text-decoration: none;
-  transition: background 0.3s;
-  text-transform: lowercase;
+	padding: 1rem 2rem;
+	font-family: 'Comfortaa', sans-serif;
+	font-size: 18px;
+	font-weight: 600;
+	color: #333;
+	text-decoration: none;
+	transition: background 0.3s;
+	text-transform: lowercase;
 
-  &:hover {
-    background: rgba(215, 57, 115, 0.1);
-  }
+	&:hover {
+		background: rgba(215, 57, 115, 0.1);
+	}
 
-  &:first-letter {
-    text-transform: uppercase;
-  }
+	&:first-letter {
+		text-transform: uppercase;
+	}
 }
 
 // Адаптивность
 @media (max-width: 1800px) {
-  .container {
-    padding: 24px 100px;
-  }
+	.container {
+		padding: 24px 100px;
+	}
 
-  .logo {
-    left: 100px;
-  }
+	.logo {
+		left: 100px;
+	}
 
-  .rightSection {
-    right: 100px;
-  }
+	.rightSection {
+		right: 100px;
+	}
 
-  .menu {
-    right: 100px;
-  }
+	.menu {
+		right: 100px;
+	}
 }
 
 @media (max-width: 1400px) {
-  .container {
-    padding: 24px 50px;
-  }
+	.container {
+		padding: 24px 50px;
+	}
 
-  .logo {
-    left: 50px;
-  }
+	.logo {
+		left: 50px;
+	}
 
-  .nav {
-    gap: 1.5rem;
-  }
+	.nav {
+		gap: 1.5rem;
+	}
 
-  .navLink {
-    font-size: 20px;
-  }
+	.navLink {
+		font-size: 20px;
+	}
 
-  .rightSection {
-    right: 50px;
-  }
+	.rightSection {
+		right: 50px;
+	}
 
-  .menu {
-    right: 50px;
-  }
+	.menu {
+		right: 50px;
+	}
 }
 
 @media (max-width: 1200px) {
-  .container {
-    padding: 24px 30px;
-  }
+	.container {
+		padding: 24px 30px;
+	}
 
-  .logo {
-    left: 30px;
-  }
+	.logo {
+		left: 30px;
+	}
 
-  .nav {
-    gap: 1rem;
-  }
+	.nav {
+		gap: 1rem;
+	}
 
-  .navLink {
-    font-size: 18px;
-  }
+	.navLink {
+		font-size: 18px;
+	}
 
-  .rightSection {
-    right: 30px;
-    gap: 1rem;
-  }
+	.rightSection {
+		right: 30px;
+		gap: 1rem;
+	}
 
-  .menu {
-    right: 30px;
-  }
+	.menu {
+		right: 30px;
+	}
 }
 
 @media (max-width: 968px) {
-  .container {
-    padding: 24px 20px;
-  }
+	.container {
+		padding: 24px 20px;
+	}
 
-  .logo {
-    left: 20px;
-    top: 20px;
-  }
+	.logo {
+		left: 20px;
+		top: 20px;
+	}
+	.logoCircle {
+		width: 80px;
+		height: 80px;
+	}
+	.logoImage {
+		width: 63px;
+		height: 61px;
+	}
 
-  .nav {
-    display: none;
-  }
+	.nav {
+		display: none;
+	}
 
-  .rightSection {
-    right: 20px;
-    top: 20px;
-  }
+	.rightSection {
+		right: 20px;
+		top: 20px;
+	}
 
-  .menu {
-    right: 20px;
-    left: 20px;
-    width: auto;
-  }
+	.menu {
+		right: 20px;
+		left: 20px;
+		width: auto;
+	}
 }

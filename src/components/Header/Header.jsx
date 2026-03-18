@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
+import { MdPhone } from 'react-icons/md'
 import styles from './Header.module.scss'
 
 export default function Header() {
@@ -55,17 +56,25 @@ export default function Header() {
 
 				{/* Иконки соцсетей и меню */}
 				<div className={styles.rightSection}>
-					{/* Telegram */}
+					<a href='tel:+79095431213' className={styles.phone_number}>
+						+7(909)-543-12-13
+					</a>
+					<a href='tel:+79095431213' className={styles.phone_icon}>
+						<div className={styles.phone_icon_wrap}>
+							<MdPhone size={30} color='white' />
+						</div>
+					</a>
+					{/* VK */}
 					<a
-						href='https://t.me'
+						href='https://vk.com/animatori_tomsk'
 						target='_blank'
 						rel='noopener noreferrer'
 						className={styles.socialIcon}
-						aria-label='Telegram'
+						aria-label='VK'
 					>
 						<Image
-							src='/icons/Header/telegram.svg'
-							alt='Telegram'
+							src='/images/socials/logos-vk.png'
+							alt='VK'
 							width={46}
 							height={46}
 						/>
@@ -73,7 +82,7 @@ export default function Header() {
 
 					{/* MAX */}
 					<a
-						href='https://max.ru'
+						href='https://max.ru/u/f9LHodD0cOJaFVvW9nUbeGO6KyU4YV4ECO1_CYWK8Iel22tTaDmxsz4THJA'
 						target='_blank'
 						rel='noopener noreferrer'
 						className={styles.socialIcon}
