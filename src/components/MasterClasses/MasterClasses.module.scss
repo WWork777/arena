@@ -1,212 +1,5 @@
 // @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap');
 
-// .section {
-//   padding: 4rem 2rem;
-//   max-width: 1200px;
-//   margin: 0 auto;
-// }
-
-// .topSection {
-//   display: grid;
-//   grid-template-columns: 1fr 1fr;
-//   gap: 4rem;
-//   margin-bottom: 4rem;
-//   align-items: center;
-// }
-
-// .imageColumn {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-// }
-
-// .image {
-//   width: 100%;
-//   height: 400px;
-//   background: linear-gradient(135deg, #F2C81C 0%, #FFED4E 100%);
-//   border-radius: 20px;
-//   position: relative;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-// }
-
-// .image::after {
-//   content: '🎨✂️🖌️';
-//   font-size: 4rem;
-// }
-
-// .overlayText {
-//   position: absolute;
-//   bottom: 1rem;
-//   left: 50%;
-//   transform: translateX(-50%);
-//   background: rgba(0, 0, 0, 0.8);
-//   color: #fff;
-//   padding: 0.8rem 1.5rem;
-//   border-radius: 10px;
-//   font-weight: 700;
-//   font-size: 1.1rem;
-//   white-space: nowrap;
-// }
-
-// .textColumn {
-//   background: #fff9e6;
-//   padding: 3rem;
-//   border-radius: 20px;
-//   display: flex;
-//   flex-direction: column;
-//   gap: 2rem;
-// }
-
-// .title {
-//   font-family: 'Comfortaa', sans-serif;
-//   font-size: 2.5rem;
-//   font-weight: 700;
-//   color: #000;
-//   margin-bottom: 1rem;
-// }
-
-// .description {
-//   display: flex;
-//   flex-direction: column;
-//   gap: 1rem;
-// }
-
-// .description p {
-//   font-size: 1.1rem;
-//   line-height: 1.8;
-//   color: #333;
-// }
-
-// .button {
-//   font-family: 'Comfortaa', sans-serif;
-//   align-self: flex-start;
-//   background: #F2C81C;
-//   border: none;
-//   border-radius: 15px;
-//   padding: 1rem 2.5rem;
-//   font-size: 1.1rem;
-//   font-weight: 700;
-//   color: #333;
-//   cursor: pointer;
-//   transition: transform 0.3s;
-//   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-// }
-
-// .button:hover {
-//   transform: translateY(-2px);
-// }
-
-// .cards {
-//   display: grid;
-//   grid-template-columns: repeat(3, 1fr);
-//   gap: 2rem;
-//   margin-bottom: 2rem;
-// }
-
-// .card {
-//   background: #fff;
-//   border-radius: 20px;
-//   overflow: hidden;
-//   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-//   transition: transform 0.3s;
-// }
-
-// .card:hover {
-//   transform: translateY(-5px);
-// }
-
-// .cardImage {
-//   width: 100%;
-//   height: 250px;
-//   background: linear-gradient(135deg, #F2C81C 0%, #FFED4E 100%);
-//   position: relative;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-// }
-
-// .cardImage::after {
-//   content: '🎨🖌️';
-//   font-size: 3rem;
-// }
-
-// .cardOverlayText {
-//   position: absolute;
-//   bottom: 1rem;
-//   left: 50%;
-//   transform: translateX(-50%);
-//   background: rgba(0, 0, 0, 0.8);
-//   color: #fff;
-//   padding: 0.5rem 1rem;
-//   border-radius: 10px;
-//   font-weight: 700;
-//   font-size: 0.9rem;
-//   white-space: nowrap;
-// }
-
-// .cardTitle {
-//   font-size: 1.5rem;
-//   font-weight: 700;
-//   margin: 1.5rem 1.5rem 1rem;
-//   color: #000;
-// }
-
-// .cardDescription {
-//   font-size: 1rem;
-//   color: #666;
-//   margin: 0 1.5rem 1rem;
-//   line-height: 1.6;
-// }
-
-// .cardButton {
-//   font-family: 'Comfortaa', sans-serif;
-//   margin: 0 1.5rem 1.5rem;
-//   background: #D73973;
-//   border: none;
-//   border-radius: 10px;
-//   padding: 0.8rem 2rem;
-//   font-size: 1rem;
-//   font-weight: 700;
-//   color: #fff;
-//   cursor: pointer;
-//   transition: background 0.3s;
-//   display: block;
-//   width: calc(100% - 3rem);
-//   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-// }
-
-// .cardButton:hover {
-//   background: #ff5a8a;
-// }
-
-// .link {
-//   display: block;
-//   text-align: center;
-//   color: #ff6b9d;
-//   font-size: 1.1rem;
-//   font-weight: 600;
-//   margin-top: 2rem;
-//   transition: opacity 0.3s;
-// }
-
-// .link:hover {
-//   opacity: 0.8;
-// }
-
-// @media (max-width: 968px) {
-//   .topSection {
-//     grid-template-columns: 1fr;
-//   }
-
-//   .cards {
-//     grid-template-columns: 1fr;
-//   }
-// }
-
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap');
-
 .section {
 	padding: 4rem 2rem;
 	max-width: 1200px;
@@ -288,22 +81,78 @@
 	margin-bottom: 2rem;
 }
 
+/* Карточка с flex для прижатия кнопки */
 .card {
 	background: #fff;
 	border-radius: 20px;
 	overflow: hidden;
 	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 	transition: transform 0.3s;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
 }
 
 .card:hover {
 	transform: translateY(-5px);
 }
 
-.cardImage {
+/* Контейнер для изображения с оверлеем */
+.cardImageContainer {
+	position: relative;
 	width: 100%;
 	height: 250px;
+	overflow: hidden;
+	flex-shrink: 0;
+}
+
+.cardImage {
+	width: 100%;
+	height: 100%;
 	object-fit: cover;
+}
+
+/* Оверлей при наведении */
+.cardOverlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+.cardImageContainer:hover .cardOverlay {
+	opacity: 1;
+}
+
+/* Кнопка лупы в оверлее */
+.viewButton {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	background: white;
+	border: none;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: transform 0.3s;
+}
+
+.viewButton:hover {
+	transform: scale(1.1);
+}
+
+.viewButton svg {
+	width: 24px;
+	height: 24px;
+	stroke: #333;
 }
 
 .cardTitle {
@@ -311,6 +160,7 @@
 	font-weight: 700;
 	margin: 1.5rem 1.5rem 1rem;
 	color: #000;
+	flex-shrink: 0;
 }
 
 .cardDescription {
@@ -318,6 +168,7 @@
 	color: #666;
 	margin: 0 1.5rem 1rem;
 	line-height: 1.6;
+	flex: 1 0 auto;
 }
 
 .cardButton {
@@ -335,6 +186,8 @@
 	display: block;
 	width: calc(100% - 3rem);
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	flex-shrink: 0;
+	align-self: flex-start;
 }
 
 .cardButton:hover {
@@ -349,10 +202,125 @@
 	font-weight: 600;
 	margin-top: 2rem;
 	transition: opacity 0.3s;
+	text-decoration: none;
 }
 
 .link:hover {
 	opacity: 0.8;
+}
+
+/* Модальное окно */
+.modalOverlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.8);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 1000;
+	padding: 1rem;
+}
+
+.modal {
+	background: white;
+	border-radius: 20px;
+	max-width: 900px;
+	width: 100%;
+	max-height: 90vh;
+	overflow-y: auto;
+	position: relative;
+	animation: modalFadeIn 0.3s;
+}
+
+@keyframes modalFadeIn {
+	from {
+		opacity: 0;
+		transform: scale(0.9);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+.modalClose {
+	position: absolute;
+	top: 15px;
+	right: 20px;
+	font-size: 2rem;
+	background: none;
+	border: none;
+	cursor: pointer;
+	color: #333;
+	z-index: 1;
+	width: 40px;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.9);
+	transition: all 0.3s;
+}
+
+.modalClose:hover {
+	background: white;
+	transform: scale(1.1);
+}
+
+.modalContent {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 2rem;
+	padding: 2rem;
+}
+
+.modalImage {
+	width: 100%;
+	height: auto;
+	border-radius: 15px;
+	object-fit: cover;
+}
+
+.modalInfo {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+}
+
+.modalTitle {
+	font-family: 'Comfortaa', sans-serif;
+	font-size: 2rem;
+	font-weight: 700;
+	color: #000;
+}
+
+.modalDesc {
+	font-size: 1.1rem;
+	line-height: 1.8;
+	color: #333;
+}
+
+.modalButton {
+	font-family: 'Comfortaa', sans-serif;
+	background: #d73973;
+	border: none;
+	border-radius: 15px;
+	padding: 1rem 2rem;
+	font-size: 1.1rem;
+	font-weight: 700;
+	color: #fff;
+	cursor: pointer;
+	transition: background 0.3s;
+	align-self: flex-start;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.modalButton:hover {
+	background: #ff5a8a;
 }
 
 /* Адаптив для планшетов (768px - 968px) */
@@ -368,13 +336,13 @@
 	}
 
 	.imageColumn {
-		order: 1; /* Изображение сверху на планшетах */
+		order: 1;
 		max-width: 600px;
 		margin: 0 auto;
 	}
 
 	.textColumn {
-		order: 2; /* Текст снизу на планшетах */
+		order: 2;
 		padding: 2rem;
 	}
 
@@ -387,18 +355,29 @@
 	}
 
 	.cards {
-		grid-template-columns: repeat(2, 1fr); /* 2 карточки в ряд на планшетах */
+		grid-template-columns: repeat(2, 1fr);
 		gap: 1.5rem;
+	}
+
+	.card {
+		height: 100%;
+	}
+
+	.cardImageContainer {
+		height: 220px;
+		flex-shrink: 0;
 	}
 
 	.cardTitle {
 		font-size: 1.3rem;
 		margin: 1.2rem 1.2rem 0.5rem;
+		flex-shrink: 0;
 	}
 
 	.cardDescription {
 		margin: 0 1.2rem 1rem;
 		font-size: 0.95rem;
+		flex: 1 0 auto;
 	}
 
 	.cardButton {
@@ -406,11 +385,22 @@
 		width: calc(100% - 2.4rem);
 		padding: 0.7rem 1.5rem;
 		font-size: 0.95rem;
+		flex-shrink: 0;
 	}
 
 	.link {
 		font-size: 1rem;
 		margin-top: 1.5rem;
+	}
+
+	/* Адаптив модалки для планшетов */
+	.modalContent {
+		gap: 1.5rem;
+		padding: 1.5rem;
+	}
+
+	.modalTitle {
+		font-size: 1.8rem;
 	}
 }
 
@@ -432,47 +422,63 @@
 	.title {
 		font-size: 1.8rem;
 		margin-bottom: 0.5rem;
+		text-align: center;
 	}
 
 	.description p {
 		font-size: 0.95rem;
 		line-height: 1.6;
+		text-align: center;
 	}
 
 	.button {
 		padding: 0.8rem 2rem;
 		font-size: 1rem;
-		align-self: center; /* Центрируем кнопку на мобильных */
+		align-self: center;
 		width: 100%;
 		max-width: 300px;
 		text-align: center;
 	}
 
 	.cards {
-		grid-template-columns: 1fr; /* 1 карточка в ряд на мобильных */
+		grid-template-columns: 1fr;
 		gap: 1.5rem;
 	}
 
 	.card {
 		max-width: 400px;
-		margin: 0 auto; /* Центрируем карточки */
+		margin: 0 auto;
 		width: 100%;
+		height: 100%;
 	}
 
-	.cardImage {
+	.cardImageContainer {
 		height: 200px;
+		flex-shrink: 0;
+	}
+
+	.viewButton {
+		width: 45px;
+		height: 45px;
+	}
+
+	.viewButton svg {
+		width: 22px;
+		height: 22px;
 	}
 
 	.cardTitle {
 		font-size: 1.3rem;
 		text-align: center;
 		margin: 1.2rem 1rem 0.5rem;
+		flex-shrink: 0;
 	}
 
 	.cardDescription {
 		text-align: center;
 		margin: 0 1rem 1rem;
 		font-size: 0.95rem;
+		flex: 1 0 auto;
 	}
 
 	.cardButton {
@@ -480,12 +486,37 @@
 		margin: 0 1rem 1rem;
 		padding: 0.7rem 1.5rem;
 		font-size: 0.95rem;
+		flex-shrink: 0;
+		align-self: center;
 	}
 
 	.link {
 		font-size: 1rem;
 		padding: 0 1rem;
 		line-height: 1.5;
+	}
+
+	/* Адаптив модалки для мобильных */
+	.modalContent {
+		grid-template-columns: 1fr;
+		gap: 1rem;
+		padding: 1.5rem;
+	}
+
+	.modalTitle {
+		font-size: 1.5rem;
+		text-align: center;
+	}
+
+	.modalDesc {
+		font-size: 1rem;
+		text-align: center;
+	}
+
+	.modalButton {
+		align-self: center;
+		width: 100%;
+		max-width: 300px;
 	}
 }
 
@@ -520,20 +551,34 @@
 
 	.card {
 		border-radius: 15px;
+		height: 100%;
 	}
 
-	.cardImage {
+	.cardImageContainer {
 		height: 180px;
+		flex-shrink: 0;
+	}
+
+	.viewButton {
+		width: 40px;
+		height: 40px;
+	}
+
+	.viewButton svg {
+		width: 20px;
+		height: 20px;
 	}
 
 	.cardTitle {
 		font-size: 1.2rem;
 		margin: 1rem 0.8rem 0.3rem;
+		flex-shrink: 0;
 	}
 
 	.cardDescription {
 		font-size: 0.85rem;
 		margin: 0 0.8rem 0.8rem;
+		flex: 1 0 auto;
 	}
 
 	.cardButton {
@@ -542,10 +587,84 @@
 		border-radius: 8px;
 		width: calc(100% - 1.6rem);
 		margin: 0 0.8rem 0.8rem;
+		flex-shrink: 0;
 	}
 
 	.link {
 		font-size: 0.9rem;
 		margin-top: 1rem;
+	}
+
+	/* Адаптив модалки для маленьких мобильных */
+	.modal {
+		border-radius: 15px;
+	}
+
+	.modalContent {
+		padding: 1rem;
+	}
+
+	.modalTitle {
+		font-size: 1.3rem;
+	}
+
+	.modalDesc {
+		font-size: 0.95rem;
+	}
+}
+
+/* Адаптив для очень маленьких экранов (до 360px) */
+@media (max-width: 360px) {
+	.section {
+		padding: 1rem 0.5rem;
+	}
+
+	.textColumn {
+		padding: 1rem;
+	}
+
+	.title {
+		font-size: 1.3rem;
+	}
+
+	.description p {
+		font-size: 0.85rem;
+	}
+
+	.button {
+		padding: 0.6rem 1.2rem;
+		font-size: 0.85rem;
+		max-width: 220px;
+	}
+
+	.cardImageContainer {
+		height: 160px;
+	}
+
+	.viewButton {
+		width: 35px;
+		height: 35px;
+	}
+
+	.viewButton svg {
+		width: 18px;
+		height: 18px;
+	}
+
+	.cardTitle {
+		font-size: 1.1rem;
+	}
+
+	.cardDescription {
+		font-size: 0.8rem;
+	}
+
+	.cardButton {
+		padding: 0.5rem 1rem;
+		font-size: 0.8rem;
+	}
+
+	.link {
+		font-size: 0.85rem;
 	}
 }

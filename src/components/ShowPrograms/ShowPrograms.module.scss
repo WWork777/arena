@@ -1,9 +1,146 @@
+// @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap');
+
+// .section {
+// 	padding: 4rem 2rem;
+// 	max-width: 1200px;
+// 	margin: 0 auto;
+// }
+
+// .title {
+// 	font-family: 'Comfortaa', sans-serif;
+// 	font-size: 2.5rem;
+// 	font-weight: 700;
+// 	text-align: center;
+// 	margin-bottom: 3rem;
+// 	color: #000;
+// }
+
+// .cards {
+// 	display: grid;
+// 	grid-template-columns: repeat(3, 1fr);
+// 	gap: 2rem;
+// 	margin-bottom: 3rem;
+// }
+
+// .card {
+// 	background: #fff;
+// 	border-radius: 20px;
+// 	overflow: hidden;
+// 	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+// 	transition: transform 0.3s;
+// }
+
+// .card:hover {
+// 	transform: translateY(-5px);
+// }
+
+// .cardImage {
+// 	width: 100%;
+// 	height: 250px;
+// 	background: linear-gradient(135deg, #d73973 0%, #f2c81c 100%);
+// 	position: relative;
+// 	display: flex;
+// 	align-items: center;
+// 	justify-content: center;
+// }
+
+// .cardImage::after {
+// 	content: '🎊🎉✨';
+// 	font-size: 3rem;
+// }
+
+// .overlayText {
+// 	position: absolute;
+// 	bottom: 1rem;
+// 	left: 50%;
+// 	transform: translateX(-50%);
+// 	background: rgba(0, 0, 0, 0.7);
+// 	color: #fff;
+// 	padding: 0.5rem 1rem;
+// 	border-radius: 10px;
+// 	font-weight: 700;
+// 	font-size: 0.9rem;
+// 	white-space: nowrap;
+// }
+
+// .cardTitle {
+// 	font-size: 1.5rem;
+// 	font-weight: 700;
+// 	margin: 1.5rem 1.5rem 1rem;
+// 	color: #000;
+// }
+
+// .cardButton {
+// 	margin: 0 1.5rem 1.5rem;
+// 	background: #4ecdc4;
+// 	border: none;
+// 	border-radius: 10px;
+// 	padding: 0.8rem 2rem;
+// 	font-size: 1rem;
+// 	font-weight: 600;
+// 	color: #fff;
+// 	cursor: pointer;
+// 	transition: background 0.3s;
+// 	display: block;
+// 	width: calc(100% - 3rem);
+// }
+
+// .cardButton:hover {
+// 	background: #3ab5ad;
+// }
+
+// .ctaButton {
+// 	font-family: 'Comfortaa', sans-serif;
+// 	display: block;
+// 	margin: 0 auto;
+// 	background: #f2c81c;
+// 	border: none;
+// 	border-radius: 15px;
+// 	padding: 1.2rem 3rem;
+// 	font-size: 1.2rem;
+// 	font-weight: 700;
+// 	color: #333;
+// 	cursor: pointer;
+// 	transition: transform 0.3s;
+// 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+// }
+
+// .ctaButton:hover {
+// 	transform: translateY(-3px);
+// }
+
+// @media (max-width: 992px) {
+// 	.cards {
+// 		grid-template-columns: repeat(2, 1fr);
+// 		gap: 1rem;
+// 	}
+// 	.cards > :nth-child(3) {
+// 		grid-column: 1;
+// 		transform: translateX(50%);
+// 	}
+// }
+// @media (max-width: 640px) {
+// 	.cards {
+// 		grid-template-columns: 1fr;
+// 	}
+// 	.cards > :nth-child(3) {
+// 		grid-column: 1;
+// 		transform: translateX(0);
+// 	}
+// }
+// @media (max-width: 480px) {
+// 	.section {
+// 		padding: 4rem 1rem;
+// 	}
+// }
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap');
 
 .section {
 	padding: 4rem 2rem;
-	max-width: 1200px;
+	max-width: 1400px;
 	margin: 0 auto;
+	position: relative;
+	z-index: 1;
 }
 
 .title {
@@ -15,7 +152,7 @@
 	color: #000;
 }
 
-.cards {
+.grid {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	gap: 2rem;
@@ -23,65 +160,145 @@
 }
 
 .card {
+	padding: 1rem;
 	background: #fff;
 	border-radius: 20px;
 	overflow: hidden;
 	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-	transition: transform 0.3s;
+	transition:
+		transform 0.3s,
+		box-shadow 0.3s;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
 }
 
 .card:hover {
 	transform: translateY(-5px);
+	box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
 }
 
-.cardImage {
+.cardMedia {
 	width: 100%;
 	height: 250px;
-	background: linear-gradient(135deg, #d73973 0%, #f2c81c 100%);
 	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	overflow: hidden;
+	border-radius: 12px;
+	background: linear-gradient(180deg, #ae305e 0%, #d73973 100%);
 }
 
-.cardImage::after {
-	content: '🎊🎉✨';
-	font-size: 3rem;
+.cardImage {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 
-.overlayText {
+.video {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	cursor: pointer;
+	background: linear-gradient(180deg, #ae305e 0%, #d73973 100%);
+}
+
+.video:hover {
+	opacity: 0.95;
+}
+
+/* Постоянная стрелочка в кружочке */
+.playButtonConstant {
 	position: absolute;
-	bottom: 1rem;
+	top: 50%;
 	left: 50%;
-	transform: translateX(-50%);
-	background: rgba(0, 0, 0, 0.7);
-	color: #fff;
-	padding: 0.5rem 1rem;
-	border-radius: 10px;
-	font-weight: 700;
-	font-size: 0.9rem;
-	white-space: nowrap;
+	transform: translate(-50%, -50%);
+	width: 60px;
+	height: 60px;
+	background: rgba(255, 255, 255, 0.7);
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+	z-index: 2;
+}
+
+.playButtonConstant:hover {
+	transform: translate(-50%, -50%) scale(1.1);
+	background: white;
+}
+
+.playIcon {
+	width: 30px;
+	height: 30px;
+	margin-left: 3px;
+}
+
+/* Кнопка полноэкранного режима */
+.fullscreenButton {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	width: 36px;
+	height: 36px;
+	background: rgba(0, 0, 0, 0.6);
+	border: none;
+	border-radius: 8px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	z-index: 3;
+	padding: 0;
+}
+
+.fullscreenButton:hover {
+	background: rgba(0, 0, 0, 0.8);
+	transform: scale(1.1);
+}
+
+.fullscreenButton svg {
+	width: 20px;
+	height: 20px;
 }
 
 .cardTitle {
+	font-family: 'Comfortaa', sans-serif;
 	font-size: 1.5rem;
 	font-weight: 700;
 	margin: 1.5rem 1.5rem 1rem;
 	color: #000;
+	flex-shrink: 0;
+}
+
+.cardDescription {
+	font-size: 1rem;
+	color: #666;
+	margin: 0 1.5rem 1.5rem;
+	line-height: 1.6;
+	flex: 1 0 auto;
 }
 
 .cardButton {
+	font-family: 'Comfortaa', sans-serif;
 	margin: 0 1.5rem 1.5rem;
-	background: #4ecdc4;
+	background: #13a7e9;
 	border: none;
 	border-radius: 10px;
 	padding: 0.8rem 2rem;
 	font-size: 1rem;
-	font-weight: 600;
+	font-weight: 700;
 	color: #fff;
 	cursor: pointer;
 	transition: background 0.3s;
-	display: block;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	flex-shrink: 0;
+	align-self: flex-start;
 	width: calc(100% - 3rem);
 }
 
@@ -109,27 +326,93 @@
 	transform: translateY(-3px);
 }
 
+/* Планшет */
 @media (max-width: 992px) {
-	.cards {
+	.grid {
 		grid-template-columns: repeat(2, 1fr);
 		gap: 1rem;
 	}
-	.cards > :nth-child(3) {
-		grid-column: 1;
-		transform: translateX(50%);
-	}
 }
+
+/* Мобильные */
 @media (max-width: 640px) {
-	.cards {
+	.section {
+		padding: 4rem 2rem;
+	}
+	.grid {
 		grid-template-columns: 1fr;
 	}
-	.cards > :nth-child(3) {
-		grid-column: 1;
-		transform: translateX(0);
+
+	.playButtonConstant {
+		width: 50px;
+		height: 50px;
+	}
+
+	.playIcon {
+		width: 25px;
+		height: 25px;
+	}
+
+	.fullscreenButton {
+		width: 32px;
+		height: 32px;
+		bottom: 8px;
+		right: 8px;
 	}
 }
+
+/* Маленькие мобильные */
 @media (max-width: 480px) {
+	.title {
+		font-size: 2rem;
+	}
 	.section {
 		padding: 4rem 1rem;
 	}
+}
+
+/* Дополнительные стили для видео в полноэкранном режиме */
+.cardMedia:fullscreen {
+	width: 100vw;
+	height: 100vh;
+	background: #000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.cardMedia:fullscreen .video {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.cardMedia:-webkit-full-screen {
+	width: 100vw;
+	height: 100vh;
+	background: #000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.cardMedia:-webkit-full-screen .video {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.cardMedia:-moz-full-screen {
+	width: 100vw;
+	height: 100vh;
+	background: #000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.cardMedia:-moz-full-screen .video {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
 }

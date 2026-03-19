@@ -17,7 +17,7 @@ export default function VideoSection() {
 			id: 1,
 			thumbnail:
 				'/images/VideoSection/8e4171cb71b178f4572b70cc5b6317c802ef0e04.png',
-			videoUrl: '/videos/VideoSection/video1.mp4', // Замените на реальные URL видео
+			videoUrl: '/videos/video3.mov', // Замените на реальные URL видео
 			title: 'Видео о нас',
 			description: 'Такие яркие праздники можно получить только у нас',
 		},
@@ -25,7 +25,7 @@ export default function VideoSection() {
 			id: 2,
 			thumbnail:
 				'/images/VideoSection/8e4171cb71b178f4572b70cc5b6317c802ef0e04.png',
-			videoUrl: '/videos/VideoSection/video2.mp4',
+			videoUrl: '/videos/video1.mp4',
 			title: 'Наши аниматоры',
 			description: 'Профессиональные аниматоры для детских праздников',
 		},
@@ -33,7 +33,7 @@ export default function VideoSection() {
 			id: 3,
 			thumbnail:
 				'/images/VideoSection/8e4171cb71b178f4572b70cc5b6317c802ef0e04.png',
-			videoUrl: '/videos/VideoSection/video3.mp4',
+			videoUrl: '/videos/video2.mov',
 			title: 'Шоу программы',
 			description: 'Незабываемые шоу для ваших детей',
 		},
@@ -41,7 +41,7 @@ export default function VideoSection() {
 			id: 4,
 			thumbnail:
 				'/images/VideoSection/8e4171cb71b178f4572b70cc5b6317c802ef0e04.png',
-			videoUrl: '/videos/VideoSection/video4.mp4',
+			videoUrl: '/videos/video3.mov',
 			title: 'Игровые пространства',
 			description: 'Уникальные игровые зоны для праздников',
 		},
