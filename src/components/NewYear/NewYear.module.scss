@@ -1,603 +1,276 @@
-// @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap');
-
-// .section {
-//   padding: 4rem 2rem;
-//   max-width: 1200px;
-//   margin: 0 auto;
-// }
-
-// .topSection {
-//   display: grid;
-//   grid-template-columns: 1fr 1fr;
-//   gap: 4rem;
-//   margin-bottom: 4rem;
-//   align-items: center;
-// }
-
-// .textColumn {
-//   background: #ffe6f0;
-//   padding: 3rem;
-//   border-radius: 20px;
-//   display: flex;
-//   flex-direction: column;
-//   gap: 2rem;
-// }
-
-// .title {
-//   font-family: 'Comfortaa', sans-serif;
-//   font-size: 2.5rem;
-//   font-weight: 700;
-//   color: #000;
-//   margin-bottom: 1rem;
-// }
-
-// .description {
-//   display: flex;
-//   flex-direction: column;
-//   gap: 1rem;
-// }
-
-// .description p {
-//   font-size: 1.1rem;
-//   line-height: 1.8;
-//   color: #333;
-// }
-
-// .button {
-//   font-family: 'Comfortaa', sans-serif;
-//   align-self: flex-start;
-//   background: #F2C81C;
-//   border: none;
-//   border-radius: 15px;
-//   padding: 1rem 2.5rem;
-//   font-size: 1.1rem;
-//   font-weight: 700;
-//   color: #333;
-//   cursor: pointer;
-//   transition: transform 0.3s;
-//   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-// }
-
-// .button:hover {
-//   transform: translateY(-2px);
-// }
-
-// .imageColumn {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-// }
-
-// .image {
-//   width: 100%;
-//   height: 400px;
-//   background: linear-gradient(135deg, #D73973 0%, #F2C81C 50%, #13A7E9 100%);
-//   border-radius: 20px;
-//   position: relative;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-// }
-
-// .image::after {
-//   content: '🎄🎅❄️';
-//   font-size: 4rem;
-// }
-
-// .overlayText {
-//   position: absolute;
-//   bottom: 1rem;
-//   left: 50%;
-//   transform: translateX(-50%);
-//   background: rgba(0, 0, 0, 0.8);
-//   color: #fff;
-//   padding: 0.8rem 1.5rem;
-//   border-radius: 10px;
-//   font-weight: 700;
-//   font-size: 1rem;
-//   white-space: nowrap;
-//   text-align: center;
-// }
-
-// .cards {
-//   display: grid;
-//   grid-template-columns: repeat(3, 1fr);
-//   gap: 2rem;
-//   margin-bottom: 2rem;
-// }
-
-// .card {
-//   background: #fff;
-//   border-radius: 20px;
-//   overflow: hidden;
-//   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-//   transition: transform 0.3s;
-// }
-
-// .card:hover {
-//   transform: translateY(-5px);
-// }
-
-// .cardImage {
-//   width: 100%;
-//   height: 250px;
-//   background: linear-gradient(135deg, #D73973 0%, #F2C81C 50%, #13A7E9 100%);
-//   position: relative;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-// }
-
-// .cardImage::after {
-//   content: '🎄🎅';
-//   font-size: 3rem;
-// }
-
-// .cardOverlayText {
-//   position: absolute;
-//   bottom: 1rem;
-//   left: 50%;
-//   transform: translateX(-50%);
-//   background: rgba(0, 0, 0, 0.8);
-//   color: #fff;
-//   padding: 0.5rem 1rem;
-//   border-radius: 10px;
-//   font-weight: 700;
-//   font-size: 0.9rem;
-//   white-space: nowrap;
-// }
-
-// .cardHeader {
-//   display: flex;
-//   align-items: center;
-//   justify-content: space-between;
-//   margin: 1.5rem 1.5rem 1rem;
-// }
-
-// .cardTitle {
-//   font-size: 1.5rem;
-//   font-weight: 700;
-//   color: #000;
-// }
-
-// .playIcon {
-//   font-size: 1.2rem;
-//   color: #666;
-// }
-
-// .cardButton {
-//   font-family: 'Comfortaa', sans-serif;
-//   margin: 0 1.5rem 1.5rem;
-//   background: #D73973;
-//   border: none;
-//   border-radius: 10px;
-//   padding: 0.8rem 2rem;
-//   font-size: 1rem;
-//   font-weight: 700;
-//   color: #fff;
-//   cursor: pointer;
-//   transition: background 0.3s;
-//   display: block;
-//   width: calc(100% - 3rem);
-//   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-// }
-
-// .cardButton:hover {
-//   background: #ff5a8a;
-// }
-
-// .link {
-//   display: block;
-//   text-align: center;
-//   color: #ff6b9d;
-//   font-size: 1.1rem;
-//   font-weight: 600;
-//   margin-top: 2rem;
-//   transition: opacity 0.3s;
-// }
-
-// .link:hover {
-//   opacity: 0.8;
-// }
-
-// @media (max-width: 968px) {
-//   .topSection {
-//     grid-template-columns: 1fr;
-//   }
-
-//   .cards {
-//     grid-template-columns: 1fr;
-//   }
-// }
-
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap");
 
 .section {
-	padding: 4rem 2rem;
-	max-width: 1200px;
-	margin: 0 auto;
+  padding: clamp(3rem, 5vw, 6rem) 5%;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+
+  /* Убираем боковые отступы на мобилках для edge-to-edge слайдера */
+  @media (max-width: 768px) {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
+/* === ВЕРХНЯЯ ЧАСТЬ (Текст + Картинка) === */
 .topSection {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 4rem;
-	margin-bottom: 4rem;
-	align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 4vw, 4rem);
+  margin-bottom: clamp(3rem, 5vw, 5rem);
+  align-items: center;
+
+  @media (max-width: 968px) {
+    grid-template-columns: 1fr;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0 5%; /* Возвращаем отступы, так как убрали их у секции */
+  }
 }
 
 .textColumn {
-	background: #ffe6f0;
-	padding: 3rem;
-	border-radius: 20px;
-	display: flex;
-	flex-direction: column;
-	gap: 2rem;
+  background: #ffe6f0; /* Сохранили твой красивый розовый фон */
+  padding: clamp(1.5rem, 3vw, 3rem);
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 2vw, 2rem);
+  box-shadow: 0 10px 30px rgba(255, 230, 240, 0.5);
+
+  @media (max-width: 968px) {
+    order: 2; /* На планшетах текст под картинкой */
+  }
 }
 
 .title {
-	font-family: 'Comfortaa', sans-serif;
-	font-size: 2.5rem;
-	font-weight: 700;
-	color: #000;
-	margin-bottom: 1rem;
+  font-family: "Comfortaa", sans-serif;
+  font-size: clamp(28px, 3vw, 42px);
+  font-weight: 700;
+  color: #000;
+  margin: 0;
 }
 
 .description {
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
-}
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 
-.description p {
-	font-size: 1.1rem;
-	line-height: 1.8;
-	color: #333;
+  p {
+    font-family: "Comfortaa", sans-serif;
+    font-size: clamp(15px, 1.2vw, 18px);
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+  }
 }
 
 .button {
-	font-family: 'Comfortaa', sans-serif;
-	align-self: flex-start;
-	background: #f2c81c;
-	border: none;
-	border-radius: 15px;
-	padding: 1rem 2.5rem;
-	font-size: 1.1rem;
-	font-weight: 700;
-	color: #333;
-	cursor: pointer;
-	transition: transform 0.3s;
-	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
+  font-family: "Comfortaa", sans-serif;
+  align-self: flex-start;
+  background: #f2c81c;
+  border: none;
+  border-radius: 12px;
+  padding: clamp(12px, 1.5vw, 16px) clamp(24px, 3vw, 40px);
+  font-size: clamp(16px, 1.2vw, 18px);
+  font-weight: 700;
+  color: #333;
+  cursor: pointer;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+  box-shadow: 0px 6px 15px rgba(242, 200, 28, 0.3);
 
-.button:hover {
-	transform: translateY(-2px);
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 10px 20px rgba(242, 200, 28, 0.5);
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+    align-self: center;
+  }
 }
 
 .imageColumn {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 968px) {
+    order: 1; /* На планшетах картинка сверху */
+  }
 }
 
-.imageColumn img {
-	width: 100%;
-	height: auto;
-	border-radius: 20px;
+.mainImage {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
 }
 
-.cards {
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	gap: 2rem;
-	margin-bottom: 2rem;
+/* === УМНАЯ СЕТКА И СЛАЙДЕР === */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: clamp(20px, 3vw, 40px);
+  margin-bottom: clamp(2rem, 4vw, 4rem);
+
+  /* Превращаем в слайдер на мобильных */
+  @media (max-width: 768px) {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 0 5% 20px 5%;
+    scroll-padding-inline: 5%;
+    align-items: stretch;
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    &::after {
+      content: "";
+      flex: 0 0 1px;
+    }
+  }
 }
 
+/* === КАРТОЧКА === */
 .card {
-	background: #fff;
-	border-radius: 20px;
-	overflow: hidden;
-	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-	transition: transform 0.3s;
+  background: #ffffff;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  transition:
+    transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    box-shadow 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  @media (max-width: 768px) {
+    flex: 0 0 85%;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+    height: auto;
+  }
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+
+    .cardImage {
+      transform: scale(1.08); /* Плавный зум картинки */
+    }
+  }
 }
 
-.card:hover {
-	transform: translateY(-5px);
+/* === ИЗОБРАЖЕНИЕ КАРТОЧКИ === */
+.cardMedia {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  position: relative;
+  overflow: hidden;
 }
 
 .cardImage {
-	width: 100%;
-	height: 250px;
-	object-fit: cover;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+/* === КОНТЕНТ КАРТОЧКИ === */
+.cardContent {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+  @media (max-width: 400px) {
+    padding: 16px;
+  }
 }
 
 .cardHeader {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	margin: 1.5rem 1.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  flex-grow: 1; /* Отталкивает кнопку вниз */
 }
 
 .cardTitle {
-	font-size: 1.5rem;
-	font-weight: 700;
-	color: #000;
+  font-family: "Comfortaa", sans-serif;
+  font-size: clamp(20px, 1.8vw, 24px);
+  font-weight: 700;
+  color: #000;
+  margin: 0;
 }
 
 .playIcon {
-	font-size: 1.2rem;
-	color: #666;
+  font-size: clamp(18px, 1.5vw, 22px);
+  color: #d73973; /* Сделал иконку в цвет кнопки для гармонии */
+  flex-shrink: 0;
 }
 
 .cardButton {
-	font-family: 'Comfortaa', sans-serif;
-	margin: 0 1.5rem 1.5rem;
-	background: #d73973;
-	border: none;
-	border-radius: 10px;
-	padding: 0.8rem 2rem;
-	font-size: 1rem;
-	font-weight: 700;
-	color: #fff;
-	cursor: pointer;
-	transition: background 0.3s;
-	display: block;
-	width: calc(100% - 3rem);
-	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: "Comfortaa", sans-serif;
+  background: #d73973;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  transition:
+    background 0.3s,
+    transform 0.2s;
+  box-shadow: 0px 4px 15px rgba(215, 57, 115, 0.3);
+  width: 100%;
+  text-align: center;
+  margin-top: auto;
+
+  @media (max-width: 400px) {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+
+  &:hover {
+    background: #ff5a8a;
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
 }
 
-.cardButton:hover {
-	background: #ff5a8a;
-}
-
+/* Ссылка внизу */
 .link {
-	display: block;
-	text-align: center;
-	color: #ff6b9d;
-	font-size: 1.1rem;
-	font-weight: 600;
-	margin-top: 2rem;
-	transition: opacity 0.3s;
-}
+  display: block;
+  text-align: center;
+  color: #d73973;
+  font-family: "Comfortaa", sans-serif;
+  font-size: clamp(16px, 1.5vw, 20px);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  transition: opacity 0.3s;
 
-.link:hover {
-	opacity: 0.8;
-}
+  @media (max-width: 768px) {
+    padding: 0 5%;
+  }
 
-/* Адаптив для планшетов (768px - 968px) */
-@media (max-width: 968px) {
-	.section {
-		padding: 3rem 1.5rem;
-	}
-
-	.topSection {
-		grid-template-columns: 1fr;
-		gap: 2rem;
-		margin-bottom: 3rem;
-	}
-
-	.textColumn {
-		order: 1; /* Текст сверху на планшетах */
-		padding: 2rem;
-	}
-
-	.imageColumn {
-		order: 2; /* Изображение снизу на планшетах */
-		max-width: 600px;
-		margin: 0 auto;
-	}
-
-	.title {
-		font-size: 2rem;
-	}
-
-	.description p {
-		font-size: 1rem;
-	}
-
-	.cards {
-		grid-template-columns: repeat(2, 1fr); /* 2 карточки в ряд на планшетах */
-		gap: 1.5rem;
-	}
-
-	.cardImage {
-		height: 220px;
-	}
-
-	.cardHeader {
-		margin: 1.2rem 1.2rem 0.8rem;
-	}
-
-	.cardTitle {
-		font-size: 1.3rem;
-	}
-
-	.playIcon {
-		font-size: 1.1rem;
-	}
-
-	.cardButton {
-		margin: 0 1.2rem 1.2rem;
-		width: calc(100% - 2.4rem);
-		padding: 0.7rem 1.5rem;
-		font-size: 0.95rem;
-	}
-
-	.link {
-		font-size: 1rem;
-		margin-top: 1.5rem;
-	}
-}
-
-/* Адаптив для мобильных (480px - 768px) */
-@media (max-width: 768px) {
-	.section {
-		padding: 2rem 1rem;
-	}
-
-	.textColumn {
-		padding: 1.5rem;
-		gap: 1.5rem;
-	}
-
-	.title {
-		font-size: 1.8rem;
-		margin-bottom: 0.5rem;
-		text-align: center; /* Центрируем заголовок на мобильных */
-	}
-
-	.description p {
-		font-size: 0.95rem;
-		line-height: 1.6;
-		text-align: center; /* Центрируем текст на мобильных */
-	}
-
-	.button {
-		padding: 0.8rem 2rem;
-		font-size: 1rem;
-		align-self: center; /* Центрируем кнопку на мобильных */
-		width: 100%;
-		max-width: 300px;
-		text-align: center;
-	}
-
-	.imageColumn {
-		max-width: 100%;
-	}
-
-	.cards {
-		grid-template-columns: 1fr; /* 1 карточка в ряд на мобильных */
-		gap: 1.5rem;
-	}
-
-	.card {
-		max-width: 400px;
-		margin: 0 auto; /* Центрируем карточки */
-		width: 100%;
-	}
-
-	.cardImage {
-		height: 200px;
-	}
-
-	.cardHeader {
-		margin: 1rem 1rem 0.5rem;
-	}
-
-	.cardTitle {
-		font-size: 1.3rem;
-	}
-
-	.playIcon {
-		font-size: 1rem;
-	}
-
-	.cardButton {
-		width: calc(100% - 2rem);
-		margin: 0 1rem 1rem;
-		padding: 0.7rem 1.5rem;
-		font-size: 0.95rem;
-	}
-
-	.link {
-		font-size: 1rem;
-		padding: 0 1rem;
-		line-height: 1.5;
-	}
-}
-
-/* Адаптив для маленьких мобильных (до 480px) */
-@media (max-width: 480px) {
-	.section {
-		padding: 1.5rem 0.8rem;
-	}
-
-	.textColumn {
-		padding: 1.2rem;
-		border-radius: 15px;
-		gap: 1rem;
-	}
-
-	.title {
-		font-size: 1.5rem;
-	}
-
-	.description p {
-		font-size: 0.9rem;
-	}
-
-	.button {
-		padding: 0.7rem 1.5rem;
-		font-size: 0.9rem;
-		border-radius: 12px;
-		max-width: 250px;
-	}
-
-	.card {
-		border-radius: 15px;
-	}
-
-	.cardImage {
-		height: 180px;
-	}
-
-	.cardHeader {
-		margin: 0.8rem 0.8rem 0.3rem;
-	}
-
-	.cardTitle {
-		font-size: 1.2rem;
-	}
-
-	.playIcon {
-		font-size: 0.9rem;
-	}
-
-	.cardButton {
-		padding: 0.6rem 1.2rem;
-		font-size: 0.85rem;
-		border-radius: 8px;
-		width: calc(100% - 1.6rem);
-		margin: 0 0.8rem 0.8rem;
-	}
-
-	.link {
-		font-size: 0.9rem;
-		margin-top: 1rem;
-		padding: 0 0.5rem;
-	}
-}
-
-/* Адаптив для очень маленьких экранов (до 360px) */
-@media (max-width: 360px) {
-	.title {
-		font-size: 1.3rem;
-	}
-
-	.description p {
-		font-size: 0.85rem;
-	}
-
-	.button {
-		padding: 0.6rem 1.2rem;
-		font-size: 0.85rem;
-		max-width: 220px;
-	}
-
-	.cardImage {
-		height: 160px;
-	}
-
-	.cardTitle {
-		font-size: 1.1rem;
-	}
-
-	.cardButton {
-		padding: 0.5rem 1rem;
-		font-size: 0.8rem;
-	}
-
-	.link {
-		font-size: 0.85rem;
-	}
+  &:hover {
+    opacity: 0.8;
+  }
 }

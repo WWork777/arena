@@ -1,701 +1,293 @@
-// @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap');
-
-// .section {
-// 	padding: 4rem 2rem;
-// 	max-width: 1400px;
-// 	margin: 0 auto;
-// 	position: relative;
-// 	z-index: 1;
-// }
-
-// .title {
-// 	font-family: 'Comfortaa', sans-serif;
-// 	font-size: 2.5rem;
-// 	font-weight: 700;
-// 	text-align: center;
-// 	margin-bottom: 3rem;
-// 	color: #000;
-// }
-
-// .grid {
-// 	display: grid;
-// 	grid-template-columns: 1fr repeat(3, auto) 1fr;
-// 	gap: 2rem;
-// }
-
-// /* Первые три карточки в колонках 2,3,4 */
-// .grid > :nth-child(1) {
-// 	grid-column: 2;
-// }
-// .grid > :nth-child(2) {
-// 	grid-column: 3;
-// }
-// .grid > :nth-child(3) {
-// 	grid-column: 4;
-// }
-
-// /* 4-я и 5-я карточки в колонках 2 и 3 */
-// .grid > :nth-child(4) {
-// 	grid-column: 2;
-// }
-// .grid > :nth-child(5) {
-// 	grid-column: 3;
-// }
-
-// .card {
-// 	padding: 1rem;
-// 	background: #fff;
-// 	border-radius: 20px;
-// 	overflow: hidden;
-// 	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-// 	transition:
-// 		transform 0.3s,
-// 		box-shadow 0.3s;
-// 	display: flex;
-// 	flex-direction: column;
-// 	height: 100%;
-// }
-
-// .card:hover {
-// 	transform: translateY(-5px);
-// 	box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-// }
-
-// .cardMedia {
-// 	width: 100%;
-// 	height: 250px;
-// 	position: relative;
-// 	display: flex;
-// 	align-items: center;
-// 	justify-content: center;
-// 	overflow: hidden;
-// 	border-radius: 12px;
-// }
-
-// .cardImage {
-// 	width: 100%;
-// 	height: 100%;
-// 	object-fit: cover;
-// }
-
-// .video {
-// 	width: 100%;
-// 	height: 100%;
-// 	object-fit: cover;
-// 	cursor: pointer;
-// }
-
-// /* Постоянная стрелочка в кружочке */
-// .playButtonConstant {
-// 	position: absolute;
-// 	top: 50%;
-// 	left: 50%;
-// 	transform: translate(-50%, -50%);
-// 	width: 60px;
-// 	height: 60px;
-// 	background: rgba(255, 255, 255, 0.9);
-// 	border-radius: 50%;
-// 	display: flex;
-// 	align-items: center;
-// 	justify-content: center;
-// 	cursor: pointer;
-// 	transition: all 0.3s ease;
-// 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-// 	z-index: 2;
-// }
-
-// .playButtonConstant:hover {
-// 	transform: translate(-50%, -50%) scale(1.1);
-// 	background: white;
-// }
-
-// .playIcon {
-// 	width: 30px;
-// 	height: 30px;
-// 	margin-left: 3px;
-// }
-
-// /* Кнопка полноэкранного режима */
-// .fullscreenButton {
-// 	position: absolute;
-// 	bottom: 10px;
-// 	right: 10px;
-// 	width: 36px;
-// 	height: 36px;
-// 	background: rgba(0, 0, 0, 0.6);
-// 	border: none;
-// 	border-radius: 8px;
-// 	display: flex;
-// 	align-items: center;
-// 	justify-content: center;
-// 	cursor: pointer;
-// 	transition: all 0.3s ease;
-// 	z-index: 3;
-// 	padding: 0;
-// }
-
-// .fullscreenButton:hover {
-// 	background: rgba(0, 0, 0, 0.8);
-// 	transform: scale(1.1);
-// }
-
-// .fullscreenButton svg {
-// 	width: 20px;
-// 	height: 20px;
-// }
-
-// .loftOverlay {
-// 	position: absolute;
-// 	top: 1rem;
-// 	right: 1rem;
-// 	background: rgba(0, 0, 0, 0.7);
-// 	color: #fff;
-// 	padding: 0.5rem 1rem;
-// 	border-radius: 10px;
-// 	font-weight: 700;
-// 	font-size: 0.9rem;
-// }
-
-// .cardTitle {
-// 	font-family: 'Comfortaa', sans-serif;
-// 	font-size: 1.5rem;
-// 	font-weight: 700;
-// 	margin: 1.5rem 1.5rem 1rem;
-// 	color: #000;
-// 	flex-shrink: 0;
-// }
-
-// .cardDescription {
-// 	font-size: 1rem;
-// 	color: #666;
-// 	margin: 0 1.5rem 1.5rem;
-// 	line-height: 1.6;
-// 	flex: 1 0 auto;
-// }
-
-// .cardButton {
-// 	font-family: 'Comfortaa', sans-serif;
-// 	margin: 0 1.5rem 1.5rem;
-// 	background: #13a7e9;
-// 	border: none;
-// 	border-radius: 10px;
-// 	padding: 0.8rem 2rem;
-// 	font-size: 1rem;
-// 	font-weight: 700;
-// 	color: #fff;
-// 	cursor: pointer;
-// 	transition: background 0.3s;
-// 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-// 	flex-shrink: 0;
-// 	align-self: flex-start;
-// }
-
-// .cardButton:hover {
-// 	background: #3ab5ad;
-// }
-
-// /* Планшет */
-// @media (max-width: 1280px) {
-// 	.grid {
-// 		gap: 1rem;
-// 	}
-// 	.grid > :nth-child(1) {
-// 		grid-column: 2;
-// 	}
-// 	.grid > :nth-child(2) {
-// 		grid-column: 3;
-// 	}
-// 	.grid > :nth-child(3) {
-// 		grid-column: 2;
-// 	}
-// 	.grid > :nth-child(4) {
-// 		grid-column: 3;
-// 	}
-// 	.grid > :nth-child(5) {
-// 		grid-column: 2;
-// 	}
-// 	.grid > * {
-// 		justify-self: center;
-// 	}
-// }
-
-// @media (max-width: 768px) {
-// 	.section {
-// 		padding: 4rem 0;
-// 	}
-// }
-
-// /* Мобильные */
-// @media (max-width: 640px) {
-// 	.section {
-// 		padding: 4rem 2rem;
-// 	}
-// 	.grid {
-// 		grid-template-columns: 1fr;
-// 	}
-// 	.grid > :nth-child(1),
-// 	.grid > :nth-child(2),
-// 	.grid > :nth-child(3),
-// 	.grid > :nth-child(4),
-// 	.grid > :nth-child(5) {
-// 		grid-column: 1;
-// 		justify-self: center;
-// 		max-width: 400px;
-// 		width: 100%;
-// 	}
-
-// 	.playButtonConstant {
-// 		width: 50px;
-// 		height: 50px;
-// 	}
-
-// 	.playIcon {
-// 		width: 25px;
-// 		height: 25px;
-// 	}
-
-// 	.fullscreenButton {
-// 		width: 32px;
-// 		height: 32px;
-// 		bottom: 8px;
-// 		right: 8px;
-// 	}
-// }
-
-// /* Маленькие мобильные */
-// @media (max-width: 480px) {
-// 	.title {
-// 		font-size: 2rem;
-// 	}
-// 	.section {
-// 		padding: 4rem 1rem;
-// 	}
-// }
-
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap");
 
 .section {
-	padding: 4rem 2rem;
-	max-width: 1400px;
-	margin: 0 auto;
-	position: relative;
-	z-index: 1;
+  padding: clamp(3rem, 5vw, 6rem) 5%;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+
+  /* НОВОЕ: Убираем боковые отступы на мобилках, чтобы слайдер касался краев экрана */
+  @media (max-width: 768px) {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 .title {
-	font-family: 'Comfortaa', sans-serif;
-	font-size: 2.5rem;
-	font-weight: 700;
-	text-align: center;
-	margin-bottom: 3rem;
-	color: #000;
-}
+  font-family: "Comfortaa", sans-serif;
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: clamp(2rem, 4vw, 4rem);
+  color: #000;
 
+  /* НОВОЕ: Возвращаем отступы заголовку, так как мы забрали их у секции */
+  @media (max-width: 768px) {
+    padding: 0 5%;
+  }
+}
+/* === УМНАЯ СЕТКА === */
 .grid {
-	display: grid;
-	grid-template-columns: 1fr repeat(3, auto) 1fr;
-	gap: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: clamp(20px, 3vw, 40px);
+
+  /* === ПРЕВРАЩАЕМ В СЛАЙДЕР НА МОБИЛЬНЫХ === */
+  @media (max-width: 768px) {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+
+    /* НОВОЕ: Задаем отступы внутри самого скролла (5% по бокам, 20px снизу для тени) */
+    padding: 0 5% 20px 5%;
+
+    /* НОВОЕ: Говорим браузеру учитывать 5% при примагничивании карточек (чтобы они вставали ровно) */
+    scroll-padding-inline: 5%;
+
+    align-items: stretch;
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* НОВОЕ: Микро-фикс для старых iPhone (Safari), чтобы последняя карточка не прилипала к правому краю экрана */
+    &::after {
+      content: "";
+      flex: 0 0 1px;
+    }
+  }
 }
 
-/* Первые три карточки в колонках 2,3,4 */
-.grid > :nth-child(1) {
-	grid-column: 2;
-}
-.grid > :nth-child(2) {
-	grid-column: 3;
-}
-.grid > :nth-child(3) {
-	grid-column: 4;
-}
-
-/* 4-я и 5-я карточки в колонках 2 и 3 */
-.grid > :nth-child(4) {
-	grid-column: 2;
-}
-.grid > :nth-child(5) {
-	grid-column: 3;
-}
-
+/* === КАРТОЧКА === */
 .card {
-	padding: 1rem;
-	background: #fff;
-	border-radius: 20px;
-	overflow: hidden;
-	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-	transition:
-		transform 0.3s,
-		box-shadow 0.3s;
-	display: flex;
-	flex-direction: column;
-	height: 100%;
+  background: #ffffff;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  @media (max-width: 768px) {
+    flex: 0 0 85%;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+    height: auto; /* Позволяем Flexbox самому растянуть карточку на всю доступную высоту */
+  }
 }
 
 .card:hover {
-	transform: translateY(-5px);
-	box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
 }
 
-/* ========== ВАРИАНТ 1: object-fit cover (как в VideoSection) ========== */
-
-// .cardMedia {
-// 	width: 100%;
-// 	height: 250px;
-// 	position: relative;
-// 	display: flex;
-// 	align-items: center;
-// 	justify-content: center;
-// 	overflow: hidden;
-// 	border-radius: 12px;
-// 	background: #000;
-// }
-
-// .video {
-// 	width: 100%;
-// 	height: 100%;
-// 	object-fit: cover;
-// 	cursor: pointer;
-// }
-
-/* ========== ВАРИАНТ 2: object-fit contain с фоном ========== */
-
+/* === МЕДИА-БЛОК (ВИДЕО/КАРТИНКА) === */
 .cardMedia {
-	width: 100%;
-	height: 250px;
-	position: relative;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	overflow: hidden;
-	border-radius: 12px;
-	background: linear-gradient(180deg, #ae305e 0%, #d73973 100%);
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: linear-gradient(180deg, #ae305e 0%, #d73973 100%);
+}
+
+.video,
+.cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .video {
-	width: 100%;
-	height: 100%;
-	object-fit: contain;
-	cursor: pointer;
-	background: linear-gradient(180deg, #ae305e 0%, #d73973 100%);
+  cursor: pointer;
 }
 
-/* ========== ВАРИАНТ 3: Адаптивная высота с aspect-ratio ========== */
+/* === КОНТЕНТ КАРТОЧКИ === */
+.cardContent {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 
-// .cardMedia {
-// 	width: 100%;
-// 	position: relative;
-// 	display: flex;
-// 	align-items: center;
-// 	justify-content: center;
-// 	overflow: hidden;
-// 	border-radius: 12px;
-// 	background: #000;
-// 	aspect-ratio: 16/9;
-// }
-
-// .video {
-// 	width: 100%;
-// 	height: 100%;
-// 	object-fit: cover;
-// 	cursor: pointer;
-// 	position: absolute;
-// 	top: 0;
-// 	left: 0;
-// }
-
-/* ========== ВАРИАНТ 4: Фиксированная высота с auto-height ========== */
-
-// .cardMedia {
-// 	width: 100%;
-// 	min-height: 250px;
-// 	max-height: 300px;
-// 	position: relative;
-// 	display: flex;
-// 	align-items: center;
-// 	justify-content: center;
-// 	overflow: hidden;
-// 	border-radius: 12px;
-// 	background: #000;
-// }
-
-// .video {
-// 	width: 100%;
-// 	height: auto;
-// 	max-height: 300px;
-// 	object-fit: contain;
-// 	cursor: pointer;
-// }
-
-/* ========== ВАРИАНТ 5: Гибридный с медиа-запросами ========== */
-// .cardMedia {
-// 	width: 100%;
-// 	height: 250px;
-// 	position: relative;
-// 	display: flex;
-// 	align-items: center;
-// 	justify-content: center;
-// 	overflow: hidden;
-// 	border-radius: 12px;
-// 	background: #000;
-// }
-
-// .video {
-// 	width: 100%;
-// 	height: 100%;
-// 	object-fit: cover; /* По умолчанию cover */
-// 	cursor: pointer;
-// 	transition: opacity 0.3s;
-// }
-
-.video:hover {
-	opacity: 0.95;
-}
-
-/* Для устройств с маленьким экраном можно использовать contain */
-@media (max-width: 768px) {
-	.video {
-		object-fit: contain; /* На мобильных показываем полностью */
-	}
-}
-
-/* ========== Общие стили для картинки ========== */
-.cardImage {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-}
-
-/* Постоянная стрелочка в кружочке */
-.playButtonConstant {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 60px;
-	height: 60px;
-	background: rgba(255, 255, 255, 0.7);
-	border-radius: 50%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	cursor: pointer;
-	transition: all 0.3s ease;
-	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-	z-index: 2;
-}
-
-.playButtonConstant:hover {
-	transform: translate(-50%, -50%) scale(1.1);
-	background: white;
-}
-
-.playIcon {
-	width: 30px;
-	height: 30px;
-	margin-left: 3px;
-}
-
-/* Кнопка полноэкранного режима */
-.fullscreenButton {
-	position: absolute;
-	bottom: 10px;
-	right: 10px;
-	width: 36px;
-	height: 36px;
-	background: rgba(0, 0, 0, 0.6);
-	border: none;
-	border-radius: 8px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	cursor: pointer;
-	transition: all 0.3s ease;
-	z-index: 3;
-	padding: 0;
-}
-
-.fullscreenButton:hover {
-	background: rgba(0, 0, 0, 0.8);
-	transform: scale(1.1);
-}
-
-.fullscreenButton svg {
-	width: 20px;
-	height: 20px;
-}
-
-.loftOverlay {
-	position: absolute;
-	top: 1rem;
-	right: 1rem;
-	background: rgba(0, 0, 0, 0.7);
-	color: #fff;
-	padding: 0.5rem 1rem;
-	border-radius: 10px;
-	font-weight: 700;
-	font-size: 0.9rem;
+  @media (max-width: 400px) {
+    padding: 16px; /* На совсем маленьких экранах уменьшаем внутренние отступы */
+  }
 }
 
 .cardTitle {
-	font-family: 'Comfortaa', sans-serif;
-	font-size: 1.5rem;
-	font-weight: 700;
-	margin: 1.5rem 1.5rem 1rem;
-	color: #000;
-	flex-shrink: 0;
+  font-family: "Comfortaa", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  color: #000;
+
+  @media (max-width: 400px) {
+    font-size: 20px; /* Уменьшаем заголовок */
+  }
 }
 
 .cardDescription {
-	font-size: 1rem;
-	color: #666;
-	margin: 0 1.5rem 1.5rem;
-	line-height: 1.6;
-	flex: 1 0 auto;
+  font-family: "Comfortaa", sans-serif;
+  font-size: 16px;
+  color: #555;
+  margin: 0 0 24px 0;
+  line-height: 1.5;
+  flex-grow: 1;
+
+  @media (max-width: 400px) {
+    font-size: 14px; /* Уменьшаем текст описания */
+    margin: 0 0 16px 0;
+  }
 }
 
 .cardButton {
-	font-family: 'Comfortaa', sans-serif;
-	margin: 0 1.5rem 1.5rem;
-	background: #13a7e9;
-	border: none;
-	border-radius: 10px;
-	padding: 0.8rem 2rem;
-	font-size: 1rem;
-	font-weight: 700;
-	color: #fff;
-	cursor: pointer;
-	transition: background 0.3s;
-	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-	flex-shrink: 0;
-	align-self: flex-start;
+  font-family: "Comfortaa", sans-serif;
+  background: #13a7e9;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  transition:
+    background 0.3s,
+    transform 0.2s;
+  box-shadow: 0px 4px 15px rgba(19, 167, 233, 0.3);
+  align-self: flex-start;
+  margin-top: auto;
+
+  @media (max-width: 400px) {
+    font-size: 14px; /* Уменьшаем шрифт кнопки */
+    padding: 10px 20px;
+  }
+
+  &:hover {
+    background: #3ab5ad;
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
 }
 
-.cardButton:hover {
-	background: #3ab5ad;
+/* === КНОПКИ ПЛЕЕРА === */
+.playButtonConstant {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+  backdrop-filter: blur(4px);
+
+  @media (max-width: 400px) {
+    width: 50px;
+    height: 50px;
+  }
+
+  &:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+    background: #ffffff;
+  }
 }
 
-/* Планшет */
-@media (max-width: 1280px) {
-	.grid {
-		gap: 1rem;
-	}
-	.grid > :nth-child(1) {
-		grid-column: 2;
-	}
-	.grid > :nth-child(2) {
-		grid-column: 3;
-	}
-	.grid > :nth-child(3) {
-		grid-column: 2;
-	}
-	.grid > :nth-child(4) {
-		grid-column: 3;
-	}
-	.grid > :nth-child(5) {
-		grid-column: 2;
-	}
-	.grid > * {
-		justify-self: center;
-	}
+.playIcon {
+  width: 35%;
+  height: 35%;
+  margin-left: 3px;
+  object-fit: contain;
 }
 
-@media (max-width: 768px) {
-	.section {
-		padding: 4rem 0;
-	}
+.fullscreenButton {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 3;
+  padding: 0;
+  backdrop-filter: blur(4px);
+
+  @media (max-width: 400px) {
+    width: 30px;
+    height: 30px;
+    bottom: 8px;
+    right: 8px;
+  }
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.8);
+    transform: scale(1.1);
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+
+    @media (max-width: 400px) {
+      width: 16px;
+      height: 16px;
+    }
+  }
 }
 
-/* Мобильные */
-@media (max-width: 640px) {
-	.section {
-		padding: 4rem 2rem;
-	}
-	.grid {
-		grid-template-columns: 1fr;
-	}
-	.grid > :nth-child(1),
-	.grid > :nth-child(2),
-	.grid > :nth-child(3),
-	.grid > :nth-child(4),
-	.grid > :nth-child(5),
-	.grid > :nth-child(6) {
-		grid-column: 1;
-		justify-self: center;
-		max-width: 400px;
-		width: 100%;
-	}
-
-	.playButtonConstant {
-		width: 50px;
-		height: 50px;
-	}
-
-	.playIcon {
-		width: 25px;
-		height: 25px;
-	}
-
-	.fullscreenButton {
-		width: 32px;
-		height: 32px;
-		bottom: 8px;
-		right: 8px;
-	}
-}
-
-/* Маленькие мобильные */
-@media (max-width: 480px) {
-	.title {
-		font-size: 2rem;
-	}
-	.section {
-		padding: 4rem 1rem;
-	}
-}
-
-/* Дополнительные стили для видео в полноэкранном режиме */
+/* === ПОЛНОЭКРАННЫЙ РЕЖИМ === */
 .cardMedia:fullscreen {
-	width: 100vw;
-	height: 100vh;
-	background: #000;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
 }
 
 .cardMedia:fullscreen .video {
-	width: 100%;
-	height: 100%;
-	object-fit: contain; /* В полноэкранном режиме показываем видео полностью */
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
-/* Для браузеров на основе WebKit */
 .cardMedia:-webkit-full-screen {
-	width: 100vw;
-	height: 100vh;
-	background: #000;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
 }
 
 .cardMedia:-webkit-full-screen .video {
-	width: 100%;
-	height: 100%;
-	object-fit: contain;
-}
-
-/* Для Firefox */
-.cardMedia:-moz-full-screen {
-	width: 100vw;
-	height: 100vh;
-	background: #000;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.cardMedia:-moz-full-screen .video {
-	width: 100%;
-	height: 100%;
-	object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
