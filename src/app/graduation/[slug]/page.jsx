@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import VideoWithLoader from "./VideoPlayer";
 import {
   MdArrowBack,
   MdSchool,
@@ -190,13 +191,9 @@ export default async function GraduationPage({ params }) {
 
         <section className={styles.visual}>
           <div className={styles.videoCard}>
-            <video
+            <VideoWithLoader
               src={data.video}
-              autoPlay
-              muted
-              loop
-              playsInline
-              className={styles.video}
+              className={styles.video} // Ваши старые стили
             />
             <div className={styles.videoOverlay}></div>
           </div>

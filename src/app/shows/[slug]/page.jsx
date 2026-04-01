@@ -9,6 +9,7 @@ import {
 } from "react-icons/md";
 import styles from "./ShowDetail.module.scss";
 import RelatedShows from "./RelatedShows";
+import VideoWithLoader from "./VideoPlayer";
 
 const showsData = {
   "bloger-party": {
@@ -310,13 +311,9 @@ export default async function ShowPage({ params }) {
 
         <section className={styles.visual}>
           <div className={styles.videoCard}>
-            <video
+            <VideoWithLoader
               src={show.video}
-              autoPlay
-              muted
-              loop
-              playsInline
-              className={styles.video}
+              className={styles.video} // Ваши старые стили
             />
             <div className={styles.videoOverlay}></div>
           </div>
