@@ -78,7 +78,7 @@ export default function Home() {
       <NewYear />
       <Graduation />
       <Reviews />
-      <Contacts />
+      {/* <Contacts /> */}
     </>
   );
 }
