@@ -1,6 +1,7 @@
 import Header from "@/components/Header/Header";
 import "./globals.css";
 import Contacts from "@/components/Contacts/Contacts";
+import Reviews from "@/components/Reviews/Reviews";
 
 export const metadata = {
   icons: {
@@ -25,7 +26,8 @@ export default function RootLayout({ children }) {
       <body>
         <Header />
         {children}
-        <Contacts />
+        <Reviews />
+        {/* <Contacts /> */}
       </body>
     </html>
   );
