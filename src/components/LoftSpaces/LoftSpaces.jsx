@@ -188,12 +188,15 @@ export default function LoftSpaces() {
       {/* Модальное окно */}
       {modalOpen && (
         <div className={styles.modalOverlay} onClick={closeModal}>
-          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+          <div
+            className={styles.modalContent}
+            onClick={(e) => e.stopPropagation()}
+          >
             <button className={styles.closeButton} onClick={closeModal}>
               ✕
             </button>
             <video
-              ref={modalVideoRef}
+              ref={videoRef}
               src={selectedVideoUrl}
               className={styles.modalVideo}
               controls
