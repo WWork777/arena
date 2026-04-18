@@ -30,7 +30,7 @@ export default function Header() {
     <header className={styles.header}>
       <div className={styles.container}>
         {/* Левая часть: Логотип */}
-        <Link href="#home" className={styles.logo}>
+        <Link href="/" className={styles.logo}>
           <div className={styles.logoCircle}>
             <Image
               src="/icons/Header/logo.png"

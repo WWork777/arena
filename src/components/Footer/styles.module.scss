@@ -1,0 +1,106 @@
+.footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 2rem 0;
+	border-top: 1px solid #e0e0e0;
+    padding: 4rem 2rem 2rem;
+}
+
+.footerText {
+	font-size: 1rem;
+	color: #999;
+}
+
+.footerSocial {
+	display: flex;
+	gap: 1rem;
+	align-items: center;
+}
+
+/* Адаптив как в других блоках */
+@media (max-width: 968px) {
+	.footer {
+		padding: 3rem 1.5rem 2rem;
+	}
+
+	.topfooter {
+		grid-template-columns: 1fr;
+		gap: 2rem;
+	}
+
+	.imageColumn {
+		order: 1; /* Изображение сверху */
+		max-width: 600px;
+		margin: 0 auto;
+	}
+
+	.textColumn {
+		order: 2; /* Текст снизу */
+	}
+
+	.title {
+		font-size: 2rem;
+	}
+}
+
+@media (max-width: 768px) {
+	.footer {
+		padding: 2rem 1rem 1.5rem;
+	}
+
+	.title {
+		font-size: 1.8rem;
+		text-align: center;
+	}
+
+	.infoItem {
+		font-size: 1rem;
+		text-align: center;
+	}
+
+	.socialTitle {
+		text-align: center;
+	}
+
+	.socialIcons {
+		justify-content: center;
+	}
+
+	.footer {
+		flex-direction: column;
+		gap: 1rem;
+		text-align: center;
+	}
+
+	.map {
+		height: 300px;
+	}
+}
+
+@media (max-width: 480px) {
+	.footer {
+		padding: 1.5rem 0.8rem 1rem;
+	}
+
+	.title {
+		font-size: 1.5rem;
+	}
+
+	.infoItem {
+		font-size: 0.95rem;
+	}
+
+	.socialIcon img {
+		width: 35px;
+		height: 35px;
+	}
+
+	.map {
+		height: 250px;
+	}
+
+	.footerText {
+		font-size: 0.9rem;
+	}
+}

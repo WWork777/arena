@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap");
 
+// Анимации оригинальные
 @keyframes cardSlideLeft {
   0% {
     opacity: 0;
@@ -35,6 +36,18 @@
   }
 }
 
+// Анимации для лоадера модального окна
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+// === ОСНОВНОЙ БЛОК (оригинальные стили) ===
 .section {
   position: relative;
   width: 100%;
@@ -47,24 +60,22 @@
   align-items: center;
 }
 
-/* === ГЛАВНЫЙ КОНТЕЙНЕР ДЛЯ ДВУХ КАРТОЧЕК === */
 .videoCard_wrap {
   display: flex;
   flex-direction: row;
-  align-items: stretch; /* Карточки тянутся на одну высоту */
+  align-items: stretch;
   justify-content: center;
   width: 100%;
 }
 
-/* === БЕЛАЯ КАРТОЧКА (ВИДЕО) === */
 .videoCard {
-  flex: 1.5; /* Занимает больше места, чем розовая */
+  flex: 1.5;
   max-width: 750px;
   background: #ffffff;
   box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
   border-radius: 30px;
   padding: clamp(15px, 2.5vw, 25px);
-  z-index: 2; /* Обязательно выше розовой карточки */
+  z-index: 2;
   display: flex;
   flex-direction: column;
   animation: cardSlideRight 1s cubic-bezier(0.2, 0.8, 0.2, 1) both;
@@ -74,7 +85,7 @@
 .videoImage {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9; /* Видео всегда сохраняет пропорции 16:9! */
+  aspect-ratio: 16 / 9;
   background: #000;
   border-radius: 20px;
   overflow: hidden;
@@ -88,7 +99,6 @@
   display: block;
 }
 
-/* Заглушка видео */
 .thumbnail {
   position: absolute;
   top: 0;
@@ -127,10 +137,9 @@
   width: 40%;
   height: 40%;
   object-fit: contain;
-  margin-left: 5px; /* Визуальная компенсация треугольника */
+  margin-left: 5px;
 }
 
-/* Тексты */
 .videoTitle {
   font-family: "Comfortaa", sans-serif;
   font-weight: 700;
@@ -146,10 +155,9 @@
   color: #555555;
   margin: 0;
   line-height: 1.4;
-  flex: 1; /* Отталкивает навигацию вниз, если текст короткий */
+  flex: 1;
 }
 
-/* Навигация слайдера */
 .navigation {
   display: flex;
   align-items: center;
@@ -197,16 +205,14 @@
   }
 }
 
-/* === РОЗОВАЯ КАРТОЧКА СПРАВА === */
 .rightCard {
   flex: 1;
   max-width: 450px;
   background: #d73973;
-  /* Прячем левый край под белую карточку */
   border-radius: 0 30px 30px 0;
   margin-left: -30px;
   padding: clamp(20px, 3vw, 40px);
-  padding-left: clamp(40px, 5vw, 60px); /* Компенсируем нахлест */
+  padding-left: clamp(40px, 5vw, 60px);
   z-index: 1;
   display: flex;
   flex-direction: column;
@@ -214,7 +220,7 @@
   gap: clamp(15px, 2.5vw, 30px);
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
   animation: cardSlideLeft 1s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-  animation-delay: 1s; // Розовая карточка выезжает чуть позже белой
+  animation-delay: 1s;
 }
 
 .actionButton {
@@ -242,7 +248,7 @@
   }
 
   &:hover {
-    transform: translateX(10px); /* Легкое движение вправо при наведении */
+    transform: translateX(10px);
   }
 }
 
@@ -274,7 +280,6 @@
   line-height: 1.3;
 }
 
-/* === КНОПКА ПОЗВОНИТЬ === */
 .callWrapper {
   margin-top: clamp(30px, 4vw, 50px);
 }
@@ -304,7 +309,6 @@
   }
 }
 
-/* Полноэкранная кнопка */
 .fullscreenButton {
   position: absolute;
   bottom: 15px;
@@ -325,9 +329,8 @@
   }
 }
 
-/* === АДАПТИВНОСТЬ === */
+// === АДАПТИВНОСТЬ ОРИГИНАЛЬНАЯ ===
 @media (max-width: 968px) {
-  /* Переводим в колонку на планшетах и телефонах */
   .videoCard_wrap {
     flex-direction: column;
     align-items: center;
@@ -339,11 +342,11 @@
   }
 
   .rightCard {
-    width: 95%; /* Чуть уже белой карточки для красоты */
-    border-radius: 0 0 30px 30px; /* Скругляем только низ */
+    width: 95%;
+    border-radius: 0 0 30px 30px;
     margin-left: 0;
-    margin-top: -30px; /* Прячем верхний край под белую карточку */
-    padding: 50px 20px 30px; /* Отступ сверху больше из-за нахлеста */
+    margin-top: -30px;
+    padding: 50px 20px 30px;
   }
 }
 
@@ -351,7 +354,141 @@
   .rightCard {
     width: 100%;
     border-radius: 30px;
-    margin-top: 15px; /* На совсем маленьких экранах разделяем их */
+    margin-top: 15px;
     padding: 30px 20px;
+  }
+}
+
+.modalOverlay {
+  position: fixed;
+  top: -300px;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  cursor: pointer;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.modalContent {
+  position: relative;
+  width: auto;
+  max-width: 800px;
+  min-width: 280px;
+  background: transparent;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: default;
+
+  @media (max-width: 768px) {
+    max-width: 90%;
+  }
+}
+
+.modalVideo {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  aspect-ratio: 16 / 9;
+  background: black;
+}
+
+.closeButton {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  z-index: 10;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.9);
+  }
+
+  @media (max-width: 480px) {
+    width: 32px;
+    height: 32px;
+    font-size: 20px;
+    top: 8px;
+    right: 12px;
+  }
+}
+.fullscreenModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+.fullscreenContent {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+}
+
+.fullscreenVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; // видео вписывается в экран без обрезания
+}
+
+.closeButtonFullscreen {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  font-size: 32px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  z-index: 10;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.9);
+  }
+
+  @media (max-width: 480px) {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    top: 12px;
+    right: 12px;
   }
 }

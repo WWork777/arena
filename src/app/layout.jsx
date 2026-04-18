@@ -2,6 +2,7 @@ import Header from "@/components/Header/Header";
 import "./globals.css";
 import Contacts from "@/components/Contacts/Contacts";
 import Reviews from "@/components/Reviews/Reviews";
+import Footer from "@/components/Footer/Footer";
 
 export const metadata = {
   icons: {
@@ -28,6 +29,7 @@ export default function RootLayout({ children }) {
         {children}
         <Reviews />
         {/* <Contacts /> */}
+        <Footer />
       </body>
     </html>
   );

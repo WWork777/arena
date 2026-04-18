@@ -8,13 +8,10 @@ import Link from "next/link";
 export default function ShowPrograms() {
   const INITIAL_COUNT = 6;
   const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT);
-  const [activeVideo, setActiveVideo] = useState(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isFullscreen, setIsFullscreen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false); // Проверка на мобильный экран
-
-  const videoRefs = useRef([]);
-  const videoContainerRefs = useRef([]);
+  const [isMobile, setIsMobile] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedVideoUrl, setSelectedVideoUrl] = useState("");
+  const videoRef = useRef(null);
   const sectionRef = useRef(null);
 
   const shows = [
@@ -86,137 +83,50 @@ export default function ShowPrograms() {
     },
   ];
 
-  // Проверяем ширину экрана
+  // Определяем мобильный экран
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    handleResize(); // Проверяем при первой загрузке
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  useEffect(() => {
-    const handleFullscreenChange = () => {
-      setIsFullscreen(!!document.fullscreenElement);
-    };
-    document.addEventListener("fullscreenchange", handleFullscreenChange);
-    return () => {
-      document.removeEventListener("fullscreenchange", handleFullscreenChange);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (activeVideo !== null) {
-      const video = videoRefs.current[activeVideo];
-      if (!video) return;
-
-      const handlePlay = () => setIsPlaying(true);
-      const handlePause = () => setIsPlaying(false);
-      const handleEnded = () => setIsPlaying(false);
-
-      video.addEventListener("play", handlePlay);
-      video.addEventListener("pause", handlePause);
-      video.addEventListener("ended", handleEnded);
-
-      return () => {
-        video.removeEventListener("play", handlePlay);
-        video.removeEventListener("pause", handlePause);
-        video.removeEventListener("ended", handleEnded);
-      };
-    }
-  }, [activeVideo]);
-
-  const handleShowMore = () => {
-    setVisibleCount(shows.length);
+  const openModal = (videoUrl) => {
+    setSelectedVideoUrl(videoUrl);
+    setModalOpen(true);
   };
 
+  const closeModal = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+    setModalOpen(false);
+    setSelectedVideoUrl("");
+  };
+
+  useEffect(() => {
+    if (modalOpen && videoRef.current) {
+      videoRef.current.play().catch((err) => console.warn(err));
+    }
+  }, [modalOpen]);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape" && modalOpen) closeModal();
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [modalOpen]);
+
+  const handleShowMore = () => setVisibleCount(shows.length);
   const handleHide = () => {
     setVisibleCount(INITIAL_COUNT);
-    if (activeVideo !== null && activeVideo >= INITIAL_COUNT) {
-      if (videoRefs.current[activeVideo]) {
-        videoRefs.current[activeVideo].pause();
-      }
-      setActiveVideo(null);
-      setIsPlaying(false);
-    }
     if (sectionRef.current) {
-      sectionRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
+      sectionRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
-  const handleMoreClick = (index) => {
-    if (activeVideo === index) {
-      if (videoRefs.current[index]) {
-        videoRefs.current[index].pause();
-        setIsPlaying(false);
-      }
-      setActiveVideo(null);
-    } else {
-      if (activeVideo !== null && videoRefs.current[activeVideo]) {
-        videoRefs.current[activeVideo].pause();
-      }
-      setActiveVideo(index);
-      setIsPlaying(true);
-      setTimeout(() => {
-        if (videoRefs.current[index]) {
-          videoRefs.current[index].play();
-        }
-      }, 100);
-    }
-  };
-
-  const handleVideoPlay = (index, e) => {
-    e.stopPropagation();
-    if (activeVideo !== index) {
-      if (activeVideo !== null && videoRefs.current[activeVideo]) {
-        videoRefs.current[activeVideo].pause();
-      }
-      setActiveVideo(index);
-      setTimeout(() => {
-        if (videoRefs.current[index]) {
-          videoRefs.current[index].play();
-          setIsPlaying(true);
-        }
-      }, 100);
-    } else {
-      if (videoRefs.current[index]) {
-        if (isPlaying) {
-          videoRefs.current[index].pause();
-        } else {
-          videoRefs.current[index].play();
-        }
-        setIsPlaying(!isPlaying);
-      }
-    }
-  };
-
-  const handleFullscreen = async (index, e) => {
-    e.stopPropagation();
-    const container = videoContainerRefs.current[index];
-    if (!container) return;
-
-    if (!document.fullscreenElement) {
-      try {
-        await container.requestFullscreen();
-        setIsFullscreen(true);
-      } catch (err) {
-        console.error("Ошибка при переходе в полноэкранный режим:", err);
-      }
-    } else {
-      try {
-        await document.exitFullscreen();
-        setIsFullscreen(false);
-      } catch (err) {
-        console.error("Ошибка при выходе из полноэкранного режима:", err);
-      }
-    }
-  };
-
-  // Если мобильный экран - показываем все карточки. Иначе обрезаем до видимого количества.
   const displayedShows = isMobile ? shows : shows.slice(0, visibleCount);
 
   return (
@@ -226,52 +136,25 @@ export default function ShowPrograms() {
       <div className={styles.grid}>
         {displayedShows.map((show, index) => (
           <div key={index} className={styles.card}>
-            <div
-              className={styles.cardMedia}
-              ref={(el) => (videoContainerRefs.current[index] = el)}
-            >
-              {activeVideo === index ? (
-                <video
-                  ref={(el) => (videoRefs.current[index] = el)}
-                  src={show.video}
-                  className={styles.video}
-                  playsInline
-                  onClick={(e) => handleVideoPlay(index, e)}
+            <div className={styles.cardMedia}>
+              <img
+                src="/images/show/show.png"
+                alt={show.title}
+                className={styles.cardImage}
+              />
+              <div
+                className={styles.playButtonConstant}
+                onClick={() => openModal(show.video)}
+              >
+                <Image
+                  src="/icons/VideoSection/play.svg"
+                  alt="Play"
+                  width={50}
+                  height={50}
+                  className={styles.playIcon}
                 />
-              ) : (
-                <>
-                  <img
-                    src="/images/show/show.png"
-                    alt={show.title}
-                    className={styles.cardImage}
-                  />
-                  <div
-                    className={styles.playButtonConstant}
-                    onClick={(e) => handleVideoPlay(index, e)}
-                  >
-                    <Image
-                      src="/icons/VideoSection/play.svg"
-                      alt="Play"
-                      width={50}
-                      height={50}
-                      className={styles.playIcon}
-                    />
-                  </div>
-                </>
-              )}
-
-              {activeVideo === index && (
-                <button
-                  className={styles.fullscreenButton}
-                  onClick={(e) => handleFullscreen(index, e)}
-                >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-                    <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z" />
-                  </svg>
-                </button>
-              )}
+              </div>
             </div>
-
             <div className={styles.cardContent}>
               <h3 className={styles.cardTitle}>{show.title}</h3>
               <p className={styles.cardDescription}>{show.desc}</p>
@@ -283,7 +166,6 @@ export default function ShowPrograms() {
         ))}
       </div>
 
-      {/* Кнопка показывается только на десктопе */}
       <div className={styles.ctaWrapper}>
         {visibleCount < shows.length ? (
           <button className={styles.ctaButton} onClick={handleShowMore}>
@@ -295,6 +177,25 @@ export default function ShowPrograms() {
           </button>
         )}
       </div>
+
+      {/* Модальное окно (как в LoftSpaces) */}
+      {modalOpen && (
+        <div className={styles.modalOverlay} onClick={closeModal}>
+          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+            <button className={styles.closeButton} onClick={closeModal}>
+              ✕
+            </button>
+            <video
+              ref={videoRef}
+              src={selectedVideoUrl}
+              className={styles.modalVideo}
+              controls
+              autoPlay
+              playsInline
+            />
+          </div>
+        </div>
+      )}
     </section>
   );
 }
