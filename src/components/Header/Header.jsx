@@ -53,6 +53,15 @@ export default function Header() {
           <a href="#master-classes" className={styles.navLink}>
             Мастер-классы
           </a>
+          <a href="#graduation" className={styles.navLink}>
+            Выпускной
+          </a>
+          <a href="#new-year" className={styles.navLink}>
+            Новый год
+          </a>
+          <a href="#quests" className={styles.navLink}>
+            Квесты
+          </a>
         </nav>
 
         {/* Правая часть: Контакты, соцсети и кнопка */}
