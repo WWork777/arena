@@ -4,7 +4,16 @@ import Link from "next/link";
 import { MdPlayArrow, MdTrendingUp } from "react-icons/md";
 import styles from "./ShowDetail.module.scss";
 
-export default function RelatedShows({ shows }) {
+export default async function RelatedShows({ params }) {
+    const { slug } = await params;
+    const show = shows[slug];
+  
+    if (!show) return notFound();
+  
+    const otherShows = Object.entries(showsData)
+      .filter(([key]) => key !== slug)
+      .slice(0, 3);
+  
   return (
     <section className={styles.related}>
       <div className={styles.relatedContainer}>
@@ -14,7 +23,7 @@ export default function RelatedShows({ shows }) {
         </div>
 
         <div className={styles.relatedGrid}>
-          {shows.map(([key, data]) => (
+          {show.map(([key, data]) => (
             <Link
               href={`/shows/${key}`}
               key={key}

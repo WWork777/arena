@@ -10,6 +10,7 @@ import {
 } from "react-icons/md";
 import styles from "./MasterClassDetail.module.scss";
 import RelatedMasters from "./RelatedMasters";
+import MasterDetailClient from "./masterDetailClient";
 
 const mastersData = {
   "bath-bombs": {
@@ -160,79 +161,6 @@ export default async function MasterPage({ params }) {
     .slice(0, 3);
 
   return (
-    <main className={styles.wrapper}>
-      <nav className={styles.topNav}>
-        <Link href="/#master-classes" className={styles.backLink}>
-          <MdArrowBack /> Ко всем мастер-классам
-        </Link>
-      </nav>
-
-      <div className={styles.container}>
-        <section className={styles.info}>
-          <div className={styles.head}>
-            <span
-              className={styles.badge}
-              style={{ backgroundColor: master.color }}
-            >
-              Мастер-класс
-            </span>
-            <h1 className={styles.name}>{master.title}</h1>
-            <p className={styles.subtitle}>{master.subtitle}</p>
-          </div>
-
-          <p className={styles.description}>{master.desc}</p>
-
-          <div className={styles.stats}>
-            <div className={styles.statItem}>
-              <MdAccessTime style={{ color: master.color }} />
-              <div>
-                <span>Длительность:</span>
-                <strong>{master.duration}</strong>
-              </div>
-            </div>
-            <div className={styles.statItem}>
-              <MdChildCare style={{ color: master.color }} />
-              <div>
-                <span>Возраст:</span>
-                <strong>{master.age}</strong>
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.features}>
-            <h3>Особенности:</h3>
-            <div className={styles.featureGrid}>
-              {master.features.map((item, i) => (
-                <div key={i} className={styles.featureItem}>
-                  <MdCheckCircle style={{ color: master.color }} />
-                  <span>{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <Link
-            href="tel:+79095431213"
-            className={styles.mainCta}
-            style={{ backgroundColor: master.color }}
-          >
-            <MdLocalPhone /> Записаться на занятие
-          </Link>
-        </section>
-
-        <section className={styles.visual}>
-          <div className={styles.imageCard}>
-            <img
-              src={master.image}
-              alt={master.title}
-              className={styles.mainImage}
-            />
-            <div className={styles.imageOverlay}></div>
-          </div>
-        </section>
-      </div>
-
-      <RelatedMasters masters={otherMasters} />
-    </main>
+    <MasterDetailClient master={master} masters={otherMasters} />
   );
 }

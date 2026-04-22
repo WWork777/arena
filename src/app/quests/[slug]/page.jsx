@@ -1,11 +1,17 @@
-"use client";
-
-import Image from "next/image";
-import styles from "./Quests.module.scss";
+import { notFound } from "next/navigation";
 import Link from "next/link";
+import {
+  MdArrowBack,
+  MdCheckCircle,
+  MdGroups,
+  MdSettingsInputComponent,
+  MdRestaurant,
+  MdLocalPhone,
+} from "react-icons/md";
+import styles from "./styles.module.scss";
+import QuestDetailClient from "./questsDetailClient";
+export default async function QuestPage({ params }) {
 
-export default function Quests() {
-  // Массив для вывода карточек
   const questsList = {
       wansday: {
         title: "Венздей квест",
@@ -134,64 +140,15 @@ export default function Quests() {
         food: "Своя еда разрешена без сборов",
       },
   };
-  return (
-    <section id="quests" className={styles.section}>
-      <div className={styles.topSection}>
-        <div className={styles.imageColumn}>
-          <Image
-            src="/images/quest/quest.png"
-            alt="Квесты для детей"
-            width={600}
-            height={600}
-            className={styles.mainImage}
-          />
-        </div>
-        <div className={styles.textColumn}>
-          <h2 className={styles.title}>Квесты для детей</h2>
-          <div className={styles.description}>
-            <p>
-              Увлекательные квесты для детей разных возрастов. Наши программы
-              развивают логическое мышление, командный дух и творческие
-              способности.
-            </p>
-            <p>
-              Каждый квест имеет уникальный сюжет и интересные задания. Дети
-              погружаются в захватывающие приключения, решают головоломки и
-              проходят испытания.
-            </p>
-            <p>
-              Мы предлагаем различные тематики: от приключенческих до
-              мистических. Все квесты безопасны и адаптированы под возраст
-              участников.
-            </p>
-          </div>
-          <button className={styles.button}>Заказать</button>
-        </div>
-      </div>
-
-      <div className={styles.grid}>
-        {Object.entries(questsList).map(([slug, quests], index) => (
-          <div key={slug} className={styles.card}>
-            <div className={styles.cardMedia}>
-              <Image
-                src="/images/quest/quest.png"
-                alt="Квест-зомби"
-                fill
-                className={styles.cardImage}
-              />
-            </div>
-
-            {/* Обертка для контента, чтобы кнопка всегда была внизу */}
-            <div className={styles.cardContent}>
-              <h3 className={styles.cardTitle}>{quests.title}</h3>
-              <Link className={styles.cardButton} href={`/quests/${slug}`}>Подробнее</Link>
-            </div>
-          </div>
-        ))}
-      </div>
-      <a href="#loft" className={styles.link}>
-        Наши лофт-пространства для Квестов
-      </a>
-    </section>
-  );
+        const { slug } = await params;
+      const quest = questsList[slug];
+    
+      if (!quest) return notFound();
+    
+      const otherQuests = Object.entries(questsList)
+        .filter(([key]) => key !== slug)
+        .slice(0, 3);
+    return (
+        <QuestDetailClient quest={quest} quests={otherQuests}/>
+    )
 }

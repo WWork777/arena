@@ -241,3 +241,23 @@
     transform: translateY(0);
   }
 }
+.link {
+  padding: 50px;
+  display: block;
+  text-align: center;
+  color: #d73973;
+  font-family: "Comfortaa", sans-serif;
+  font-size: clamp(16px, 1.5vw, 20px);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  transition: opacity 0.3s;
+
+  @media (max-width: 768px) {
+    padding: 0 5%;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+}

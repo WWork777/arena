@@ -10,6 +10,7 @@ import {
 import styles from "./ShowDetail.module.scss";
 import RelatedShows from "./RelatedShows";
 import VideoWithLoader from "./VideoPlayer";
+import ShowDetailClient from "./showDetailClient";
 
 const showsData = {
   "bloger-party": {
@@ -249,78 +250,8 @@ export default async function ShowPage({ params }) {
     .slice(0, 3);
 
   return (
-    <main className={styles.wrapper}>
-      <nav className={styles.topNav}>
-        <Link href="/#shows" className={styles.backLink}>
-          <MdArrowBack /> Назад к программам
-        </Link>
-      </nav>
-
-      <div className={styles.container}>
-        <section className={styles.info}>
-          <div className={styles.head}>
-            <span
-              className={styles.badge}
-              style={{ backgroundColor: show.color }}
-            >
-              Шоу-программа
-            </span>
-            <h1 className={styles.name}>{show.title}</h1>
-            <p className={styles.subtitle}>{show.subtitle}</p>
-          </div>
-
-          <p className={styles.description}>{show.desc}</p>
-
-          <div className={styles.stats}>
-            <div className={styles.statItem}>
-              <MdTimer style={{ color: show.color }} />
-              <div>
-                <span>Длительность:</span>
-                <strong>{show.duration}</strong>
-              </div>
-            </div>
-            <div className={styles.statItem}>
-              <MdPeople style={{ color: show.color }} />
-              <div>
-                <span>Возраст:</span>
-                <strong>{show.age}</strong>
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.features}>
-            <h3>В программе:</h3>
-            <div className={styles.featureGrid}>
-              {show.features.map((item, i) => (
-                <div key={i} className={styles.featureItem}>
-                  <MdCheckCircle style={{ color: show.color }} />
-                  <span>{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <Link
-            href="tel:+79095431213"
-            className={styles.mainCta}
-            style={{ backgroundColor: show.color }}
-          >
-            <MdLocalPhone /> Заказать шоу
-          </Link>
-        </section>
-
-        <section className={styles.visual}>
-          <div className={styles.videoCard}>
-            <VideoWithLoader
-              src={show.video}
-              className={styles.video} // Ваши старые стили
-            />
-            <div className={styles.videoOverlay}></div>
-          </div>
-        </section>
-      </div>
-
-      <RelatedShows shows={otherShows} />
-    </main>
+    <>
+      <ShowDetailClient show={show} shows={otherShows} />
+    </>
   );
 }
