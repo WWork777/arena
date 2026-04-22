@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import styles from "./VideoSection.module.scss";
-
+import { createPortal } from "react-dom";
 export default function VideoSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
@@ -14,28 +14,32 @@ export default function VideoSection() {
   const videos = [
     {
       id: 1,
-      thumbnail: "/images/VideoSection/8e4171cb71b178f4572b70cc5b6317c802ef0e04.png",
+      thumbnail:
+        "/images/VideoSection/8e4171cb71b178f4572b70cc5b6317c802ef0e04.png",
       videoUrl: "/videos/video3.mov",
       title: "Видео о нас",
       description: "Такие яркие праздники можно получить только у нас",
     },
     {
       id: 2,
-      thumbnail: "/images/VideoSection/8e4171cb71b178f4572b70cc5b6317c802ef0e04.png",
+      thumbnail:
+        "/images/VideoSection/8e4171cb71b178f4572b70cc5b6317c802ef0e04.png",
       videoUrl: "/videos/video1.mp4",
       title: "Наши аниматоры",
       description: "Профессиональные аниматоры для детских праздников",
     },
     {
       id: 3,
-      thumbnail: "/images/VideoSection/8e4171cb71b178f4572b70cc5b6317c802ef0e04.png",
+      thumbnail:
+        "/images/VideoSection/8e4171cb71b178f4572b70cc5b6317c802ef0e04.png",
       videoUrl: "/videos/video2.mov",
       title: "Шоу программы",
       description: "Незабываемые шоу для ваших детей",
     },
     {
       id: 4,
-      thumbnail: "/images/VideoSection/8e4171cb71b178f4572b70cc5b6317c802ef0e04.png",
+      thumbnail:
+        "/images/VideoSection/8e4171cb71b178f4572b70cc5b6317c802ef0e04.png",
       videoUrl: "/videos/video3.mov",
       title: "Игровые пространства",
       description: "Уникальные игровые зоны для праздников",
@@ -54,6 +58,7 @@ export default function VideoSection() {
   const openModal = () => {
     setSelectedVideoUrl(currentVideo.videoUrl);
     setModalOpen(true);
+    document.body.style.overflow = "hidden"; // Блокируем прокрутку страницы под окном
   };
 
   const closeModal = () => {
@@ -63,25 +68,20 @@ export default function VideoSection() {
     }
     setModalOpen(false);
     setSelectedVideoUrl("");
+    document.body.style.overflow = "unset"; // Возвращаем прокрутку
   };
 
-  // Автовоспроизведение при открытии модалки
-  useEffect(() => {
-    if (modalOpen && modalVideoRef.current) {
-      modalVideoRef.current.play().catch((err) => {
-        console.warn("Автовоспроизведение заблокировано:", err);
-      });
-    }
-  }, [modalOpen]);
-
   // Закрытие по Escape
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape" && modalOpen) closeModal();
-    };
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [modalOpen]);
+  useEffect(
+    (e) => {
+      const handleKeyDown = () => {
+        if (e.key === "Escape" && modalOpen) closeModal();
+      };
+      window.addEventListener("keydown", handleKeyDown);
+      return () => window.removeEventListener("keydown", handleKeyDown);
+    },
+    [modalOpen],
+  );
 
   const handlePrevSlide = () => {
     setCurrentSlide((prev) => (prev === 0 ? videos.length - 1 : prev - 1));
@@ -96,13 +96,12 @@ export default function VideoSection() {
   };
 
   return (
-    <div className={styles.section}>
+    <div className={styles.section} style={{ zIndex: modalOpen ? 99999 : 10 }}>
       <div className={styles.videoCard_wrap}>
-        {/* Белая карточка с видео (только превью) */}
+        {/* Белая карточка с видео (превью) */}
         <div className={styles.videoCard}>
-          <div className={styles.videoImage}>
-            {/* Превью с кнопкой play */}
-            <div className={styles.thumbnail} onClick={openModal}>
+          <div className={styles.videoImage} onClick={openModal}>
+            <div className={styles.thumbnail}>
               <Image
                 src={currentVideo.thumbnail}
                 alt={currentVideo.title}
@@ -183,23 +182,28 @@ export default function VideoSection() {
       </div>
 
       {/* Модальное окно с видео */}
-      {modalOpen && (
-        <div className={styles.modalOverlay} onClick={closeModal}>
-          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-            <button className={styles.closeButton} onClick={closeModal}>
-              ✕
-            </button>
-            <video
-              ref={modalVideoRef}
-              src={selectedVideoUrl}
-              className={styles.modalVideo}
-              controls
-              autoPlay
-              playsInline
-            />
-          </div>
-        </div>
-      )}
+      {modalOpen &&
+        createPortal(
+          <div className={styles.modalOverlay} onClick={closeModal}>
+            <div
+              className={styles.modalContent}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button className={styles.closeButton} onClick={closeModal}>
+                ✕
+              </button>
+              <video
+                ref={modalVideoRef}
+                src={selectedVideoUrl}
+                className={styles.modalVideo}
+                controls
+                autoPlay
+                playsInline
+              />
+            </div>
+          </div>,
+          document.body, // <--- Указываем, что рендерить нужно прямо в body!
+        )}
     </div>
   );
 }

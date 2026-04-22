@@ -26,16 +26,27 @@ export default function Header() {
     { name: "контакты", href: "#contacts" },
   ];
 
+  const scrollToTop = (e) => {
+    // Если мы уже на главной странице, плавно скроллим вверх
+    if (window.location.pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.container}>
         {/* Левая часть: Логотип */}
-        <Link href="/" className={styles.logo}>
+        <Link href="/" className={styles.logo} onClick={scrollToTop}>
           <div className={styles.logoCircle}>
             <Image
               src="/icons/Header/logo.png"
               alt="Логотип"
-              width={120} // Укажите размер в 1.5-2 раза больше реального для плотности пикселей
+              width={120}
               height={120}
               className={styles.logoImage}
             />
@@ -44,22 +55,22 @@ export default function Header() {
 
         {/* Центр: Навигация (скрыта на мобильных) */}
         <nav className={styles.nav}>
-          <a href="#loft" className={styles.navLink}>
+          <a href="/#loft" className={styles.navLink}>
             Лофт-пространства
           </a>
-          <a href="#shows" className={styles.navLink}>
+          <a href="/#shows" className={styles.navLink}>
             Шоу-программы
           </a>
-          <a href="#master-classes" className={styles.navLink}>
+          <a href="/#master-classes" className={styles.navLink}>
             Мастер-классы
           </a>
-          <a href="#graduation" className={styles.navLink}>
+          <a href="/#graduation" className={styles.navLink}>
             Выпускной
           </a>
-          <a href="#new-year" className={styles.navLink}>
+          <a href="/#new-year" className={styles.navLink}>
             Новый год
           </a>
-          <a href="#quests" className={styles.navLink}>
+          <a href="/#quests" className={styles.navLink}>
             Квесты
           </a>
         </nav>
@@ -125,8 +136,11 @@ export default function Header() {
 
       {/* Выпадающее меню */}
       {isMenuOpen && (
-        <div className={styles.menu}>
-          <div className={styles.menuContent}>
+        <div className={styles.menu} onClick={() => setIsMenuOpen(false)}>
+          <div
+            className={styles.menuContent}
+            onClick={(e) => e.stopPropagation()}
+          >
             {menuItems.map((item, index) => (
               <a
                 key={index}

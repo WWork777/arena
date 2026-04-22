@@ -77,7 +77,7 @@ export default function Home() {
       <MasterClasses />
       <NewYear />
       <Graduation />
-      {/* <Reviews /> */}
+      <Reviews />
       <Contacts />
     </>
   );

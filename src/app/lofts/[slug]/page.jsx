@@ -157,7 +157,6 @@ export async function generateMetadata({ params }) {
   };
 }
 
-
 export default async function LoftPage({ params }) {
   const { slug } = await params;
   const loft = loftsData[slug];
@@ -165,7 +164,7 @@ export default async function LoftPage({ params }) {
 
   const otherLofts = Object.entries(loftsData)
     .filter(([key]) => key !== slug)
-    .slice(0, 3);
+    .slice(0, 6);
 
   const jsonLd = {
     "@context": "https://schema.org",
