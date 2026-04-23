@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import styles from "./Graduation.module.scss";
 import Link from "next/link";
+import { createPortal } from "react-dom";
 
 export default function Graduation() {
   const INITIAL_COUNT = 3;
@@ -93,7 +94,9 @@ export default function Graduation() {
     }
   };
 
-  const displayedGraduations = isMobile ? graduations : graduations.slice(0, visibleCount);
+  const displayedGraduations = isMobile
+    ? graduations
+    : graduations.slice(0, visibleCount);
 
   return (
     <section id="graduation" ref={sectionRef} className={styles.section}>
@@ -185,23 +188,28 @@ export default function Graduation() {
       </Link>
 
       {/* Модальное окно (как в LoftSpaces) */}
-      {modalOpen && (
-        <div className={styles.modalOverlay} onClick={closeModal}>
-          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-            <button className={styles.closeButton} onClick={closeModal}>
-              ✕
-            </button>
-            <video
-              ref={videoRef}
-              src={selectedVideoUrl}
-              className={styles.modalVideo}
-              controls
-              autoPlay
-              playsInline
-            />
-          </div>
-        </div>
-      )}
+      {modalOpen &&
+        createPortal(
+          <div className={styles.modalOverlay} onClick={closeModal}>
+            <div
+              className={styles.modalContent}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button className={styles.closeButton} onClick={closeModal}>
+                ✕
+              </button>
+              <video
+                ref={videoRef}
+                src={selectedVideoUrl}
+                className={styles.modalVideo}
+                controls
+                autoPlay
+                playsInline
+              />
+            </div>
+          </div>,
+          document.body,
+        )}
     </section>
   );
 }

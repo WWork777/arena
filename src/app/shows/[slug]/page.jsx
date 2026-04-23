@@ -247,11 +247,11 @@ export default async function ShowPage({ params }) {
 
   const otherShows = Object.entries(showsData)
     .filter(([key]) => key !== slug)
-    .slice(0, 3);
+    .slice(0, 6);
 
   return (
     <>
-      <ShowDetailClient show={show} shows={otherShows} />
+      <ShowDetailClient show={{ ...show, slug }} shows={showsData} />
     </>
   );
 }

@@ -298,72 +298,48 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.85);
+  background-color: rgba(0, 0, 0, 0.9);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+
+  /* Установите значение выше, чем у хедера */
+  /* Если у хедера 1000, поставьте здесь 10000 */
+  z-index: 99999;
+
   cursor: pointer;
   padding: 20px;
-  box-sizing: border-box;
 }
 
 .modalContent {
   position: relative;
-  width: auto;
-  max-width: 800px;       // Максимальная ширина контейнера
-  min-width: 280px;       // Минимальная ширина для очень маленьких экранов
-  background: transparent;
-  border-radius: 20px;
-  overflow: hidden;
+  width: 40%;
+  max-width: 1000px;
+  aspect-ratio: 1 /1;
   cursor: default;
-  margin: 0 auto;
 
-  // На планшетах и мобильных делаем чуть уже
-  @media (max-width: 768px) {
-    max-width: 90%;
+  @media (max-width: 992px) {
+    width: 90%;
+    height: 70%;
   }
 }
 
 .modalVideo {
   width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 20px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  aspect-ratio: 16 / 9;   // Фиксируем пропорции 16:9
-  object-fit: cover;      // Чтобы видео не сжималось, а красиво вписывалось
+  height: 100%;
+  border-radius: 15px;
 }
 
 .closeButton {
   position: absolute;
-  top: 12px;
-  right: 16px;
-  background: rgba(0, 0, 0, 0.6);
+  top: -50px;
+  right: 0;
+  background: none;
   border: none;
-  font-size: 24px;
-  font-weight: bold;
-  color: white;
+  color: #fff;
+  font-size: 30px;
   cursor: pointer;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s;
-  z-index: 10;
-
   &:hover {
-    background: rgba(0, 0, 0, 0.9);
-  }
-
-  // На мобильных кнопка чуть меньше и выше
-  @media (max-width: 480px) {
-    width: 32px;
-    height: 32px;
-    font-size: 20px;
-    top: 8px;
-    right: 12px;
+    color: #d73973;
   }
 }

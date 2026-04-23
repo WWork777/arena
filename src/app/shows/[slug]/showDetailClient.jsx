@@ -17,8 +17,8 @@ import "swiper/css/pagination";
 
 import styles from "./ShowDetail.module.scss";
 import RelatedShows from "./RelatedShows";
-export default function ShowDetailClient({show, shows}) {
-      const router = useRouter();
+export default function ShowDetailClient({ show, shows }) {
+  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const modalVideoRef = useRef(null);
 
@@ -47,11 +47,11 @@ export default function ShowDetailClient({show, shows}) {
 
   // Заглушки (замените на реальные данные)
   const videos = [
-    { id: 1, image: "/images/videos/1.jpg"},
-    { id: 2, image: "/images/videos/2.jpg"},
-    { id: 3, image: "/images/videos/3.jpg"},
-    { id: 4, image: "/images/videos/3.jpg"},
-    { id: 5, image: "/images/videos/3.jpg"},
+    { id: 1, image: "/images/videos/1.jpg" },
+    { id: 2, image: "/images/videos/2.jpg" },
+    { id: 3, image: "/images/videos/3.jpg" },
+    { id: 4, image: "/images/videos/3.jpg" },
+    { id: 5, image: "/images/videos/3.jpg" },
   ];
 
   const photos = [
@@ -99,10 +99,10 @@ export default function ShowDetailClient({show, shows}) {
                 <li key={i}>{item}</li>
               ))}
             </ul>
+            <button className={styles.requestButton}>Заказать</button>
           </div>
         </section>
 
-        {/* 3. СЛАЙДЕР "ВЫГОДНЫЕ ТАРИФЫ" */}
         <section className={styles.sliderSection}>
           <h2 className={styles.sectionTitle}>Видео с праздников</h2>
           <div className={styles.sliderWrapper}>
@@ -121,27 +121,27 @@ export default function ShowDetailClient({show, shows}) {
                 <SwiperSlide key={tariff.id}>
                   <div className={styles.tariffCard}>
                     <div className={styles.tariffImageWrap} onClick={openModal}>
-                        <Image
+                      <Image
                         src={
-                            show.thumbnail ||
-                            "/images/VideoSection/8e4171cb71b178f4572b70cc5b6317c802ef0e04.png"
+                          show.thumbnail ||
+                          "/images/VideoSection/8e4171cb71b178f4572b70cc5b6317c802ef0e04.png"
                         }
                         alt="Превью видео"
                         fill
                         className={styles.videoPreviewImage}
-                        />
-                        <div className={styles.playButton}>
+                      />
+                      <div className={styles.playButton}>
                         <MdPlayArrow size={50} />
-                        </div>
+                      </div>
                     </div>
                   </div>
                 </SwiperSlide>
               ))}
             </Swiper>
           </div>
-            <section className={styles.actionSection}>
-                <button className={styles.requestButton}>Заказать</button>
-            </section>
+          <section className={styles.actionSection}>
+            <button className={styles.requestButton}>Заказать</button>
+          </section>
         </section>
 
         {/* 4. СЛАЙДЕР "ФОТО С ПРАЗДНИКОВ" */}
@@ -174,58 +174,9 @@ export default function ShowDetailClient({show, shows}) {
             </Swiper>
           </div>
         </section>
-            <section className={styles.related}>
-      <div className={styles.relatedContainer}>
-        <div className={styles.relatedHeader}>
-          <h2 className={styles.relatedTitle}>Смотрите также</h2>
-          <div className={styles.titleUnderline}></div>
-        </div>
 
-        <div className={styles.relatedGrid}>
-          {shows.map(([key, data]) => (
-            <Link
-              href={`/shows/${key}`}
-              key={key}
-              className={styles.relatedCard}
-            >
-              <div className={styles.relatedVideoWrap}>
-                <video
-                  src={data.video}
-                  muted
-                  loop
-                  playsInline
-                  onMouseOver={(e) => e.currentTarget.play()}
-                  onMouseOut={(e) => {
-                    e.currentTarget.pause();
-                    e.currentTarget.currentTime = 0; // Сбрасываем видео при уходе курсора
-                  }}
-                />
+        <RelatedShows params={{ slug: show.slug }} showsData={shows} />
 
-                <div className={styles.cardOverlay}>
-                  <div className={styles.relatedPlayIcon}>
-                    <MdPlayArrow />
-                  </div>
-                </div>
-
-                {/* Бейджик на картинке */}
-                <div className={styles.ageBadge}>{data.age}</div>
-              </div>
-
-              <div className={styles.relatedInfo}>
-                <div className={styles.relatedCategory}>
-                  <MdTrendingUp /> Популярное
-                </div>
-                <h4 className={styles.relatedCardTitle}>{data.title}</h4>
-                <div className={styles.relatedLink}>
-                  Узнать больше <span>→</span>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </div>
-    </section>
-        {/* 5. ОТЗЫВЫ */}
         <Reviews />
 
         {/* 6. КНОПКА "ОСТАВИТЬ ЗАЯВКУ" */}

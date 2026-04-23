@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import styles from "./LoftSpaces.module.scss";
 import Link from "next/link";
-
+import { createPortal } from "react-dom";
 export default function LoftSpaces() {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedVideoUrl, setSelectedVideoUrl] = useState("");
@@ -186,26 +186,28 @@ export default function LoftSpaces() {
       </div>
 
       {/* Модальное окно */}
-      {modalOpen && (
-        <div className={styles.modalOverlay} onClick={closeModal}>
-          <div
-            className={styles.modalContent}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button className={styles.closeButton} onClick={closeModal}>
-              ✕
-            </button>
-            <video
-              ref={videoRef}
-              src={selectedVideoUrl}
-              className={styles.modalVideo}
-              controls
-              autoPlay
-              playsInline
-            />
-          </div>
-        </div>
-      )}
+      {modalOpen &&
+        createPortal(
+          <div className={styles.modalOverlay} onClick={closeModal}>
+            <div
+              className={styles.modalContent}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button className={styles.closeButton} onClick={closeModal}>
+                ✕
+              </button>
+              <video
+                ref={videoRef}
+                src={selectedVideoUrl}
+                className={styles.modalVideo}
+                controls
+                autoPlay
+                playsInline
+              />
+            </div>
+          </div>,
+          document.body,
+        )}
     </section>
   );
 }

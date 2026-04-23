@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import styles from "./Animators.module.scss";
+import Link from "next/link";
 
 export default function Animators() {
   return (
@@ -26,7 +27,9 @@ export default function Animators() {
               игры, конкурсы и интерактивные программы.
             </p>
           </div>
-          <button className={styles.button}>Подробнее</button>
+          <Link href="/animators" className={styles.button}>
+            Подробнее
+          </Link>
         </div>
 
         {/* Колонка с картинками */}

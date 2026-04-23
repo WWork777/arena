@@ -6,8 +6,13 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { createPortal } from "react-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
-import { MdPlayArrow, MdArrowBack, MdTrendingUp } from "react-icons/md"; // Иконка для видео
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import {
+  MdPlayArrow,
+  MdArrowBack,
+  MdTrendingUp,
+  MdPlace,
+} from "react-icons/md"; // Иконка для видео
 import Reviews from "@/components/Reviews/Reviews";
 
 // Стили Swiper
@@ -17,8 +22,41 @@ import "swiper/css/pagination";
 
 import styles from "./MasterClassDetail.module.scss";
 // import RelatedShows from "./RelatedShows";
-export default function MasterDetailClient({master, masters}) {
-      const router = useRouter();
+
+const loftsData = {
+  arena: {
+    title: "Арена Лофт",
+    image: "/images/loft/arena_prev.jpg",
+    color: "#ae305e",
+  },
+  konfetti: {
+    title: "Конфетти Лофт",
+    image: "/images/loft/konfetti_prev.jpg",
+    color: "#13a7e9",
+  },
+  magic: {
+    title: "Магический лофт",
+    image: "/images/loft/magic_prev.jpg",
+    color: "#f2c81c",
+  },
+  marmelad: {
+    title: "Мармеладный дом",
+    image: "/images/loft/marmelad_prev.jpg",
+    color: "#d73973",
+  },
+  partyhall: {
+    title: "Патихолл",
+    image: "/images/loft/partyhall_prev.jpg",
+    color: "#ae305e",
+  },
+  flint: {
+    title: "Флинт",
+    image: "/images/loft/flint_prev.jpg",
+    color: "#3ab5ad",
+  },
+};
+export default function MasterDetailClient({ master, masters }) {
+  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const modalVideoRef = useRef(null);
 
@@ -47,15 +85,15 @@ export default function MasterDetailClient({master, masters}) {
 
   // Заглушки (замените на реальные данные)
   const videos = [
-    { id: 1, image: "/images/videos/1.jpg"},
-    { id: 2, image: "/images/videos/2.jpg"},
-    { id: 3, image: "/images/videos/3.jpg"},
-    { id: 4, image: "/images/videos/3.jpg"},
-    { id: 5, image: "/images/videos/3.jpg"},
+    { id: 1, image: "/images/videos/1.jpg" },
+    { id: 2, image: "/images/videos/2.jpg" },
+    { id: 3, image: "/images/videos/3.jpg" },
+    { id: 4, image: "/images/videos/3.jpg" },
+    { id: 5, image: "/images/videos/3.jpg" },
   ];
 
   const photos = [
-    { id: 1, url: "/images/master/1.jpg"},
+    { id: 1, url: "/images/master/1.jpg" },
     { id: 2, url: "/images/master/2.jpg" },
     { id: 3, url: "/images/master/3.jpg" },
     { id: 4, url: "/images/master/4.jpg" },
@@ -99,12 +137,13 @@ export default function MasterDetailClient({master, masters}) {
                 <li key={i}>{item}</li>
               ))}
             </ul>
+            <button className={styles.requestButton}>Заказать</button>
           </div>
         </section>
 
         {/* 3. СЛАЙДЕР "ВЫГОДНЫЕ ТАРИФЫ" */}
         <section className={styles.sliderSection}>
-        <h2 className={styles.sectionTitle}>Выгодные тарифы</h2>
+          <h2 className={styles.sectionTitle}>Другие мастер-классы</h2>
           <div className={styles.sliderWrapper}>
             <Swiper
               modules={[Navigation, Pagination]}
@@ -130,26 +169,73 @@ export default function MasterDetailClient({master, masters}) {
                       />
                     </div>
                     <h3 className={styles.tariffTitle}>{data.title}</h3>
-                    <span className={styles.tariffSubTitle}>{data.metaTitle}</span>
+                    <span className={styles.tariffSubTitle}>
+                      {data.metaTitle}
+                    </span>
                   </div>
                 </SwiperSlide>
               ))}
             </Swiper>
           </div>
         </section>
-            <section className={styles.actionSection}>
-                <button className={styles.requestButton}>Заказать</button>
-            </section>
+        <section className={styles.actionSection}>
+          <button className={styles.requestButton}>Заказать</button>
+        </section>
 
-        
         {/* 5. ОТЗЫВЫ */}
-        <Reviews />
 
         {/* 6. КНОПКА "ОСТАВИТЬ ЗАЯВКУ" */}
-            <section className={styles.actionSection}>
-                <button className={styles.requestButton}>Оставить заявку</button>
-            </section>
+        {/* <section className={styles.actionSection}>
+          <button className={styles.requestButton}>Оставить заявку</button>
+        </section> */}
 
+        <section className={styles.sliderSection}>
+          <h2 className={styles.sectionTitle}>Наши лофт пространства</h2>
+          <div className={styles.sliderWrapper}>
+            <Swiper
+              modules={[Navigation, Pagination, Autoplay]}
+              navigation
+              pagination={{ clickable: true }}
+              spaceBetween={25}
+              slidesPerView={1}
+              autoplay={{ delay: 4000 }}
+              breakpoints={{
+                640: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+              }}
+            >
+              {Object.entries(loftsData).map(([key, loft]) => (
+                <SwiperSlide key={key}>
+                  <Link href={`/lofts/${key}`} className={styles.loftCardLink}>
+                    <div className={styles.photoCard}>
+                      <Image
+                        src={loft.image || "/images/loft-placeholder.jpg"}
+                        alt={loft.title}
+                        fill
+                        className={styles.slideImage}
+                      />
+                      <div className={styles.loftOverlay}>
+                        <div
+                          className={styles.loftIcon}
+                          style={{ backgroundColor: loft.color }}
+                        >
+                          <MdPlace />
+                        </div>
+                      </div>
+                    </div>
+                    <div className={styles.loftCardInfo}>
+                      <h3 className={styles.tariffTitle}>{loft.title}</h3>
+                      <span className={styles.relatedLink}>
+                        Посмотреть лофт <span>→</span>
+                      </span>
+                    </div>
+                  </Link>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        </section>
+        <Reviews />
         {/* 7. 4 ССЫЛКИ И КНОПКА НАЗАД */}
         <nav className={styles.bottomNav}>
           <div className={styles.linksGrid}>

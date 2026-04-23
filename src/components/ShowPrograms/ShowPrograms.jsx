@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import styles from "./ShowPrograms.module.scss";
 import Link from "next/link";
-
+import { createPortal } from "react-dom";
 export default function ShowPrograms() {
   const INITIAL_COUNT = 6;
   const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT);
@@ -179,23 +179,28 @@ export default function ShowPrograms() {
       </div>
 
       {/* Модальное окно (как в LoftSpaces) */}
-      {modalOpen && (
-        <div className={styles.modalOverlay} onClick={closeModal}>
-          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-            <button className={styles.closeButton} onClick={closeModal}>
-              ✕
-            </button>
-            <video
-              ref={videoRef}
-              src={selectedVideoUrl}
-              className={styles.modalVideo}
-              controls
-              autoPlay
-              playsInline
-            />
-          </div>
-        </div>
-      )}
+      {modalOpen &&
+        createPortal(
+          <div className={styles.modalOverlay} onClick={closeModal}>
+            <div
+              className={styles.modalContent}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button className={styles.closeButton} onClick={closeModal}>
+                ✕
+              </button>
+              <video
+                ref={videoRef}
+                src={selectedVideoUrl}
+                className={styles.modalVideo}
+                controls
+                autoPlay
+                playsInline
+              />
+            </div>
+          </div>,
+          document.body,
+        )}
     </section>
   );
 }
