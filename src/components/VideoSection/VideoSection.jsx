@@ -5,83 +5,80 @@ import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import styles from "./VideoSection.module.scss";
 import { createPortal } from "react-dom";
+
+// Базовый URL вашего Strapi
+const STRAPI_URL =
+  process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
+
 export default function VideoSection() {
+  const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedVideoUrl, setSelectedVideoUrl] = useState("");
   const modalVideoRef = useRef(null);
 
-  const videos = [
-    {
-      id: 1,
-      thumbnail:
-        "/images/VideoSection/8e4171cb71b178f4572b70cc5b6317c802ef0e04.png",
-      videoUrl: "/videos/video3.mov",
-      title: "Видео о нас",
-      description: "Такие яркие праздники можно получить только у нас",
-    },
-    {
-      id: 2,
-      thumbnail:
-        "/images/VideoSection/8e4171cb71b178f4572b70cc5b6317c802ef0e04.png",
-      videoUrl: "/videos/video1.mp4",
-      title: "Наши аниматоры",
-      description: "Профессиональные аниматоры для детских праздников",
-    },
-    {
-      id: 3,
-      thumbnail:
-        "/images/VideoSection/8e4171cb71b178f4572b70cc5b6317c802ef0e04.png",
-      videoUrl: "/videos/video2.mov",
-      title: "Шоу программы",
-      description: "Незабываемые шоу для ваших детей",
-    },
-    {
-      id: 4,
-      thumbnail:
-        "/images/VideoSection/8e4171cb71b178f4572b70cc5b6317c802ef0e04.png",
-      videoUrl: "/videos/video3.mov",
-      title: "Игровые пространства",
-      description: "Уникальные игровые зоны для праздников",
-    },
-  ];
-
+  // Те самые кнопки из вашего первого варианта
   const buttons = [
     { text: "Аниматоры", icon: "/icons/VideoSection/play.svg" },
     { text: "Шоу", icon: "/icons/VideoSection/play.svg" },
     { text: "Игровые пространства", icon: "/icons/VideoSection/play.svg" },
   ];
 
+  useEffect(() => {
+    async function fetchVideos() {
+      try {
+        const response = await fetch(
+          `${STRAPI_URL}/api/hero-videos?populate=*`,
+        );
+        const result = await response.json();
+
+        if (result.data && Array.isArray(result.data)) {
+          const formattedVideos = result.data.map((item) => ({
+            id: item.id,
+            title: item.title,
+            description: item.description,
+            thumbnail: item.thumbnail?.[0]?.url
+              ? `${STRAPI_URL}${item.thumbnail[0].url}`
+              : "",
+            videoUrl: item.videoFile?.[0]?.url
+              ? `${STRAPI_URL}${item.videoFile[0].url}`
+              : "",
+          }));
+          setVideos(formattedVideos);
+        }
+      } catch (error) {
+        console.error("Ошибка при загрузке видео из Strapi:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchVideos();
+  }, []);
+
   const currentVideo = videos[currentSlide];
 
-  // Открытие модалки с видео
   const openModal = () => {
+    if (!currentVideo?.videoUrl) return;
     setSelectedVideoUrl(currentVideo.videoUrl);
     setModalOpen(true);
-    document.body.style.overflow = "hidden"; // Блокируем прокрутку страницы под окном
+    document.body.style.overflow = "hidden";
   };
 
   const closeModal = () => {
-    if (modalVideoRef.current) {
-      modalVideoRef.current.pause();
-      modalVideoRef.current.currentTime = 0;
-    }
+    if (modalVideoRef.current) modalVideoRef.current.pause();
     setModalOpen(false);
     setSelectedVideoUrl("");
-    document.body.style.overflow = "unset"; // Возвращаем прокрутку
+    document.body.style.overflow = "unset";
   };
 
-  // Закрытие по Escape
-  useEffect(
-    (e) => {
-      const handleKeyDown = () => {
-        if (e.key === "Escape" && modalOpen) closeModal();
-      };
-      window.addEventListener("keydown", handleKeyDown);
-      return () => window.removeEventListener("keydown", handleKeyDown);
-    },
-    [modalOpen],
-  );
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape" && modalOpen) closeModal();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [modalOpen]);
 
   const handlePrevSlide = () => {
     setCurrentSlide((prev) => (prev === 0 ? videos.length - 1 : prev - 1));
@@ -91,23 +88,25 @@ export default function VideoSection() {
     setCurrentSlide((prev) => (prev === videos.length - 1 ? 0 : prev + 1));
   };
 
-  const handleDotClick = (index) => {
-    setCurrentSlide(index);
-  };
+  if (loading) return <div className={styles.loader}>Загрузка...</div>;
+  if (videos.length === 0) return null;
 
   return (
     <div className={styles.section} style={{ zIndex: modalOpen ? 99999 : 10 }}>
       <div className={styles.videoCard_wrap}>
-        {/* Белая карточка с видео (превью) */}
+        {/* Левая карточка со слайдером (данные из Strapi) */}
         <div className={styles.videoCard}>
           <div className={styles.videoImage} onClick={openModal}>
             <div className={styles.thumbnail}>
-              <Image
-                src={currentVideo.thumbnail}
-                alt={currentVideo.title}
-                fill
-                className={styles.image}
-              />
+              {currentVideo?.thumbnail && (
+                <Image
+                  src={currentVideo.thumbnail}
+                  alt={currentVideo.title || "video"}
+                  fill
+                  className={styles.image}
+                  unoptimized
+                />
+              )}
               <div className={styles.playButton}>
                 <Image
                   src="/icons/VideoSection/play.svg"
@@ -120,10 +119,9 @@ export default function VideoSection() {
             </div>
           </div>
 
-          <h3 className={styles.videoTitle}>{currentVideo.title}</h3>
-          <p className={styles.videoDescription}>{currentVideo.description}</p>
+          <h3 className={styles.videoTitle}>{currentVideo?.title}</h3>
+          <p className={styles.videoDescription}>{currentVideo?.description}</p>
 
-          {/* Навигация (Стрелки + Точки) */}
           <div className={styles.navigation}>
             <button className={styles.navArrow} onClick={handlePrevSlide}>
               <Image
@@ -139,7 +137,7 @@ export default function VideoSection() {
                 <div
                   key={index}
                   className={`${styles.dot} ${index === currentSlide ? styles.active : ""}`}
-                  onClick={() => handleDotClick(index)}
+                  onClick={() => setCurrentSlide(index)}
                 />
               ))}
             </div>
@@ -155,7 +153,7 @@ export default function VideoSection() {
           </div>
         </div>
 
-        {/* Розовая карточка справа */}
+        {/* Правая карточка (ваши кнопки) */}
         <div className={styles.rightCard}>
           {buttons.map((button, index) => (
             <button key={index} className={styles.actionButton}>
@@ -174,14 +172,12 @@ export default function VideoSection() {
         </div>
       </div>
 
-      {/* Кнопка "Позвонить" */}
       <div className={styles.callWrapper}>
         <Link href="tel:+79095431213" className={styles.callButton}>
           Позвонить
         </Link>
       </div>
 
-      {/* Модальное окно с видео */}
       {modalOpen &&
         createPortal(
           <div className={styles.modalOverlay} onClick={closeModal}>
@@ -202,7 +198,7 @@ export default function VideoSection() {
               />
             </div>
           </div>,
-          document.body, // <--- Указываем, что рендерить нужно прямо в body!
+          document.body,
         )}
     </div>
   );
