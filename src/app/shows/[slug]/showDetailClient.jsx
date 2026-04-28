@@ -7,61 +7,32 @@ import { useRouter } from "next/navigation";
 import { createPortal } from "react-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
-import { MdPlayArrow, MdArrowBack, MdTrendingUp } from "react-icons/md"; // Иконка для видео
+import { MdPlayArrow, MdArrowBack, MdTimer, MdPeople } from "react-icons/md";
 import Reviews from "@/components/Reviews/Reviews";
+import RelatedShows from "./RelatedShows";
 
-// Стили Swiper
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-
 import styles from "./ShowDetail.module.scss";
-import RelatedShows from "./RelatedShows";
-export default function ShowDetailClient({ show, shows }) {
+
+export default function ShowDetailClient({ show, allShows }) {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeVideo, setActiveVideo] = useState(show.video);
   const modalVideoRef = useRef(null);
 
-  // Логика модального окна
-  const openModal = () => {
+  const openModal = (videoUrl) => {
+    setActiveVideo(videoUrl || show.video);
     setIsModalOpen(true);
     document.body.style.overflow = "hidden";
   };
 
   const closeModal = () => {
-    if (modalVideoRef.current) {
-      modalVideoRef.current.pause();
-      modalVideoRef.current.currentTime = 0;
-    }
+    if (modalVideoRef.current) modalVideoRef.current.pause();
     setIsModalOpen(false);
     document.body.style.overflow = "unset";
   };
-
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape" && isModalOpen) closeModal();
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isModalOpen]);
-
-  // Заглушки (замените на реальные данные)
-  const videos = [
-    { id: 1, image: "/images/videos/1.jpg" },
-    { id: 2, image: "/images/videos/2.jpg" },
-    { id: 3, image: "/images/videos/3.jpg" },
-    { id: 4, image: "/images/videos/3.jpg" },
-    { id: 5, image: "/images/videos/3.jpg" },
-  ];
-
-  const photos = [
-    { id: 1, url: "/images/show/1.jpg" },
-    { id: 2, url: "/images/show/2.jpg" },
-    { id: 3, url: "/images/show/3.jpg" },
-    { id: 4, url: "/images/show/4.jpg" },
-    { id: 5, url: "/images/show/4.jpg" },
-    { id: 6, url: "/images/show/4.jpg" },
-  ];
 
   return (
     <main className={styles.wrapper}>
@@ -71,41 +42,51 @@ export default function ShowDetailClient({ show, shows }) {
             <MdArrowBack /> Назад
           </button>
         </nav>
-        {/* 1. НАЗВАНИЕ СВЕРХУ ПО ЦЕНТРУ */}
+
         <header className={styles.headerCentered}>
           <h1 className={styles.mainTitle}>{show.title}</h1>
           <p className={styles.subtitle}>{show.subtitle}</p>
         </header>
 
-        {/* 2. БЛОК: СЛЕВА ТЕКСТ, СПРАВА КАРТИНКА */}
         <section className={styles.infoBlock}>
           <div className={styles.imageContent}>
             <Image
-              src={
-                show.thumbnail ||
-                "/images/VideoSection/8e4171cb71b178f4572b70cc5b6317c802ef0e04.png"
-              }
+              src={show.thumbnail}
               alt={show.title}
               fill
               className={styles.mainImage}
-              sizes="(max-width: 768px) 100vw, 50vw"
+              unoptimized
             />
           </div>
           <div className={styles.textContent}>
-            <h2>О пространстве</h2>
+            <h2>О программе</h2>
             <p className={styles.description}>{show.desc}</p>
             <ul className={styles.featuresList}>
               {show.features?.map((item, i) => (
                 <li key={i}>{item}</li>
               ))}
             </ul>
-            <button className={styles.requestButton}>Заказать</button>
+            <div className={styles.stats}>
+              <span>
+                <MdTimer /> {show.duration}
+              </span>
+              <span>
+                <MdPeople /> {show.age}
+              </span>
+            </div>
+            <button
+              className={styles.requestButton}
+              style={{ backgroundColor: show.color }}
+            >
+              Заказать
+            </button>
           </div>
         </section>
 
-        <section className={styles.sliderSection}>
-          <h2 className={styles.sectionTitle}>Видео с праздников</h2>
-          <div className={styles.sliderWrapper}>
+        {/* Слайдер ВИДЕО из Strapi */}
+        {show.videos?.length > 0 && (
+          <section className={styles.sliderSection}>
+            <h2 className={styles.sectionTitle}>Видео с праздников</h2>
             <Swiper
               modules={[Navigation, Pagination]}
               navigation
@@ -117,18 +98,17 @@ export default function ShowDetailClient({ show, shows }) {
                 1024: { slidesPerView: 3 },
               }}
             >
-              {videos.map((tariff) => (
-                <SwiperSlide key={tariff.id}>
-                  <div className={styles.tariffCard}>
-                    <div className={styles.tariffImageWrap} onClick={openModal}>
-                      <Image
-                        src={
-                          show.thumbnail ||
-                          "/images/VideoSection/8e4171cb71b178f4572b70cc5b6317c802ef0e04.png"
-                        }
-                        alt="Превью видео"
-                        fill
+              {show.videos.map((vid) => (
+                <SwiperSlide key={vid.id}>
+                  <div
+                    className={styles.tariffCard}
+                    onClick={() => openModal(vid.url)}
+                  >
+                    <div className={styles.tariffImageWrap}>
+                      <video
+                        src={vid.url}
                         className={styles.videoPreviewImage}
+                        muted
                       />
                       <div className={styles.playButton}>
                         <MdPlayArrow size={50} />
@@ -138,16 +118,13 @@ export default function ShowDetailClient({ show, shows }) {
                 </SwiperSlide>
               ))}
             </Swiper>
-          </div>
-          <section className={styles.actionSection}>
-            <button className={styles.requestButton}>Заказать</button>
           </section>
-        </section>
+        )}
 
-        {/* 4. СЛАЙДЕР "ФОТО С ПРАЗДНИКОВ" */}
-        <section className={styles.sliderSection}>
-          <h2 className={styles.sectionTitle}>Фото с праздников</h2>
-          <div className={styles.sliderWrapper}>
+        {/* Слайдер ФОТО из Strapi */}
+        {show.photos?.length > 0 && (
+          <section className={styles.sliderSection}>
+            <h2 className={styles.sectionTitle}>Фото с праздников</h2>
             <Swiper
               modules={[Navigation, Pagination]}
               navigation
@@ -159,55 +136,27 @@ export default function ShowDetailClient({ show, shows }) {
                 1024: { slidesPerView: 3 },
               }}
             >
-              {photos.map((photo) => (
+              {show.photos.map((photo) => (
                 <SwiperSlide key={photo.id}>
                   <div className={styles.photoCard}>
                     <Image
                       src={photo.url}
-                      alt="Фото с праздника"
+                      alt="Фото"
                       fill
                       className={styles.slideImage}
+                      unoptimized
                     />
                   </div>
                 </SwiperSlide>
               ))}
             </Swiper>
-          </div>
-        </section>
+          </section>
+        )}
 
-        <RelatedShows params={{ slug: show.slug }} showsData={shows} />
-
+        <RelatedShows currentSlug={show.slug} allShows={allShows} />
         <Reviews />
-
-        {/* 6. КНОПКА "ОСТАВИТЬ ЗАЯВКУ" */}
-        <section className={styles.actionSection}>
-          <button className={styles.requestButton}>Оставить заявку</button>
-        </section>
-
-        {/* 7. 4 ССЫЛКИ И КНОПКА НАЗАД */}
-        <nav className={styles.bottomNav}>
-          <div className={styles.linksGrid}>
-            <Link href="/#quests" className={styles.navLink}>
-              Квесты
-            </Link>
-            <Link href="/#animators" className={styles.navLink}>
-              Аниматоры
-            </Link>
-            <Link href="/#shows" className={styles.navLink}>
-              Шоу-программы
-            </Link>
-            <Link href="/#master-classes" className={styles.navLink}>
-              Мастер-классы
-            </Link>
-          </div>
-
-          <button className={styles.backButton} onClick={() => router.back()}>
-            ← Назад
-          </button>
-        </nav>
       </div>
 
-      {/* МОДАЛЬНОЕ ОКНО ДЛЯ ВИДЕО */}
       {isModalOpen &&
         createPortal(
           <div className={styles.modalOverlay} onClick={closeModal}>
@@ -220,7 +169,7 @@ export default function ShowDetailClient({ show, shows }) {
               </button>
               <video
                 ref={modalVideoRef}
-                src={show.video}
+                src={activeVideo}
                 className={styles.modalVideo}
                 controls
                 autoPlay

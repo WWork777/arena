@@ -300,11 +300,18 @@
   text-align: center;
 }
 
-.tariffImageWrap,
 .photoCard {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1; /* Квадратные фото */
+  aspect-ratio: 16 / 10; /* Квадратные фото */
+  background: #eaeaea;
+  height: 100%;
+}
+
+.tariffImageWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 /1.3; /* Квадратные фото */
   background: #eaeaea;
 }
 

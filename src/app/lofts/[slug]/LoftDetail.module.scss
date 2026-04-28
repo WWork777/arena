@@ -198,7 +198,7 @@
 /* === 7. НИЖНЯЯ НАВИГАЦИЯ === */
 .bottomNav {
   border-top: 1px solid #eaeaea;
-  padding-top: 40px;
+  // padding-top: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -401,5 +401,208 @@
 
   svg {
     font-size: 24px;
+  }
+}
+/* === СЕКЦИЯ ДРУГИЕ ЛОФТЫ === */
+.related {
+  background: linear-gradient(180deg, #ffffff 0%, #f9f9fb 100%);
+  padding: clamp(60px, 8vw, 10px) 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.relatedContainer {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.relatedHeader {
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.relatedTitle {
+  font-family: "Comfortaa", sans-serif;
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 900;
+  color: #1a1a1a;
+  margin-bottom: 15px;
+}
+
+.titleUnderline {
+  width: 60px;
+  height: 5px;
+  background: #d73973;
+  margin: 0 auto;
+  border-radius: 10px;
+}
+
+/* === КАРТОЧКА ЛОФТА === */
+.relatedCard {
+  text-decoration: none;
+  background: #fff;
+  border-radius: 30px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  height: 100%;
+
+  &:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+    border-color: rgba(215, 57, 115, 0.2);
+
+    .relatedVideoWrap video {
+      transform: scale(1.1);
+      filter: brightness(1);
+    }
+
+    .cardOverlay {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .relatedLink {
+      color: #d73973;
+      span {
+        transform: translateX(5px);
+      }
+    }
+  }
+}
+
+.relatedVideoWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 4;
+  background: #000;
+  overflow: hidden;
+
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.85);
+    transition: all 0.6s ease;
+  }
+}
+
+/* Вместимость (бейджик) */
+.ageBadge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 8px 16px;
+  border-radius: 15px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a1a1a;
+  z-index: 3;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Оверлей с иконкой Play */
+.cardOverlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  opacity: 0;
+  transition: all 0.4s ease;
+  z-index: 2;
+}
+
+.relatedPlayIcon {
+  width: 64px;
+  height: 64px;
+  background: rgba(215, 57, 115, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 36px;
+  box-shadow: 0 8px 25px rgba(215, 57, 115, 0.3);
+  padding-left: 4px; // Визуальная центровка треугольника
+}
+
+/* === ИНФО КАРТОЧКИ === */
+.relatedInfo {
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.relatedCategory {
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #999;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: 1px;
+
+  svg {
+    color: #4caf50;
+    font-size: 16px;
+  }
+}
+
+.relatedCardTitle {
+  font-family: "Comfortaa", sans-serif;
+  font-size: clamp(20px, 2vw, 24px);
+  font-weight: 900;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.relatedLink {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+
+  span {
+    transition: transform 0.3s ease;
+    font-size: 20px;
+    display: inline-block;
+  }
+}
+
+/* === АДАПТАЦИЯ SWIPER ВНУТРИ RELATED === */
+.related :global(.swiper) {
+  padding: 20px 10px 60px; // Место для теней и пагинации
+}
+
+.related :global(.swiper-button-next),
+.related :global(.swiper-button-prev) {
+  background: #fff;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  &::after {
+    font-size: 20px;
+    font-weight: 900;
+  }
+}
+
+@media (max-width: 768px) {
+  .relatedInfo {
+    padding: 20px;
+  }
+
+  .relatedVideoWrap {
+    aspect-ratio: 16 / 9; // На мобилках лучше чуть шире
   }
 }

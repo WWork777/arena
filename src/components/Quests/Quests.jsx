@@ -1,139 +1,44 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import styles from "./Quests.module.scss";
 import Link from "next/link";
 
+const STRAPI_URL =
+  process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
+
 export default function Quests() {
-  // Массив для вывода карточек
-  const questsList = {
-      wansday: {
-        title: "Венздей квест",
-        metaTitle: "Арена Лофт — Технологичный детский праздник в Томске",
-        metaDescription:
-          "Стильное пространство для подростков в Томске: интерактивная стена, X-Box Series X и батут.",
-        keywords:
-          "детский праздник томск, лофт для подростков, день рождения ребенка",
-        subtitle: "Технологичное пространство для современных школьников",
-        desc: "Арена Лофт — это ответ на вопрос 'куда вести ребенка, который вырос из обычных игровых?'. Мы создали стильную атмосферу, где электроника сочетается с активным движением.",
-        features: [
-          "Интерактивная стена с играми",
-          "Зона X-Box Series X",
-          "Профессиональный батут",
-          "Диско-свет и звук",
-        ],
-        video: "/videos/loft/arena.mp4",
-        color: "#ae305e",
-        capacity: "до 25 гостей",
-        equipment: "Звук 2кВт, Лазеры, Приставки",
-        food: "Своя еда разрешена без сборов",
-      },
-      zvero: {
-        title: "Звероквест",
-        metaTitle: "Арена Лофт — Технологичный детский праздник в Томске",
-        metaDescription:
-          "Стильное пространство для подростков в Томске: интерактивная стена, X-Box Series X и батут.",
-        keywords:
-          "детский праздник томск, лофт для подростков, день рождения ребенка",
-        subtitle: "Технологичное пространство для современных школьников",
-        desc: "Арена Лофт — это ответ на вопрос 'куда вести ребенка, который вырос из обычных игровых?'. Мы создали стильную атмосферу, где электроника сочетается с активным движением.",
-        features: [
-          "Интерактивная стена с играми",
-          "Зона X-Box Series X",
-          "Профессиональный батут",
-          "Диско-свет и звук",
-        ],
-        video: "/videos/loft/arena.mp4",
-        color: "#ae305e",
-        capacity: "до 25 гостей",
-        equipment: "Звук 2кВт, Лазеры, Приставки",
-        food: "Своя еда разрешена без сборов",
-      },
-      kalmar: {
-        title: "Игра в кальмара ",
-        metaTitle: "Арена Лофт — Технологичный детский праздник в Томске",
-        metaDescription:
-          "Стильное пространство для подростков в Томске: интерактивная стена, X-Box Series X и батут.",
-        keywords:
-          "детский праздник томск, лофт для подростков, день рождения ребенка",
-        subtitle: "Технологичное пространство для современных школьников",
-        desc: "Арена Лофт — это ответ на вопрос 'куда вести ребенка, который вырос из обычных игровых?'. Мы создали стильную атмосферу, где электроника сочетается с активным движением.",
-        features: [
-          "Интерактивная стена с играми",
-          "Зона X-Box Series X",
-          "Профессиональный батут",
-          "Диско-свет и звук",
-        ],
-        video: "/videos/loft/arena.mp4",
-        color: "#ae305e",
-        capacity: "до 25 гостей",
-        equipment: "Звук 2кВт, Лазеры, Приставки",
-        food: "Своя еда разрешена без сборов",
-      },
-      baby: {
-        title: "Бэби-квест",
-        metaTitle: "Арена Лофт — Технологичный детский праздник в Томске",
-        metaDescription:
-          "Стильное пространство для подростков в Томске: интерактивная стена, X-Box Series X и батут.",
-        keywords:
-          "детский праздник томск, лофт для подростков, день рождения ребенка",
-        subtitle: "Технологичное пространство для современных школьников",
-        desc: "Арена Лофт — это ответ на вопрос 'куда вести ребенка, который вырос из обычных игровых?'. Мы создали стильную атмосферу, где электроника сочетается с активным движением.",
-        features: [
-          "Интерактивная стена с играми",
-          "Зона X-Box Series X",
-          "Профессиональный батут",
-          "Диско-свет и звук",
-        ],
-        video: "/videos/loft/arena.mp4",
-        color: "#ae305e",
-        capacity: "до 25 гостей",
-        equipment: "Звук 2кВт, Лазеры, Приставки",
-        food: "Своя еда разрешена без сборов",
-      },
-      shpion: {
-        title: "Шпионский квест “12 записок” ",
-        metaTitle: "Арена Лофт — Технологичный детский праздник в Томске",
-        metaDescription:
-          "Стильное пространство для подростков в Томске: интерактивная стена, X-Box Series X и батут.",
-        keywords:
-          "детский праздник томск, лофт для подростков, день рождения ребенка",
-        subtitle: "Технологичное пространство для современных школьников",
-        desc: "Арена Лофт — это ответ на вопрос 'куда вести ребенка, который вырос из обычных игровых?'. Мы создали стильную атмосферу, где электроника сочетается с активным движением.",
-        features: [
-          "Интерактивная стена с играми",
-          "Зона X-Box Series X",
-          "Профессиональный батут",
-          "Диско-свет и звук",
-        ],
-        video: "/videos/loft/arena.mp4",
-        color: "#ae305e",
-        capacity: "до 25 гостей",
-        equipment: "Звук 2кВт, Лазеры, Приставки",
-        food: "Своя еда разрешена без сборов",
-      },
-      fort: {
-        title: "Квест «Форт»",
-        metaTitle: "Арена Лофт — Технологичный детский праздник в Томске",
-        metaDescription:
-          "Стильное пространство для подростков в Томске: интерактивная стена, X-Box Series X и батут.",
-        keywords:
-          "детский праздник томск, лофт для подростков, день рождения ребенка",
-        subtitle: "Технологичное пространство для современных школьников",
-        desc: "Арена Лофт — это ответ на вопрос 'куда вести ребенка, который вырос из обычных игровых?'. Мы создали стильную атмосферу, где электроника сочетается с активным движением.",
-        features: [
-          "Интерактивная стена с играми",
-          "Зона X-Box Series X",
-          "Профессиональный батут",
-          "Диско-свет и звук",
-        ],
-        video: "/videos/loft/arena.mp4",
-        color: "#ae305e",
-        capacity: "до 25 гостей",
-        equipment: "Звук 2кВт, Лазеры, Приставки",
-        food: "Своя еда разрешена без сборов",
-      },
-  };
+  const [quests, setQuests] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchQuests() {
+      try {
+        const res = await fetch(`${STRAPI_URL}/api/quests?populate=*`);
+        const result = await res.json();
+
+        if (result.data) {
+          const formatted = result.data.map((item) => ({
+            title: item.title,
+            slug: item.slug,
+            thumbnail: item.thumbnail?.url
+              ? `${STRAPI_URL}${item.thumbnail.url}`
+              : "/images/quest/quest.png",
+          }));
+          setQuests(formatted);
+        }
+      } catch (err) {
+        console.error("Ошибка загрузки квестов:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchQuests();
+  }, []);
+
+  if (loading) return null;
+
   return (
     <section id="quests" className={styles.section}>
       <div className={styles.topSection}>
@@ -159,32 +64,31 @@ export default function Quests() {
               погружаются в захватывающие приключения, решают головоломки и
               проходят испытания.
             </p>
-            <p>
-              Мы предлагаем различные тематики: от приключенческих до
-              мистических. Все квесты безопасны и адаптированы под возраст
-              участников.
-            </p>
           </div>
           <button className={styles.button}>Заказать</button>
         </div>
       </div>
 
       <div className={styles.grid}>
-        {Object.entries(questsList).map(([slug, quests], index) => (
-          <div key={slug} className={styles.card}>
+        {quests.map((quest) => (
+          <div key={quest.slug} className={styles.card}>
             <div className={styles.cardMedia}>
               <Image
-                src="/images/quest/quest.png"
-                alt="Квест-зомби"
+                src={quest.thumbnail}
+                alt={quest.title}
                 fill
                 className={styles.cardImage}
+                unoptimized
               />
             </div>
-
-            {/* Обертка для контента, чтобы кнопка всегда была внизу */}
             <div className={styles.cardContent}>
-              <h3 className={styles.cardTitle}>{quests.title}</h3>
-              <Link className={styles.cardButton} href={`/quests/${slug}`}>Подробнее</Link>
+              <h3 className={styles.cardTitle}>{quest.title}</h3>
+              <Link
+                className={styles.cardButton}
+                href={`/quests/${quest.slug}`}
+              >
+                Подробнее
+              </Link>
             </div>
           </div>
         ))}

@@ -2,159 +2,144 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { MdPlayArrow, MdPlace, MdArrowBack } from "react-icons/md";
 import { useRouter } from "next/navigation";
+import { createPortal } from "react-dom";
 import Reviews from "@/components/Reviews/Reviews";
 
-// Стили Swiper
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-
 import styles from "./AnimatorDetail.module.scss";
 
-export default function AnimatorDetailClient() {
+export default function AnimatorDetailClient({ data, lofts }) {
   const router = useRouter();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedVideo, setSelectedVideo] = useState("");
+  const videoRef = useRef(null);
 
-  // Данные лофтов (можно вынести в отдельный конфиг)
-  const lofts = [
-    {
-      id: "arena",
-      title: "Арена Лофт",
-      addr: "ул. Ленина, 1", // Уточните адрес, если он отличается
-      img: "/images/loft/arena.jpg",
-    },
-    {
-      id: "konfetti",
-      title: "Конфетти Лофт",
-      addr: "пер. Светлый, 5",
-      img: "/images/loft/konfetti.mp4", // Здесь лучше использовать путь к фото-превью .jpg
-    },
-    {
-      id: "magic",
-      title: "Магический лофт",
-      addr: "пр. Фрунзе, 10",
-      img: "/images/loft/magic.jpg",
-    },
-    {
-      id: "marmelad",
-      title: "Мармеладный дом",
-      addr: "ул. Пушкина, 5",
-      img: "/images/loft/marmelad.jpg",
-    },
-    {
-      id: "partyhall",
-      title: "Патихолл",
-      addr: "ул. Сибирская, 15",
-      img: "/images/loft/partyhall.jpg",
-    },
-    {
-      id: "flint",
-      title: "Флинт",
-      addr: "ул. Набережная, 3",
-      img: "/images/loft/flint.jpg",
-    },
-  ];
+  const openModal = (url) => {
+    setSelectedVideo(url);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    setSelectedVideo("");
+  };
 
   return (
     <main className={styles.wrapper}>
       <div className={styles.container}>
-        {/* Кнопка назад */}
         <button className={styles.backBtn} onClick={() => router.back()}>
           <MdArrowBack /> Назад
         </button>
 
-        {/* 1. ЗАГОЛОВОК СВЕРХУ */}
         <header className={styles.header}>
-          <h1 className={styles.title}>Аниматоры</h1>
+          <h1 className={styles.title}>{data.title}</h1>
           <div className={styles.underline}></div>
         </header>
 
-        {/* 2. БЛОК: СЛЕВА КАРТИНКА, СПРАВА ТЕКСТ И КНОПКА */}
         <section className={styles.mainInfo}>
           <div className={styles.imageSide}>
             <div className={styles.imageWrapper}>
-              <Image
-                src="/images/animators/main-photo.jpg"
-                alt="Аниматоры"
-                fill
-                className={styles.img}
-              />
+              {data.mainPhoto && (
+                <Image
+                  src={data.mainPhoto}
+                  alt="Аниматоры"
+                  fill
+                  className={styles.img}
+                  unoptimized
+                />
+              )}
             </div>
           </div>
           <div className={styles.textSide}>
-            <p className={styles.desc}>
-              Наши аниматоры — это не просто люди в костюмах, а профессиональные
-              актеры, которые знают подход к каждому ребенку. Мы создаем
-              атмосферу сказки, в которую верят даже взрослые.
-            </p>
-            <button
-              className={styles.orderBtn}
-              onClick={() => window.alert("Открывается форма")}
-            >
+            <p className={styles.desc}>{data.description}</p>
+            <Link href="tel:+79095431213" className={styles.orderBtn}>
               Заказать
-            </button>
+            </Link>
           </div>
         </section>
 
-        {/* 3. СЛАЙДЕР ВИДЕО С ПРАЗДНИКОВ */}
-        <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>Видео с праздников</h2>
-          <Swiper
-            modules={[Navigation, Pagination]}
-            navigation
-            pagination={{ clickable: true }}
-            spaceBetween={20}
-            slidesPerView={1}
-            breakpoints={{ 768: { slidesPerView: 3 } }}
-          >
-            {[1, 2, 3, 4].map((v) => (
-              <SwiperSlide key={v}>
-                <div className={styles.videoCard}>
-                  <MdPlayArrow className={styles.playIcon} />
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </section>
+        {/* 3. ВИДЕО ИЗ STRAPI */}
+        {data.videos.length > 0 && (
+          <section className={styles.sliderSection}>
+            <h2 className={styles.sectionTitle}>Видео с праздников</h2>
+            <Swiper
+              modules={[Navigation, Pagination]}
+              // navigation
+              pagination={{ clickable: true }}
+              spaceBetween={20}
+              slidesPerView={1}
+              breakpoints={{
+                640: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+              }}
+            >
+              {data.videos.map((vid) => (
+                <SwiperSlide key={vid.id}>
+                  <div
+                    className={styles.tariffCard}
+                    onClick={() => openModal(vid.url)}
+                  >
+                    <div className={styles.tariffImageWrap}>
+                      <video
+                        src={vid.url}
+                        className={styles.videoPreviewImage}
+                        muted
+                      />
+                      <div className={styles.playButton}>
+                        <MdPlayArrow size={50} />
+                      </div>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </section>
+        )}
 
-        {/* 4. СЛАЙДЕР ФОТО С ПРАЗДНИКОВ */}
-        <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>Фото с праздников</h2>
-          <Swiper
-            modules={[Navigation, Pagination]}
-            navigation
-            pagination={{ clickable: true }}
-            spaceBetween={15}
-            slidesPerView={1}
-            breakpoints={{ 768: { slidesPerView: 3 } }}
-          >
-            {[1, 2, 3, 4, 5, 6].map((f) => (
-              <SwiperSlide key={f}>
-                <div className={styles.photoCard}>
-                  <Image
-                    src={`/images/animators/shot-${f}.jpg`}
-                    alt="Фото"
-                    fill
-                    className={styles.shot}
-                  />
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </section>
+        {/* 4. ФОТО ИЗ STRAPI */}
+        {data.photos.length > 0 && (
+          <section className={styles.section}>
+            <h2 className={styles.sectionTitle}>Фото с праздников</h2>
+            <Swiper
+              modules={[Navigation, Pagination]}
+              // navigation
+              pagination={{ clickable: true }}
+              spaceBetween={15}
+              slidesPerView={1}
+              breakpoints={{ 768: { slidesPerView: 3 } }}
+            >
+              {data.photos.map((p) => (
+                <SwiperSlide key={p.id}>
+                  <div className={styles.photoCard}>
+                    <Image
+                      src={p.url}
+                      alt="Фото праздника"
+                      fill
+                      className={styles.shot}
+                      unoptimized
+                    />
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </section>
+        )}
 
-        {/* 5. ОТЗЫВЫ */}
         <Reviews />
 
-        {/* 6. НАШИ ЛОФТ ПРОСТРАНСТВА (как на схеме 2) */}
+        {/* 6. ЛОФТЫ ИЗ STRAPI */}
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>Наши лофт-пространства</h2>
           <Swiper
             modules={[Navigation, Pagination, Autoplay]}
-            navigation
+            // navigation
             pagination={{ clickable: true }}
             spaceBetween={25}
             slidesPerView={1}
@@ -173,6 +158,7 @@ export default function AnimatorDetailClient() {
                       alt={loft.title}
                       fill
                       className={styles.shot}
+                      unoptimized
                     />
                   </div>
                   <div className={styles.loftContent}>
@@ -193,6 +179,29 @@ export default function AnimatorDetailClient() {
           </Swiper>
         </section>
       </div>
+
+      {/* Модалка для видео */}
+      {modalOpen &&
+        createPortal(
+          <div className={styles.modalOverlay} onClick={closeModal}>
+            <div
+              className={styles.modalContent}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <video
+                ref={videoRef}
+                src={selectedVideo}
+                controls
+                autoPlay
+                className={styles.modalVideo}
+              />
+              <button className={styles.closeBtn} onClick={closeModal}>
+                ✕
+              </button>
+            </div>
+          </div>,
+          document.body,
+        )}
     </main>
   );
 }

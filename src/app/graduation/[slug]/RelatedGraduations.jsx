@@ -5,6 +5,8 @@ import { MdPlayArrow, MdStars } from "react-icons/md";
 import styles from "./GraduationDetail.module.scss";
 
 export default function RelatedGraduations({ items }) {
+  if (!items || items.length === 0) return null;
+
   return (
     <section className={styles.related}>
       <div className={styles.relatedContainer}>
@@ -14,15 +16,15 @@ export default function RelatedGraduations({ items }) {
         </div>
 
         <div className={styles.relatedGrid}>
-          {items.map(([key, data]) => (
+          {items.map((item) => (
             <Link
-              href={`/graduation/${key}`}
-              key={key}
+              href={`/graduation/${item.slug}`}
+              key={item.slug}
               className={styles.relatedCard}
             >
               <div className={styles.relatedVideoWrap}>
                 <video
-                  src={data.video}
+                  src={item.video}
                   muted
                   loop
                   playsInline
@@ -32,14 +34,13 @@ export default function RelatedGraduations({ items }) {
                     e.currentTarget.currentTime = 0;
                   }}
                 />
-                <div className={styles.ageBadge}>{data.duration}</div>
+                <div className={styles.ageBadge}>{item.duration}</div>
               </div>
-
               <div className={styles.relatedInfo}>
                 <div className={styles.relatedCategory}>
                   <MdStars /> Хит продаж
                 </div>
-                <h4 className={styles.relatedCardTitle}>{data.title}</h4>
+                <h4 className={styles.relatedCardTitle}>{item.title}</h4>
                 <div className={styles.relatedLink}>
                   Узнать детали <span>→</span>
                 </div>

@@ -6,8 +6,13 @@ import styles from "./Graduation.module.scss";
 import Link from "next/link";
 import { createPortal } from "react-dom";
 
+const STRAPI_URL =
+  process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
+
 export default function Graduation() {
   const INITIAL_COUNT = 3;
+  const [graduations, setGraduations] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT);
   const [isMobile, setIsMobile] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -15,41 +20,28 @@ export default function Graduation() {
   const videoRef = useRef(null);
   const sectionRef = useRef(null);
 
-  const graduations = [
-    {
-      title: "Программа Перемена",
-      slug: "peremena",
-      desc: "Шоу программа «Перемена» 2 ведущих и диджей, тик-ток тренды...",
-      video: "/videos/graduations/peremena.mp4",
-    },
-    {
-      title: "Программа Микс",
-      slug: "mix",
-      desc: "Шоу программа «Микс» 2 ведущих и диджей, авторская программа...",
-      video: "/videos/graduations/mix.mp4",
-    },
-    {
-      title: "Неоновая вечеринка",
-      slug: "neon-party",
-      desc: "Шоу программа «Микс» 2 ведущих и диджей, мастер класс...",
-      video: "/videos/graduations/11176874478315.mp4",
-    },
-    {
-      title: "Форт Боярд",
-      slug: "fort-boyard",
-      desc: "Шоу программа «Форт Боярд» 2 ведущих и диджей, 10 станций...",
-      video: "/videos/graduations/fort.mp4",
-    },
-    {
-      title: "Пенная вечеринка",
-      slug: "foam-graduation",
-      desc: "Ведущий, пенщик и диджей, море пены, биг волейбол...",
-      video: "/videos/graduations/11176875985643.mp4",
-    },
-  ];
-
-  // Определяем мобильный экран
   useEffect(() => {
+    async function fetchGraduations() {
+      try {
+        const res = await fetch(`${STRAPI_URL}/api/graduations?populate=*`);
+        const result = await res.json();
+        if (result.data) {
+          const formatted = result.data.map((item) => ({
+            title: item.title,
+            slug: item.slug,
+            desc: item.desc,
+            video: item.video?.url ? `${STRAPI_URL}${item.video.url}` : "",
+          }));
+          setGraduations(formatted);
+        }
+      } catch (err) {
+        console.error("Ошибка загрузки выпускных:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchGraduations();
+
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
     handleResize();
     window.addEventListener("resize", handleResize);
@@ -62,37 +54,18 @@ export default function Graduation() {
   };
 
   const closeModal = () => {
-    if (videoRef.current) {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
-    }
+    if (videoRef.current) videoRef.current.pause();
     setModalOpen(false);
     setSelectedVideoUrl("");
   };
 
-  // Автовоспроизведение при открытии
-  useEffect(() => {
-    if (modalOpen && videoRef.current) {
-      videoRef.current.play().catch((err) => console.warn(err));
-    }
-  }, [modalOpen]);
-
-  // Закрытие по Escape
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape" && modalOpen) closeModal();
-    };
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [modalOpen]);
-
   const handleShowMore = () => setVisibleCount(graduations.length);
   const handleHide = () => {
     setVisibleCount(INITIAL_COUNT);
-    if (sectionRef.current) {
-      sectionRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
+
+  if (loading) return null;
 
   const displayedGraduations = isMobile
     ? graduations
@@ -115,16 +88,7 @@ export default function Graduation() {
           <div className={styles.description}>
             <p>
               Организация незабываемых выпускных для детских садов и начальной
-              школы. Мы создаем праздничную атмосферу и делаем этот день
-              особенным.
-            </p>
-            <p>
-              Наши программы включают торжественную часть, развлекательную
-              программу, фотозону и все необходимое для проведения выпускного.
-            </p>
-            <p>
-              Мы поможем организовать выпускной, который запомнится детям и
-              родителям на долгие годы.
+              школы.
             </p>
           </div>
           <button className={styles.button}>Подробнее</button>
@@ -132,8 +96,8 @@ export default function Graduation() {
       </div>
 
       <div className={styles.grid}>
-        {displayedGraduations.map((item, index) => (
-          <div key={index} className={styles.card}>
+        {displayedGraduations.map((item) => (
+          <div key={item.slug} className={styles.card}>
             <div className={styles.cardMedia}>
               <Image
                 src="/images/quest/dembel.png"
@@ -154,11 +118,8 @@ export default function Graduation() {
                 />
               </div>
             </div>
-
             <div className={styles.cardContent}>
-              <div className={styles.cardHeader}>
-                <h3 className={styles.cardTitle}>{item.title}</h3>
-              </div>
+              <h3 className={styles.cardTitle}>{item.title}</h3>
               <p className={styles.cardDescription}>{item.desc}</p>
               <Link
                 href={`/graduation/${item.slug}`}
@@ -171,23 +132,19 @@ export default function Graduation() {
         ))}
       </div>
 
-      <div className={styles.ctaWrapper}>
-        {visibleCount < graduations.length ? (
-          <button className={styles.ctaButton} onClick={handleShowMore}>
-            Показать все
+      {graduations.length > INITIAL_COUNT && (
+        <div className={styles.ctaWrapper}>
+          <button
+            className={styles.ctaButton}
+            onClick={
+              visibleCount < graduations.length ? handleShowMore : handleHide
+            }
+          >
+            {visibleCount < graduations.length ? "Показать все" : "Скрыть"}
           </button>
-        ) : (
-          <button className={styles.ctaButton} onClick={handleHide}>
-            Скрыть
-          </button>
-        )}
-      </div>
+        </div>
+      )}
 
-      <Link href="#loft" className={styles.link}>
-        Наши лофт-пространства для Выпускного
-      </Link>
-
-      {/* Модальное окно (как в LoftSpaces) */}
       {modalOpen &&
         createPortal(
           <div className={styles.modalOverlay} onClick={closeModal}>

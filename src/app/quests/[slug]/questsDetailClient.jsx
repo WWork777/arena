@@ -7,61 +7,31 @@ import { useRouter } from "next/navigation";
 import { createPortal } from "react-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
-import { MdPlayArrow, MdArrowBack, MdTrendingUp } from "react-icons/md"; // Иконка для видео
+import { MdPlayArrow, MdArrowBack, MdTrendingUp } from "react-icons/md";
 import Reviews from "@/components/Reviews/Reviews";
 
-// Стили Swiper
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-
 import styles from "./styles.module.scss";
-// import RelatedShows from "./RelatedShows";
-export default function QuestDetailClient({ quest, quests }) {
+
+export default function QuestDetailClient({ quest, otherQuests }) {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeVideo, setActiveVideo] = useState(quest.video);
   const modalVideoRef = useRef(null);
 
-  // Логика модального окна
-  const openModal = () => {
+  const openModal = (videoUrl) => {
+    setActiveVideo(videoUrl || quest.video);
     setIsModalOpen(true);
     document.body.style.overflow = "hidden";
   };
 
   const closeModal = () => {
-    if (modalVideoRef.current) {
-      modalVideoRef.current.pause();
-      modalVideoRef.current.currentTime = 0;
-    }
+    if (modalVideoRef.current) modalVideoRef.current.pause();
     setIsModalOpen(false);
     document.body.style.overflow = "unset";
   };
-
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape" && isModalOpen) closeModal();
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isModalOpen]);
-
-  // Заглушки (замените на реальные данные)
-  const videos = [
-    { id: 1, image: "/images/videos/1.jpg" },
-    { id: 2, image: "/images/videos/2.jpg" },
-    { id: 3, image: "/images/videos/3.jpg" },
-    { id: 4, image: "/images/videos/3.jpg" },
-    { id: 5, image: "/images/videos/3.jpg" },
-  ];
-
-  const photos = [
-    { id: 1, url: "/images/quest/1.jpg" },
-    { id: 2, url: "/images/quest/2.jpg" },
-    { id: 3, url: "/images/quest/3.jpg" },
-    { id: 4, url: "/images/quest/4.jpg" },
-    { id: 5, url: "/images/quest/4.jpg" },
-    { id: 6, url: "/images/quest/4.jpg" },
-  ];
 
   return (
     <main className={styles.wrapper}>
@@ -71,42 +41,43 @@ export default function QuestDetailClient({ quest, quests }) {
             <MdArrowBack /> Назад
           </button>
         </nav>
-        {/* 1. НАЗВАНИЕ СВЕРХУ ПО ЦЕНТРУ */}
+
         <header className={styles.headerCentered}>
           <h1 className={styles.mainTitle}>{quest.title}</h1>
           <p className={styles.subtitle}>{quest.subtitle}</p>
         </header>
 
-        {/* 2. БЛОК: СЛЕВА ТЕКСТ, СПРАВА КАРТИНКА */}
         <section className={styles.infoBlock}>
           <div className={styles.imageContent}>
             <Image
-              src={
-                quest.thumbnail ||
-                "/images/VideoSection/8e4171cb71b178f4572b70cc5b6317c802ef0e04.png"
-              }
+              src={quest.thumbnail}
               alt={quest.title}
               fill
               className={styles.mainImage}
-              sizes="(max-width: 768px) 100vw, 50vw"
+              unoptimized
             />
           </div>
           <div className={styles.textContent}>
-            <h2>О пространстве</h2>
+            <h2>О квесте</h2>
             <p className={styles.description}>{quest.desc}</p>
             <ul className={styles.featuresList}>
               {quest.features?.map((item, i) => (
                 <li key={i}>{item}</li>
               ))}
             </ul>
-            <button className={styles.requestButton}>Заказать</button>
+            <button
+              className={styles.requestButton}
+              style={{ backgroundColor: quest.color }}
+            >
+              Заказать
+            </button>
           </div>
         </section>
 
-        {/* 3. СЛАЙДЕР "ВЫГОДНЫЕ ТАРИФЫ" */}
-        <section className={styles.sliderSection}>
-          <h2 className={styles.sectionTitle}>Видео с праздников</h2>
-          <div className={styles.sliderWrapper}>
+        {/* Слайдер ВИДЕО */}
+        {quest.videos?.length > 0 && (
+          <section className={styles.sliderSection}>
+            <h2 className={styles.sectionTitle}>Видео с праздников</h2>
             <Swiper
               modules={[Navigation, Pagination]}
               navigation
@@ -118,18 +89,17 @@ export default function QuestDetailClient({ quest, quests }) {
                 1024: { slidesPerView: 3 },
               }}
             >
-              {videos.map((tariff) => (
-                <SwiperSlide key={tariff.id}>
-                  <div className={styles.tariffCard}>
-                    <div className={styles.tariffImageWrap} onClick={openModal}>
-                      <Image
-                        src={
-                          quest.thumbnail ||
-                          "/images/VideoSection/8e4171cb71b178f4572b70cc5b6317c802ef0e04.png"
-                        }
-                        alt="Превью видео"
-                        fill
+              {quest.videos.map((vid) => (
+                <SwiperSlide key={vid.id}>
+                  <div
+                    className={styles.tariffCard}
+                    onClick={() => openModal(vid.url)}
+                  >
+                    <div className={styles.tariffImageWrap}>
+                      <video
+                        src={vid.url}
                         className={styles.videoPreviewImage}
+                        muted
                       />
                       <div className={styles.playButton}>
                         <MdPlayArrow size={50} />
@@ -139,13 +109,13 @@ export default function QuestDetailClient({ quest, quests }) {
                 </SwiperSlide>
               ))}
             </Swiper>
-          </div>
-        </section>
+          </section>
+        )}
 
-        {/* 4. СЛАЙДЕР "ФОТО С ПРАЗДНИКОВ" */}
-        <section className={styles.sliderSection}>
-          <h2 className={styles.sectionTitle}>Фото с праздников</h2>
-          <div className={styles.sliderWrapper}>
+        {/* Слайдер ФОТО */}
+        {quest.photos?.length > 0 && (
+          <section className={styles.sliderSection}>
+            <h2 className={styles.sectionTitle}>Фото с праздников</h2>
             <Swiper
               modules={[Navigation, Pagination]}
               navigation
@@ -157,107 +127,71 @@ export default function QuestDetailClient({ quest, quests }) {
                 1024: { slidesPerView: 3 },
               }}
             >
-              {photos.map((photo) => (
+              {quest.photos.map((photo) => (
                 <SwiperSlide key={photo.id}>
                   <div className={styles.photoCard}>
                     <Image
                       src={photo.url}
-                      alt="Фото с праздника"
+                      alt="Фото"
                       fill
                       className={styles.slideImage}
+                      unoptimized
                     />
                   </div>
                 </SwiperSlide>
               ))}
             </Swiper>
-          </div>
-          <section className={styles.actionSection}>
-            <button className={styles.requestButton}>Заказать</button>
           </section>
-        </section>
+        )}
+
+        {/* Смотрите также */}
         <section className={styles.related}>
           <div className={styles.relatedContainer}>
-            <div className={styles.relatedHeader}>
-              <h2 className={styles.relatedTitle}>Смотрите также</h2>
-              <div className={styles.titleUnderline}></div>
-            </div>
-
+            <h2 className={styles.relatedTitle}>Смотрите также</h2>
             <div className={styles.relatedGrid}>
-              {quests.map(([key, data]) => (
+              {otherQuests.map((item) => (
                 <Link
-                  href={`/quests/${key}`}
-                  key={key}
+                  href={`/quests/${item.slug}`}
+                  key={item.slug}
                   className={styles.relatedCard}
                 >
                   <div className={styles.relatedVideoWrap}>
                     <video
-                      src={data.video}
+                      src={item.video}
                       muted
                       loop
                       playsInline
                       onMouseOver={(e) => e.currentTarget.play()}
                       onMouseOut={(e) => {
                         e.currentTarget.pause();
-                        e.currentTarget.currentTime = 0; // Сбрасываем видео при уходе курсора
+                        e.currentTarget.currentTime = 0;
                       }}
                     />
-
                     <div className={styles.cardOverlay}>
                       <div className={styles.relatedPlayIcon}>
                         <MdPlayArrow />
                       </div>
                     </div>
-
-                    {/* Бейджик на картинке */}
-                    <div className={styles.ageBadge}>{data.age}</div>
+                    <div className={styles.ageBadge}>{item.age}</div>
                   </div>
-
                   <div className={styles.relatedInfo}>
                     <div className={styles.relatedCategory}>
                       <MdTrendingUp /> Популярное
                     </div>
-                    <h4 className={styles.relatedCardTitle}>{data.title}</h4>
-                    <div className={styles.relatedLink}>
-                      Узнать больше <span>→</span>
-                    </div>
+                    <h4 className={styles.relatedCardTitle}>{item.title}</h4>
                   </div>
                 </Link>
               ))}
             </div>
           </div>
         </section>
-        {/* 5. ОТЗЫВЫ */}
-        <Reviews />
 
-        {/* 6. КНОПКА "ОСТАВИТЬ ЗАЯВКУ" */}
+        <Reviews />
         <section className={styles.actionSection}>
           <button className={styles.requestButton}>Оставить заявку</button>
         </section>
-
-        {/* 7. 4 ССЫЛКИ И КНОПКА НАЗАД */}
-        <nav className={styles.bottomNav}>
-          <div className={styles.linksGrid}>
-            <Link href="/#quests" className={styles.navLink}>
-              Квесты
-            </Link>
-            <Link href="/#animators" className={styles.navLink}>
-              Аниматоры
-            </Link>
-            <Link href="/#shows" className={styles.navLink}>
-              Шоу-программы
-            </Link>
-            <Link href="/#master-classes" className={styles.navLink}>
-              Мастер-классы
-            </Link>
-          </div>
-
-          <button className={styles.backButton} onClick={() => router.back()}>
-            ← Назад
-          </button>
-        </nav>
       </div>
 
-      {/* МОДАЛЬНОЕ ОКНО ДЛЯ ВИДЕО */}
       {isModalOpen &&
         createPortal(
           <div className={styles.modalOverlay} onClick={closeModal}>
@@ -270,7 +204,7 @@ export default function QuestDetailClient({ quest, quests }) {
               </button>
               <video
                 ref={modalVideoRef}
-                src={show.video}
+                src={activeVideo}
                 className={styles.modalVideo}
                 controls
                 autoPlay
