@@ -140,12 +140,30 @@
   text-align: center;
 }
 
-.tariffImageWrap,
 .photoCard {
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 1; /* Квадратные фото */
   background: #eaeaea;
+}
+.tariffImageWrap {
+  position: relative;
+  width: 100%;
+  /* Выбери нужную пропорцию: 1/1 для квадрата, 16/9 для кино, 4/3 для классики */
+  aspect-ratio: 1 /1.5;
+  background: #000;
+  border-radius: 20px; // Если хочешь скругления как у карточек
+  overflow: hidden;
+}
+
+.slideImage_video {
+  width: 100%;
+  height: 100%;
+  /* Это самое важное свойство: оно заставляет видео заполнить контейнер, 
+     обрезая лишнее, но сохраняя пропорции, как background-size: cover */
+  object-fit: cover;
+  transition: all 0.5s ease;
+  opacity: 0.9;
 }
 
 .slideImage {

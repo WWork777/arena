@@ -37,17 +37,26 @@ export default function RelatedLofts({ lofts }) {
                   className={styles.relatedCard}
                 >
                   <div className={styles.relatedVideoWrap}>
-                    <video
-                      src={loft.video}
-                      muted
-                      loop
-                      playsInline
-                      onMouseOver={(e) => e.currentTarget.play()}
-                      onMouseOut={(e) => {
-                        e.currentTarget.pause();
-                        e.currentTarget.currentTime = 0;
-                      }}
-                    />
+                    {/* Если есть видео, показываем его при наведении, иначе картинку */}
+                    {loft.video ? (
+                      <video
+                        src={loft.video}
+                        muted
+                        loop
+                        playsInline
+                        onMouseOver={(e) => e.currentTarget.play()}
+                        onMouseOut={(e) => {
+                          e.currentTarget.pause();
+                          e.currentTarget.currentTime = 0;
+                        }}
+                      />
+                    ) : (
+                      <img
+                        src={loft.image}
+                        alt={loft.title}
+                        className={styles.slideImage}
+                      />
+                    )}
                     <div className={styles.cardOverlay}>
                       <div className={styles.relatedPlayIcon}>
                         <MdPlayArrow />

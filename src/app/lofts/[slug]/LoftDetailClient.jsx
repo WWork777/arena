@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import Link from "next/link";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { createPortal } from "react-dom";
@@ -19,9 +18,11 @@ import styles from "./LoftDetail.module.scss";
 export default function LoftDetailClient({ loft, otherLofts }) {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeVideoUrl, setActiveVideoUrl] = useState("");
   const modalVideoRef = useRef(null);
 
-  const openModal = () => {
+  const openModal = (url) => {
+    setActiveVideoUrl(url);
     setIsModalOpen(true);
     document.body.style.overflow = "hidden";
   };
@@ -31,13 +32,6 @@ export default function LoftDetailClient({ loft, otherLofts }) {
     setIsModalOpen(false);
     document.body.style.overflow = "unset";
   };
-
-  // Заглушки (если они не в Strapi)
-  const tariffs = [
-    { id: 1, image: "/images/tariffs/1.jpg", title: "Пакет Базовый" },
-    { id: 2, image: "/images/tariffs/2.jpg", title: "Пакет Стандарт" },
-    { id: 3, image: "/images/tariffs/3.jpg", title: "Пакет Максимум" },
-  ];
 
   return (
     <main className={styles.wrapper}>
@@ -53,6 +47,7 @@ export default function LoftDetailClient({ loft, otherLofts }) {
           <p className={styles.subtitle}>{loft.subtitle}</p>
         </header>
 
+        {/* ОСНОВНОЕ ИНФО */}
         <section className={styles.infoBlock}>
           <div className={styles.imageContent}>
             <Image
@@ -74,9 +69,13 @@ export default function LoftDetailClient({ loft, otherLofts }) {
           </div>
         </section>
 
+        {/* ГЛАВНОЕ ВИДЕО */}
         <section className={styles.videoSection}>
-          <h2 className={styles.sectionTitle}>Посмотрите видео о зале</h2>
-          <div className={styles.videoPreviewCard} onClick={openModal}>
+          <h2 className={styles.sectionTitle}>Видео о зале</h2>
+          <div
+            className={styles.videoPreviewCard}
+            onClick={() => openModal(loft.video)}
+          >
             <Image
               src={loft.image}
               alt="Превью"
@@ -90,41 +89,109 @@ export default function LoftDetailClient({ loft, otherLofts }) {
           </div>
         </section>
 
-        {/* Слайдер тарифов */}
-        <section className={styles.sliderSection}>
-          <h2 className={styles.sectionTitle}>Выгодные тарифы</h2>
-          <Swiper
-            modules={[Navigation, Pagination]}
-            navigation
-            pagination={{ clickable: true }}
-            spaceBetween={20}
-            slidesPerView={1}
-            breakpoints={{
-              640: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
-            }}
-          >
-            {tariffs.map((t) => (
-              <SwiperSlide key={t.id}>
-                <div className={styles.tariffCard}>
-                  <div className={styles.tariffImageWrap}>
+        {/* 1. СЛАЙДЕР ТАРИФОВ (КАРТИНКИ) */}
+        {loft.tariffs?.length > 0 && (
+          <section className={styles.sliderSection}>
+            <h2 className={styles.sectionTitle}>Выгодные тарифы</h2>
+            <Swiper
+              modules={[Navigation, Pagination]}
+              navigation
+              pagination={{ clickable: true }}
+              spaceBetween={20}
+              slidesPerView={1}
+              breakpoints={{
+                768: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+              }}
+            >
+              {loft.tariffs.map((img) => (
+                <SwiperSlide key={img.id}>
+                  <div className={styles.photoCard}>
                     <Image
-                      src={t.image}
-                      alt={t.title}
+                      src={img.url}
+                      alt="Тариф"
                       fill
                       className={styles.slideImage}
+                      unoptimized
                     />
                   </div>
-                  <h3 className={styles.tariffTitle}>{t.title}</h3>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </section>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </section>
+        )}
+
+        {/* 2. СЛАЙДЕР ВИДЕО С ПРАЗДНИКОВ */}
+        {loft.videos?.length > 0 && (
+          <section className={styles.sliderSection}>
+            <h2 className={styles.sectionTitle}>Видео с праздников</h2>
+            <Swiper
+              modules={[Navigation, Pagination]}
+              navigation
+              pagination={{ clickable: true }}
+              spaceBetween={20}
+              slidesPerView={1}
+              breakpoints={{
+                768: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+              }}
+            >
+              {loft.videos.map((vid) => (
+                <SwiperSlide key={vid.id}>
+                  <div
+                    className={styles.tariffCard}
+                    onClick={() => openModal(vid.url)}
+                  >
+                    <div className={styles.tariffImageWrap}>
+                      <video
+                        src={vid.url}
+                        className={styles.slideImage_video}
+                        muted
+                      />
+                      <div className={styles.playButton}>
+                        <MdPlayArrow size={30} />
+                      </div>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </section>
+        )}
+
+        {/* 3. СЛАЙДЕР ФОТО С ПРАЗДНИКОВ */}
+        {loft.photos?.length > 0 && (
+          <section className={styles.sliderSection}>
+            <h2 className={styles.sectionTitle}>Фото с праздников</h2>
+            <Swiper
+              modules={[Navigation, Pagination]}
+              navigation
+              pagination={{ clickable: true }}
+              spaceBetween={20}
+              slidesPerView={1}
+              breakpoints={{
+                768: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+              }}
+            >
+              {loft.photos.map((photo) => (
+                <SwiperSlide key={photo.id}>
+                  <div className={styles.photoCard}>
+                    <Image
+                      src={photo.url}
+                      alt="Фото"
+                      fill
+                      className={styles.slideImage}
+                      unoptimized
+                    />
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </section>
+        )}
 
         <Reviews />
-
-        {/* Блок похожих лофтов */}
         <RelatedLofts lofts={otherLofts} />
 
         <nav className={styles.bottomNav}>
@@ -146,7 +213,7 @@ export default function LoftDetailClient({ loft, otherLofts }) {
               </button>
               <video
                 ref={modalVideoRef}
-                src={loft.video}
+                src={activeVideoUrl}
                 className={styles.modalVideo}
                 controls
                 autoPlay
