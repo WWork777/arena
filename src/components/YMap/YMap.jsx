@@ -144,156 +144,217 @@
 'use client'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-// Глобальный флаг для отслеживания загрузки API
+// Глобальный флаг, чтобы API загружался один раз на страницу
 if (typeof window !== 'undefined') {
-	window.YMAPS_LOADED = window.YMAPS_LOADED || false
+  window.YMAPS_LOADED = window.YMAPS_LOADED || false
 }
 
-const YMap = ({ coordinates = [56.4779, 84.9888] }) => {
-	const mapRef = useRef(null)
-	const mapInstance = useRef(null)
-	const placemarkRef = useRef(null)
-	const [isApiLoaded, setIsApiLoaded] = useState(false)
-	const [mapError, setMapError] = useState(null)
+/**
+ * Компонент Яндекс.Карты с поддержкой нескольких точек и фиксированным центром.
+ *
+ * @param {Object} props
+ * @param {[number, number]} props.center – центр карты (по умолчанию [56.4779, 84.9888])
+ * @param {Array<{ id: string|number, coordinates: [number, number], hintContent?: string, balloonContent?: string }>} props.points – массив точек
+ * @param {number} [props.zoom] – начальный зум (используется, если точек <= 1, иначе подбирается автоматически)
+ */
+const YMap = ({ center = [56.4779, 84.9888], points = [
+    {
+      id: 'glav',                         // ← центральная точка
+      coordinates: [56.4779, 84.9888],
+      hintContent: 'ВОКС',
+      balloonContent: '<strong>пер. Смоленский 11</strong>',
+    },
+    {
+      id: 'altayskaya',
+      coordinates: [56.480897, 84.983536],   // Алтайская, 72
+      hintContent: 'Алтайская, 72',
+      balloonContent: '<strong>Алтайская, 72</strong>',
+    },
+    {
+      id: 'transportnaya',
+      coordinates: [56.501024, 84.994855],   // Транспортная, 1а
+      hintContent: 'Транспортная, 1а',
+      balloonContent: '<strong>Транспортная, 1а</strong>',
+    },
+    {
+      id: 'ilmera',
+      coordinates: [56.505912, 84.969217],   // Карла Ильмера, 10/2
+      hintContent: 'Карла Ильмера, 10/2',
+      balloonContent: '<strong>Карла Ильмера, 10/2</strong>',
+    },
+    {
+      id: 'achinskaya',
+      coordinates: [56.492840, 84.966388],   // Ачинская, 9
+      hintContent: 'Ачинская, 9',
+      balloonContent: '<strong>Ачинская, 9</strong>',
+    },
+    {
+      id: 'vodyanaya',
+      coordinates: [56.506051, 84.944568],   // Водяная, 37
+      hintContent: 'Водяная, 37',
+      balloonContent: '<strong>Водяная, 37</strong>',
+    },
+  	], zoom = 16 }) => {
+  const mapRef = useRef(null)
+  const mapInstance = useRef(null)
+  const [isApiLoaded, setIsApiLoaded] = useState(false)
+  const [mapError, setMapError] = useState(null)
 
-	// Функция инициализации карты
-	const initMap = useCallback(() => {
-		if (!mapRef.current || !window.ymaps) return
+  // Инициализация карты и расстановка меток
+  const initMap = useCallback(() => {
+    if (!mapRef.current || !window.ymaps) return
 
-		try {
-			if (!mapInstance.current) {
-				mapInstance.current = new window.ymaps.Map(mapRef.current, {
-					center: coordinates,
-					zoom: 16,
-					controls: ['zoomControl', 'fullscreenControl'],
-				})
-			}
+    try {
+      // Создаём карту единожды
+      if (!mapInstance.current) {
+        mapInstance.current = new window.ymaps.Map(mapRef.current, {
+          center: center,     // фиксированный центр
+          zoom: zoom,
+          controls: ['zoomControl', 'fullscreenControl'],
+        })
+      }
 
-			if (placemarkRef.current) {
-				mapInstance.current.geoObjects.remove(placemarkRef.current)
-			}
+      // Удаляем все старые метки
+      mapInstance.current.geoObjects.removeAll()
 
-			const placemark = new window.ymaps.Placemark(
-				coordinates,
-				{
-					hintContent: 'ВОКС',
-					balloonContent: `
-            <div style="padding: 10px;">
-              <strong>АРЕНА РАЗВЛЕЧЕНИЙ в ТОМСКЕ</strong><br/>
-              г. Томск, пер. Смоленский 11<br/>
-              <a href="tel:89095431213">+7 (909) 543-12-13</a>
-            </div>
-          `,
-				},
-				{
-					preset: 'islands#redDotIcon',
-					iconColor: '#FF69B4',
-				},
-			)
+      // Если массив точек пуст – используем центр как единственную точку (стандартное поведение)
+      const pointsToShow =
+        points.length > 0
+          ? points
+          : [
+              {
+                id: 'default',
+                coordinates: center,
+                hintContent: 'ВОКС',
+                balloonContent: 'АРЕНА РАЗВЛЕЧЕНИЙ в ТОМСКЕ',
+              },
+            ]
 
-			placemarkRef.current = placemark
-			mapInstance.current.geoObjects.add(placemark)
-			mapInstance.current.setCenter(coordinates)
-		} catch (error) {
-			console.error('Ошибка при инициализации карты:', error)
-			setMapError('Не удалось загрузить карту')
-		}
-	}, [coordinates])
+      // Создаём Placemark для каждой точки
+      pointsToShow.forEach((point) => {
+        const placemark = new window.ymaps.Placemark(
+          point.coordinates,
+          {
+            hintContent: point.hintContent || point.hint || '',
+            balloonContent: point.balloonContent || '',
+          },
+          {
+            preset: 'islands#redDotIcon',
+            iconColor: '#FF69B4',
+          }
+        )
+        mapInstance.current.geoObjects.add(placemark)
+      })
 
-	// Загрузка API Яндекс.Карт
-	useEffect(() => {
-		// Если API уже загружен
-		if (window.ymaps) {
-			window.ymaps.ready(() => {
-				setIsApiLoaded(true)
-				initMap()
-			})
-			return
-		}
+      // Если точек несколько – автоматически масштабируем карту, чтобы все были видны
+      if (pointsToShow.length > 1) {
+        const bounds = mapInstance.current.geoObjects.getBounds()
+        if (bounds) {
+          mapInstance.current.setBounds(bounds, {
+            checkZoomRange: true,
+            zoomMargin: 20,   // небольшой отступ от краёв
+          })
+        }
+      } else {
+        // Одна точка – просто центрируем её
+        mapInstance.current.setCenter(pointsToShow[0].coordinates)
+      }
+    } catch (error) {
+      console.error('Ошибка при инициализации карты:', error)
+      setMapError('Не удалось загрузить карту')
+    }
+  }, [center, points, zoom])
 
-		// Если API уже загружается другим компонентом
-		if (window.YMAPS_LOADED) {
-			const checkYmaps = setInterval(() => {
-				if (window.ymaps) {
-					clearInterval(checkYmaps)
-					window.ymaps.ready(() => {
-						setIsApiLoaded(true)
-						initMap()
-					})
-				}
-			}, 100)
+  // Загрузка API Яндекс.Карт
+  useEffect(() => {
+    if (window.ymaps) {
+      window.ymaps.ready(() => {
+        setIsApiLoaded(true)
+        initMap()
+      })
+      return
+    }
 
-			return () => clearInterval(checkYmaps)
-		}
+    if (window.YMAPS_LOADED) {
+      const checkYmaps = setInterval(() => {
+        if (window.ymaps) {
+          clearInterval(checkYmaps)
+          window.ymaps.ready(() => {
+            setIsApiLoaded(true)
+            initMap()
+          })
+        }
+      }, 100)
+      return () => clearInterval(checkYmaps)
+    }
 
-		// Загружаем API
-		window.YMAPS_LOADED = true
+    window.YMAPS_LOADED = true
 
-		const script = document.createElement('script')
-		script.src =
-			'https://api-maps.yandex.ru/2.1/?apikey=35e69fa1-b8ab-4812-b2ff-bcb4f27cc874&lang=ru_RU'
-		script.async = true
+    const script = document.createElement('script')
+    script.src =
+      'https://api-maps.yandex.ru/2.1/?apikey=35e69fa1-b8ab-4812-b2ff-bcb4f27cc874&lang=ru_RU'
+    script.async = true
 
-		script.onload = () => {
-			window.ymaps.ready(() => {
-				setIsApiLoaded(true)
-				initMap()
-			})
-		}
+    script.onload = () => {
+      window.ymaps.ready(() => {
+        setIsApiLoaded(true)
+        initMap()
+      })
+    }
 
-		script.onerror = () => {
-			setMapError('Ошибка загрузки карты. Проверьте подключение к интернету.')
-			window.YMAPS_LOADED = false
-		}
+    script.onerror = () => {
+      setMapError('Ошибка загрузки карты. Проверьте подключение к интернету.')
+      window.YMAPS_LOADED = false
+    }
 
-		document.body.appendChild(script)
+    document.body.appendChild(script)
 
-		return () => {
-			// НЕ удаляем скрипт, только очищаем карту
-			if (mapInstance.current) {
-				mapInstance.current.destroy()
-				mapInstance.current = null
-			}
-		}
-	}, [initMap])
+    return () => {
+      if (mapInstance.current) {
+        mapInstance.current.destroy()
+        mapInstance.current = null
+      }
+    }
+  }, [initMap])
 
-	useEffect(() => {
-		if (isApiLoaded && window.ymaps && mapInstance.current) {
-			initMap()
-		}
-	}, [coordinates, isApiLoaded, initMap])
+  // Перерисовываем карту при изменении пропсов
+  useEffect(() => {
+    if (isApiLoaded && window.ymaps && mapInstance.current) {
+      initMap()
+    }
+  }, [center, points, isApiLoaded, initMap])
 
-	useEffect(() => {
-		const handleResize = () => {
-			if (mapInstance.current) {
-				mapInstance.current.container.fitToViewport()
-			}
-		}
+  // Ресайз карты
+  useEffect(() => {
+    const handleResize = () => {
+      if (mapInstance.current) {
+        mapInstance.current.container.fitToViewport()
+      }
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
-		window.addEventListener('resize', handleResize)
-		return () => window.removeEventListener('resize', handleResize)
-	}, [])
+  if (mapError) {
+    return (
+      <div className='ymap map flex items-center justify-center bg-gray-100 text-gray-500 min-h-[400px] rounded-2xl'>
+        {mapError}
+      </div>
+    )
+  }
 
-	if (mapError) {
-		return (
-			<div className='ymap map flex items-center justify-center bg-gray-100 text-gray-500 min-h-[400px] rounded-2xl'>
-				{mapError}
-			</div>
-		)
-	}
-
-	return (
-		<div
-			ref={mapRef}
-			className='ymap map w-full h-full min-h-[400px] rounded-2xl overflow-hidden shadow-lg'
-			style={{
-				width: '100%',
-				height: '100%',
-				minHeight: '400px',
-				backgroundColor: '#f0f0f0',
-			}}
-		/>
-	)
+  return (
+    <div
+      ref={mapRef}
+      className='ymap map w-full h-full min-h-[400px] rounded-2xl overflow-hidden shadow-lg'
+      style={{
+        width: '100%',
+        height: '100%',
+        minHeight: '400px',
+        backgroundColor: '#f0f0f0',
+      }}
+    />
+  )
 }
 
 export default YMap
