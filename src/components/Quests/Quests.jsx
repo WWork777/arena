@@ -4,13 +4,14 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import styles from "./Quests.module.scss";
 import Link from "next/link";
-
+import { MdLocationOn } from "react-icons/md";
 const STRAPI_URL =
   process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
 
 export default function Quests() {
   const [quests, setQuests] = useState([]);
   const [loading, setLoading] = useState(true);
+    const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     async function fetchQuests() {
@@ -73,6 +74,7 @@ export default function Quests() {
         {quests.map((quest) => (
           <div key={quest.slug} className={styles.card}>
             <div className={styles.cardMedia}>
+              
               <Image
                 src={quest.thumbnail}
                 alt={quest.title}
@@ -80,8 +82,23 @@ export default function Quests() {
                 className={styles.cardImage}
                 unoptimized
               />
+                            <div
+                className={styles.playButtonConstant}
+                onClick={() => openModal(quest.video)}
+              >
+                <Image
+                  src="/icons/VideoSection/play.svg"
+                  alt="Play"
+                  width={50}
+                  height={50}
+                  className={styles.playIcon}
+                />
+              </div>
             </div>
             <div className={styles.cardContent}>
+              <div className={styles.relatedCategory}>
+                <MdLocationOn /> {quest.Adres}
+              </div>
               <h3 className={styles.cardTitle}>{quest.title}</h3>
               <Link
                 className={styles.cardButton}
@@ -96,6 +113,28 @@ export default function Quests() {
       <a href="#loft" className={styles.link}>
         Наши лофт-пространства для Квестов
       </a>
+            {modalOpen &&
+        createPortal(
+          <div className={styles.modalOverlay} onClick={closeModal}>
+            <div
+              className={styles.modalContent}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button className={styles.closeButton} onClick={closeModal}>
+                ✕
+              </button>
+              <video
+                ref={videoRef}
+                src={selectedVideoUrl}
+                className={styles.modalVideo}
+                controls
+                autoPlay
+                playsInline
+              />
+            </div>
+          </div>,
+          document.body,
+        )}
     </section>
   );
 }

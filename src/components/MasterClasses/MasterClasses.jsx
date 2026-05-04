@@ -65,7 +65,7 @@ export default function MasterClasses() {
               предоставляются.
             </p>
           </div>
-          <button className={styles.button}>Все мастер-классы</button>
+          <button className={styles.button}>Заказать</button>
         </div>
       </div>
 

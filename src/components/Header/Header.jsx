@@ -14,34 +14,34 @@ export default function Header() {
   };
 
   const menuItems = [
-    { name: "главная", href: "#home" },
-    { name: "лофт-пространства", href: "#loft" },
-    { name: "аниматоры", href: "#animators" },
-    { name: "шоу-программы", href: "#shows" },
-    { name: "квесты", href: "#quests" },
-    { name: "мастер-классы", href: "#master-classes" },
-    { name: "новый год", href: "#new-year" },
-    { name: "выпускной", href: "#graduation" },
-    { name: "отзывы", href: "#reviews" },
-    { name: "контакты", href: "#contacts" },
+    { name: "главная", href: "/#home" },
+    { name: "лофт-пространства", href: "/#loft" },
+    { name: "аниматоры", href: "/#animators" },
+    { name: "шоу-программы", href: "/#shows" },
+    { name: "квесты", href: "/#quests" },
+    { name: "мастер-классы", href: "/#master-classes" },
+    { name: "новый год", href: "/#new-year" },
+    { name: "выпускной", href: "/#graduation" },
+    { name: "отзывы", href: "/#reviews" },
+    { name: "контакты", href: "/#contacts" },
   ];
 
-  const scrollToTop = (e) => {
-    // Если мы уже на главной странице, плавно скроллим вверх
-    if (window.location.pathname === "/") {
-      e.preventDefault();
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-    }
-  };
+  // const scrollToTop = (e) => {
+  //   // Если мы уже на главной странице, плавно скроллим вверх
+  //   if (window.location.pathname === "/") {
+  //     e.preventDefault();
+  //     window.scrollTo({
+  //       top: 0,
+  //       behavior: "smooth",
+  //     });
+  //   }
+  // };
 
   return (
     <header className={styles.header}>
       <div className={styles.container}>
         {/* Левая часть: Логотип */}
-        <Link href="/" className={styles.logo} onClick={scrollToTop}>
+        <Link href="/" className={styles.logo}>
           <div className={styles.logoCircle}>
             <Image
               src="/icons/Header/logo.png"

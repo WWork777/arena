@@ -9,6 +9,7 @@ import { Navigation, Pagination } from "swiper/modules";
 import { MdPlayArrow, MdArrowBack } from "react-icons/md";
 import Reviews from "@/components/Reviews/Reviews";
 import RelatedLofts from "./RelatedLofts";
+import Link from "next/link";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -66,6 +67,12 @@ export default function LoftDetailClient({ loft, otherLofts }) {
                 <li key={i}>{item}</li>
               ))}
             </ul>
+            <Link href={"https://max.ru/u/f9LHodD0cOJaFVvW9nUbeGO6KyU4YV4ECO1_CYWK8Iel22tTaDmxsz4THJA"}
+              className={styles.requestButton}
+              style={{ backgroundColor: loft.color }}
+              >
+              Заказать
+            </Link>
           </div>
         </section>
 
