@@ -66,7 +66,7 @@ export default function RelatedLofts({ lofts }) {
                   </div>
                   <div className={styles.relatedInfo}>
                     <div className={styles.relatedCategory}>
-                      <MdLocationOn /> Томск
+                      <MdLocationOn /> {loft.Adres}
                     </div>
                     <h4 className={styles.relatedCardTitle}>{loft.title}</h4>
                     <div className={styles.relatedLink}>

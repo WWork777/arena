@@ -59,6 +59,7 @@ export default async function LoftPage({ params }) {
       title: item.title,
       capacity: item.capacity,
       image: item.image?.url ? `${STRAPI_URL}${item.image.url}` : "",
+      Adres: item.Adres,
     })) || [];
 
   return <LoftDetailClient loft={loft} otherLofts={otherLofts} />;

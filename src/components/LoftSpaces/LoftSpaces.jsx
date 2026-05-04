@@ -5,6 +5,7 @@ import { useEffect, useState, useRef } from "react";
 import styles from "./LoftSpaces.module.scss";
 import Link from "next/link";
 import { createPortal } from "react-dom";
+import { MdLocationOn } from "react-icons/md";
 
 const STRAPI_URL =
   process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
@@ -32,6 +33,7 @@ export default function LoftSpaces() {
               ? `${STRAPI_URL}${item.image.url}`
               : "/placeholder.png",
             video: item.video?.url ? `${STRAPI_URL}${item.video.url}` : "",
+            Adres: item.Adres,
           }));
           setLofts(formatted);
         }
@@ -84,6 +86,9 @@ export default function LoftSpaces() {
               </div>
             </div>
             <div className={styles.cardContent}>
+              <div className={styles.relatedCategory}>
+                <MdLocationOn /> {loft.Adres}
+              </div>
               <h3 className={styles.cardTitle}>{loft.title}</h3>
               <p className={styles.cardDescription}>{loft.desc}</p>
               <Link href={`/lofts/${loft.slug}`} className={styles.cardButton}>
