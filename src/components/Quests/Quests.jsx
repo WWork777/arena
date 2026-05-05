@@ -1,17 +1,20 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import styles from "./Quests.module.scss";
 import Link from "next/link";
+import { createPortal } from "react-dom";
 import { MdLocationOn } from "react-icons/md";
 const STRAPI_URL =
   process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
 
 export default function Quests() {
   const [quests, setQuests] = useState([]);
-  const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
     const [modalOpen, setModalOpen] = useState(false);
+    const [selectedVideoUrl, setSelectedVideoUrl] = useState("");
+    const videoRef = useRef(null);
 
   useEffect(() => {
     async function fetchQuests() {
@@ -26,6 +29,8 @@ export default function Quests() {
             thumbnail: item.thumbnail?.url
               ? `${STRAPI_URL}${item.thumbnail.url}`
               : "/images/quest/quest.png",
+            video: item.video?.url ? `${STRAPI_URL}${item.video.url}` : "",
+            Adres: item.Adres,
           }));
           setQuests(formatted);
         }
@@ -37,6 +42,19 @@ export default function Quests() {
     }
     fetchQuests();
   }, []);
+
+  
+  const openModal = (videoUrl) => {
+    if (!videoUrl) return;
+    setSelectedVideoUrl(videoUrl);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    if (videoRef.current) videoRef.current.pause();
+    setModalOpen(false);
+    setSelectedVideoUrl("");
+  };
 
   if (loading) return null;
 
@@ -66,7 +84,7 @@ export default function Quests() {
               проходят испытания.
             </p>
           </div>
-          <button className={styles.button}>Заказать</button>
+          <Link href={"https://max.ru/u/f9LHodD0cOJaFVvW9nUbeGO6KyU4YV4ECO1_CYWK8Iel22tTaDmxsz4THJA"} className={styles.button}>Заказать</Link>
         </div>
       </div>
 

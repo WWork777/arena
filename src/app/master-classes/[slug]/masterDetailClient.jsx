@@ -49,12 +49,13 @@ export default function MasterDetailClient({ master, otherMasters, lofts }) {
                 <li key={i}>{item}</li>
               ))}
             </ul>
-            <button
+            <Link
+            href={"https://max.ru/u/f9LHodD0cOJaFVvW9nUbeGO6KyU4YV4ECO1_CYWK8Iel22tTaDmxsz4THJA"}
               className={styles.requestButton}
               style={{ backgroundColor: master.color }}
             >
               Заказать
-            </button>
+            </Link>
           </div>
         </section>
 

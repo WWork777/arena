@@ -71,7 +71,7 @@ export default function LoftDetailClient({ loft, otherLofts }) {
               className={styles.requestButton}
               style={{ backgroundColor: loft.color }}
               >
-              Заказать
+              Забронировать
             </Link>
           </div>
         </section>

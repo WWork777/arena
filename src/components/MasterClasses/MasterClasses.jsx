@@ -65,7 +65,7 @@ export default function MasterClasses() {
               предоставляются.
             </p>
           </div>
-          <button className={styles.button}>Заказать</button>
+          <Link href={"https://max.ru/u/f9LHodD0cOJaFVvW9nUbeGO6KyU4YV4ECO1_CYWK8Iel22tTaDmxsz4THJA"} className={styles.button}>Заказать</Link>
         </div>
       </div>
 
